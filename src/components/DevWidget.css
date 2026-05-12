@@ -1,0 +1,94 @@
+.dev-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 240px;
+  background: rgba(0, 0, 0, 0.88);
+  border: 2px solid #FFD700;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: Monaco, Consolas, monospace;
+  color: #FFD700;
+  font-size: 12px;
+  z-index: 9999;
+  cursor: move;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+  user-select: none;
+}
+
+.dev-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 8px;
+}
+
+.dev-widget-title {
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.dev-widget-close {
+  background: none;
+  border: 1px solid #FFD700;
+  color: #FFD700;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 2px 6px;
+  line-height: 1;
+}
+
+.dev-widget-close:hover {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.dev-widget-row {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dev-widget-label {
+  color: rgba(255, 215, 0, 0.6);
+  font-size: 11px;
+  min-width: 60px;
+}
+
+.dev-widget-value {
+  color: #FFD700;
+  font-size: 12px;
+}
+
+.dev-widget-status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  margin-right: 4px;
+}
+
+.dev-widget-mini {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.88);
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-family: Monaco, Consolas, monospace;
+  color: #FFD700;
+  font-size: 11px;
+  z-index: 9999;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+}
+
+.dev-widget-mini:hover {
+  background: rgba(255, 215, 0, 0.1);
+}

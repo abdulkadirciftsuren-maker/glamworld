@@ -1,23 +1,18 @@
-import logo from './logo.svg';
+import DevWidget from './components/DevWidget';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+    <div className="App" style={{ background: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
+      <header style={{ textAlign: 'center', padding: '60px 20px' }}>
+        <h1 style={{ color: '#FFD700', fontFamily: 'Georgia, serif', fontSize: '2.5rem', margin: 0 }}>
+          GLAMWORLD
+        </h1>
+        <p style={{ color: 'rgba(255,215,0,0.6)', marginTop: 8 }}>
+          Dünyanın Her Yerinden Profesyoneller Bir Arada
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <DevWidget sayfa="Anasayfa" />
     </div>
   );
 }
