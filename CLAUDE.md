@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V3 — Son)
+# GLAMWORLD — Proje Anayasası (V4 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -436,7 +436,132 @@ Sayaç widget VAR (yukarıda anlatıldı). Git de var:
 
 ---
 
-## 23. SON HATIRLATMA
+## 23. CİHAZ UYUMU — Her Sayfada Geçerli
+
+Her sayfa telefon (dikey/yatay), tablet ve bilgisayarda **profesyonel ve uyumlu** çalışır.
+Bu kural otomatik uygulanır — her sayfada ayrıca söylenmez.
+Sadece küçültüp büyütme YASAK. Her cihaz için ayrı düzen.
+
+---
+
+## 24. TOOLTIP SİSTEMİ
+
+İkonların üzerine parmak yaklaşınca ikon ismi **üstünde** küçük kutuda görünür.
+Parmağın altında DEĞİL — parmağın üstünde, görünür olacak şekilde.
+
+---
+
+## 25. PİYASA ŞERİDİ — Canlı Veriler
+
+Sayfanın **en üstünde** ince bir şerit (şehir bandının üzerinde):
+
+- USD/TRY, EUR/TRY
+- Altın (gram, TRY)
+- Bitcoin (USD)
+
+**Özellikler:**
+- 30 saniyede bir güncellenir
+- API: ExchangeRate-API veya CoinGecko (ücretsiz)
+- Yön oku: yeşil yukarı, kırmızı aşağı
+- Sadece anasayfada veya her sayfada — tasarım aşamasında karar verilir
+
+---
+
+## 26. AÇILIŞ KARTI (SPLASH)
+
+Site **ilk açıldığında** ortada davetkar bir kart görünür:
+
+- GLAMWORLD logosu (altın, küçük)
+- Kısa karşılama metni
+- İki buton: **"Siteyi İncele"** (kayıt olmadan) + **"Üye Ol"** (kayıt sayfası)
+- Karanlık değil, davetkar atmosfer
+- **Bir kez gösterilir** — localStorage ile hatırlanır, tekrar açılmaz
+- Zorla değil, davet eder
+
+---
+
+## 27. MARKETPLACE
+
+Facebook Marketplace tarzı alışveriş bölümü:
+
+- Akan kart sistemi (masonry grid)
+- Kartlarda **satıcı ismi YOK** — sadece ürün, fiyat, fotoğraf
+- Karta tıklayınca detay sayfası açılır
+- Detayda: Satın Al + Mesaj Gönder butonları
+- Kategori filtreleme
+
+---
+
+## 28. MESSENGER
+
+Facebook Messenger tarzı mesajlaşma:
+
+- Yazılı mesaj
+- Sesli mesaj (basılı tut, bırak gönder)
+- Sesli görüşme
+- Görüntülü görüşme
+- Fotoğraf / video / dosya paylaşımı
+- Online / offline durumu (yeşil nokta)
+- Okundu işareti (çift tik)
+- AI çeviri (farklı dil konuşanlar için otomatik)
+
+---
+
+## 29. TELEFON REHBERİ SENKRON
+
+WhatsApp tarzı rehber entegrasyonu:
+
+- Kayıt sırasında telefon numarası alınır
+- Kullanıcı **izin verirse** rehber okunur
+- Rehberdeki GLAMWORLD üyeleri otomatik bulunur
+- "Tanıdıkların GLAMWORLD'de" olarak önerilir
+- İzin vermezse zorlama yok
+
+---
+
+## 30. ÖDEME SİSTEMİ — Çok Yöntemli
+
+Otomatik işler, manuel onay YOK:
+
+- Kredi / Banka kartı
+- Bitcoin
+- Ethereum, USDT (kripto)
+- Havale / EFT
+- Apple Pay / Google Pay
+- PayPal
+
+Tüm ödemeler anlık işlenir. Başarısız işlem kullanıcıya bildirilir.
+
+---
+
+## 31. İKİ AI SİSTEMİ — Farklı Kişilik
+
+### SITE NAVIGATOR (Arama İkonu — Üst bar):
+- Sitenin işletim sistemi
+- Site içi arama ve yönlendirme
+- Fotoğraf analiziyle sayfa açma
+- Sesli komutla site yönetimi
+- Karakter: teknik, hızlı, soğuk, verimli
+
+### GLAMI (Sağ alt köşe — sabit, her sayfada):
+- Duygusal zeka — sohbet, felsefe, günlük konuşma
+- Randevu, profil, öneri yardımı
+- Karakter: samimi, sıcak, dost, sabırlı
+- Hoş Geldin karşılaması (kayıt sonrası)
+
+---
+
+## 32. SADE ŞIKLIK — Tasarım İlkesi
+
+- Kartlar karmaşık değil — sade ve güçlü
+- Renk az, etki çok
+- Boşluk önemli (white space — nefes aldırır)
+- Her elementin bir amacı var — gereksiz süsleme yok
+- Profesyonel, lüks his — dandik değil
+
+---
+
+## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
 
@@ -446,7 +571,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 12 Mayıs 2026 — V3 (final)*
+*Son güncelleme: 12 Mayıs 2026 — V4 (final)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
