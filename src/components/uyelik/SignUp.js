@@ -5,6 +5,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import DevWidget from '../DevWidget';
 import Tooltip from '../Tooltip';
+import Pirlanta from '../Pirlanta';
 import './SignUp.css';
 
 function GoogleLogo() {
@@ -134,7 +135,11 @@ export default function SignUp() {
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
       <div className="signup-kart">
-        <h1 className="signup-logo">GLAMWORLD</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+          <Pirlanta renk="gumus" boyut={22} />
+          <h1 className="signup-logo">GLAMWORLD</h1>
+          <Pirlanta renk="mavi" boyut={22} />
+        </div>
         <h2 className="signup-baslik">Üye Ol</h2>
 
         <form onSubmit={kayitOl}>

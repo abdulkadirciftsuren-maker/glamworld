@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.5 — Son)
+# GLAMWORLD — Proje Anayasası (V5.6 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -719,6 +719,19 @@ Her input'ta autocomplete attribute olacak:
 
 ---
 
+## 51. PIRLANTA LOGO SİSTEMİ
+
+- GLAMWORLD logosunun iki yanına pırlanta SVG'leri eklenir
+- Component: `src/components/Pirlanta.jsx`, `src/components/Pirlanta.css`
+- 4 renk: `beyaz`, `altin`, `mavi`, `gumus`
+- İçten dışa ışıltı (`drop-shadow`) + nefes alan animasyon (3sn döngü), hover'da hızlanır
+- Anasayfa: BEYAZ pırlanta, 32px
+- Giriş Yap kartı: ALTIN pırlanta, 22px
+- Üye Ol kartı: GÜMÜŞ (sol) + MAVİ (sağ), 22px
+- SVG kullanılır, EMOJI YASAK
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -729,7 +742,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 13 Mayıs 2026 — V5.5 (GeriButon resize/orientation→sağ alt, Kart telefon dikey yükseklik kısa)*
+*Son güncelleme: 13 Mayıs 2026 — V5.6 (Madde 51: Pırlanta Logo Sistemi — SVG, 4 renk, animasyon)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

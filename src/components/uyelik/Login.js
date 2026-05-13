@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 
 import { auth } from '../../firebase';
 import DevWidget from '../DevWidget';
 import Tooltip from '../Tooltip';
+import Pirlanta from '../Pirlanta';
 import './Login.css';
 
 function hataMesaji(kod) {
@@ -73,7 +74,11 @@ function Login() {
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
       <div className="login-kart">
-        <h1 className="login-logo">GLAMWORLD</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+          <Pirlanta renk="altin" boyut={22} />
+          <h1 className="login-logo">GLAMWORLD</h1>
+          <Pirlanta renk="altin" boyut={22} />
+        </div>
         <h2 className="login-baslik">Hoş Geldin</h2>
 
         <form onSubmit={emailGiris}>

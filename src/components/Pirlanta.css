@@ -1,0 +1,18 @@
+@keyframes pirlantaParla {
+  0%   { filter: brightness(1)   drop-shadow(0 0 6px currentColor); transform: scale(1)    rotate(0deg); }
+  50%  { filter: brightness(1.4) drop-shadow(0 0 18px currentColor); transform: scale(1.06) rotate(2deg); }
+  100% { filter: brightness(1)   drop-shadow(0 0 6px currentColor); transform: scale(1)    rotate(0deg); }
+}
+
+.pirlanta {
+  animation: pirlantaParla 3s ease-in-out infinite;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.pirlanta:hover { animation-duration: 1.5s; }
+
+.pirlanta-beyaz { color: rgba(255,255,255,0.8); }
+.pirlanta-altin  { color: rgba(255,215,0,0.8); }
+.pirlanta-mavi   { color: rgba(30,144,255,0.8); }
+.pirlanta-gumus  { color: rgba(192,192,192,0.7); }
