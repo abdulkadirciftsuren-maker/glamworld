@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.1 — Son)
+# GLAMWORLD — Proje Anayasası (V5.2 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -664,6 +664,43 @@ Her input'ta autocomplete attribute olacak:
 
 ---
 
+## 46. TOOLTIP HASSASİYETİ
+
+- Mobile: `touchstart` anında göster (100ms gecikme) — uzun basma DEĞİL
+- Parmak çekilince (`touchend`) hemen kaybolsun
+- Desktop: `mouseenter` anında göster (150ms gecikme)
+- `mouseleave` anında hemen gizle
+
+---
+
+## 47. TOOLTIP BOYUTU
+
+- Mobile (max 480px): font-size 13px
+- Tablet (481–1024px): font-size 14px
+- Desktop (1025px+): font-size 15px
+
+---
+
+## 48. TOOLTIP KONUM ZEKASI
+
+- Ekran dışına taşacaksa OTOMATİK konum değiştir
+- Üstte yer yok → alta al
+- Altta yer yok → üste al
+- Yan kenara çok yakın → ortaya kaydır
+- Hiçbir zaman görünmeyecek yere koyma
+
+---
+
+## 49. BUTON HİZALAMA
+
+- Yan yana butonlar HER ZAMAN aynı boy
+- Aralarında en az 8px boşluk
+- Üst üste binme YASAK
+- "Beni Hatırla" + "Şifremi Unuttum": `display:flex; justify-content:space-between`
+- "Google ile Giriş" + "Telefon ile Giriş": alt alta, aralarında 12px gap
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -674,7 +711,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 13 Mayıs 2026 — V5.1 (Madde 34 güncellendi: geri düğmesi sağ alt, sürüklenebilir)*
+*Son güncelleme: 13 Mayıs 2026 — V5.2 (Madde 46-49: Tooltip hassasiyeti, boyut, konum zekası, buton hizalama)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

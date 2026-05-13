@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../firebase';
 import DevWidget from '../DevWidget';
+import Tooltip from '../Tooltip';
 import './Login.css';
 
 function hataMesaji(kod) {
@@ -69,8 +70,9 @@ function Login() {
 
   return (
     <div className="login-sayfa">
-      {/* Kural B — X Kapatma */}
-      <button className="kapat-btn" onClick={() => navigate('/')}>&#x2715;</button>
+      <Tooltip text="Kapat" position="bottom">
+        <button className="kapat-btn" onClick={() => navigate('/')}>&#x2715;</button>
+      </Tooltip>
 
       <div className="login-kart">
         <h1 className="login-logo">GLAMWORLD</h1>
@@ -121,17 +123,21 @@ function Login() {
           <span className="cizgi" />
         </div>
 
-        <button onClick={googleGiris} disabled={yukleniyor} className="google-btn">
-          <GoogleLogo />
-          Google ile Giriş Yap
-        </button>
+        <Tooltip text="Google hesabınla giriş yap" position="top">
+          <button onClick={googleGiris} disabled={yukleniyor} className="google-btn">
+            <GoogleLogo />
+            Google ile Giriş Yap
+          </button>
+        </Tooltip>
 
-        <button
-          onClick={() => setHata('Telefon ile giriş yakında aktif olacak.')}
-          className="telefon-btn"
-        >
-          Telefon ile Giriş Yap
-        </button>
+        <Tooltip text="Telefon numaranla giriş yap (yakında aktif)" position="top">
+          <button
+            onClick={() => setHata('Telefon ile giriş yakında aktif olacak.')}
+            className="telefon-btn"
+          >
+            Telefon ile Giriş Yap
+          </button>
+        </Tooltip>
 
         <p className="login-alt-link">
           Üye değil misin? <Link to="/uye-ol">Üye Ol</Link>

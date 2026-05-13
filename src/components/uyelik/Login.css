@@ -143,6 +143,10 @@
   width: 100%;
 }
 
+/* Tooltip sarmalarının tam genişlik alması (Madde 49) */
+.google-btn, .telefon-btn,
+.login-ana-btn { display: block; }
+
 .login-alt-link { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 20px; text-align: center; }
 .login-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
 

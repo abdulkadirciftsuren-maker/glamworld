@@ -1,0 +1,224 @@
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes pirlantaParilti {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 4px rgba(100,180,255,0.5)); }
+  50% { filter: brightness(1.4) drop-shadow(0 0 12px rgba(100,180,255,0.9)); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.signup-sayfa {
+  background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+.signup-kart {
+  background: rgba(255,215,0,0.04);
+  border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 520px;
+  margin: 20px auto;
+  animation: fadeIn 0.4s ease;
+}
+.signup-logo { color: #FFD700; font-family: Georgia, serif; font-size: 1.6rem; text-align: center; margin: 0 0 4px; letter-spacing: 3px; }
+.signup-baslik { color: #fff; text-align: center; font-size: 1.2rem; font-weight: 400; margin: 0 0 24px; }
+
+.signup-alan { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.signup-alan label { color: rgba(255,215,0,0.8); font-size: 0.82rem; }
+.signup-alan input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 11px 13px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.signup-alan input:focus { border-color: rgba(255,215,0,0.6); }
+.iki-sutun { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Animasyonlar */
+@keyframes diamondShine {
+  0% { filter: brightness(1) drop-shadow(0 0 5px #1E90FF); transform: scale(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 20px #00BFFF); transform: scale(1.05); }
+  100% { filter: brightness(1) drop-shadow(0 0 5px #1E90FF); transform: scale(1); }
+}
+.blue-diamond { animation: diamondShine 2s ease-in-out infinite; display: block; }
+
+@keyframes silverShine {
+  0% { filter: brightness(1) drop-shadow(0 0 5px #C0C0C0); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 15px #E8E8E8); }
+  100% { filter: brightness(1) drop-shadow(0 0 5px #C0C0C0); }
+}
+.silver-star { animation: silverShine 2.5s ease-in-out infinite; display: block; }
+
+/* Üyelik kartları */
+.uyelik-secim { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+.uyelik-kart {
+  border-radius: 14px;
+  padding: 20px 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0,0,0,0.6);
+  border: 2.5px solid transparent;
+  position: relative;
+}
+.uyelik-kart:hover { transform: translateY(-5px); }
+
+/* Gümüş kart */
+.silver-card { border-image: linear-gradient(135deg, #E8E8E8, #C0C0C0, #A8A8A8) 1; border-color: #C0C0C0; }
+.silver-card:hover { box-shadow: 0 0 22px rgba(192,192,192,0.5); }
+.silver-card.secili {
+  border-color: #E8E8E8;
+  background: rgba(192,192,192,0.08);
+  box-shadow: 0 0 28px rgba(192,192,192,0.6);
+}
+.silver-card.secili::after { content: '✓'; position: absolute; top: 8px; right: 10px; color: #C0C0C0; font-size: 1rem; font-weight: 700; }
+
+/* Altın/pırlanta kart */
+.gold-card { border-color: #FFD700; }
+.gold-card:hover { box-shadow: 0 0 25px rgba(255,215,0,0.5); }
+.gold-card.secili {
+  border-color: #FFD700;
+  background: rgba(255,215,0,0.06);
+  box-shadow: 0 0 30px rgba(255,215,0,0.7);
+}
+.gold-card.secili::after { content: '✓'; position: absolute; top: 8px; right: 10px; color: #FFD700; font-size: 1rem; font-weight: 700; }
+.gold-card.secili .blue-diamond { animation-duration: 1s; }
+
+.kart-etiket-pirlanta {
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  color: #0a0a0a;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+.kart-baslik-silver {
+  background: linear-gradient(135deg, #E8E8E8, #A0A0A0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.kart-baslik-gold {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.kart-aciklama { color: rgba(255,255,255,0.5); font-size: 0.72rem; line-height: 1.4; }
+.kart-etiket-silver { color: #C0C0C0; font-size: 0.72rem; }
+.kart-etiket-gold { color: rgba(255,215,0,0.75); font-size: 0.72rem; }
+
+.sartlar-satir { display: flex; align-items: center; gap: 8px; margin: 12px 0; cursor: pointer; }
+.sartlar-satir input[type="checkbox"] { accent-color: #FFD700; width: 15px; height: 15px; flex-shrink: 0; }
+.sartlar-satir span { color: rgba(255,255,255,0.55); font-size: 0.82rem; }
+.sartlar-satir a { color: rgba(255,215,0,0.75); text-decoration: none; }
+
+.signup-hata { color: #ff6b6b; font-size: 0.82rem; margin: 0 0 8px; text-align: center; }
+
+.signup-ana-btn {
+  background: linear-gradient(90deg,#FFD700,#FFA500,#FFD700);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+  border: none;
+  border-radius: 10px;
+  color: #0a0a0a;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 14px;
+  width: 100%;
+  margin-top: 4px;
+}
+.signup-ana-btn:disabled { opacity: 0.5; cursor: not-allowed; animation: none; background: rgba(255,215,0,0.3); }
+
+.signup-ayirici { display: flex; align-items: center; gap: 10px; margin: 18px 0 12px; }
+.signup-ayirici span.cizgi { background: rgba(255,215,0,0.2); flex: 1; height: 1px; display: block; }
+.signup-ayirici span.veya { color: rgba(255,255,255,0.35); font-size: 0.78rem; }
+
+.google-btn {
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 10px;
+  color: #3c4043;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 11px;
+  width: 100%;
+}
+.telefon-btn {
+  background: transparent;
+  border: 1px solid rgba(255,215,0,0.35);
+  border-radius: 10px;
+  color: #FFD700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 12px;
+  width: 100%;
+  margin-top: 10px;
+}
+/* Tooltip sarmalarının tam genişlik alması (Madde 49) */
+.google-btn, .telefon-btn,
+.signup-ana-btn { display: block; }
+
+.signup-alt-link { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 18px; text-align: center; }
+.signup-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
+
+.kapat-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255,215,0,0.1);
+  border: 1.5px solid #FFD700;
+  border-radius: 50%;
+  color: #FFD700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  z-index: 100;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .signup-kart { padding: 24px 16px; }
+  .uyelik-secim, .iki-sutun { grid-template-columns: 1fr; }
+  .kapat-btn { width: 40px; height: 40px; }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .signup-kart { width: 70%; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .signup-kart { width: 60%; }
+}

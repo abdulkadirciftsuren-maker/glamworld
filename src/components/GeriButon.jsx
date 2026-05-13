@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import Tooltip from './Tooltip';
 
 const DEPO_KEY = 'geriButonKonum';
 
@@ -62,16 +63,17 @@ export default function GeriButon() {
     : { bottom: 20, right: 20 };
 
   return (
-    <button
-      ref={ref}
-      onClick={geriGit}
-      onMouseDown={surukleBasla}
-      onTouchStart={surukleBasla}
-      title="Geri"
-      style={{ ...s.btn, ...pozisyon }}
-    >
-      &#8592;
-    </button>
+    <Tooltip text="Geri Dön" position="top">
+      <button
+        ref={ref}
+        onClick={geriGit}
+        onMouseDown={surukleBasla}
+        onTouchStart={surukleBasla}
+        style={{ ...s.btn, ...pozisyon }}
+      >
+        &#8592;
+      </button>
+    </Tooltip>
   );
 }
 

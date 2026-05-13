@@ -3,7 +3,6 @@ import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
-import AuthChoice from './components/uyelik/AuthChoice';
 import './App.css';
 
 function Anasayfa() {
@@ -31,7 +30,6 @@ function Icerik() {
         <Route path="/" element={<Anasayfa />} />
         <Route path="/giris" element={<Login />} />
         <Route path="/uye-ol" element={<SignUp />} />
-        <Route path="/hesap-secimi" element={<AuthChoice />} />
       </Routes>
       {!anasayfada && <GeriButon />}
     </>

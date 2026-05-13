@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import Tooltip from './Tooltip';
 import './DevWidget.css';
 
 const VERSIYON = 'V2.B3';
@@ -64,9 +65,11 @@ export default function DevWidget({ sayfa = 'Anasayfa' }) {
 
   if (gizli) {
     return (
-      <div className="dev-widget-mini" onClick={() => setGizli(false)} style={stil}>
-        {VERSIYON} — Ac
-      </div>
+      <Tooltip text="Geliştirici Paneli" position="bottom">
+        <div className="dev-widget-mini" onClick={() => setGizli(false)} style={stil}>
+          {VERSIYON}
+        </div>
+      </Tooltip>
     );
   }
 
@@ -80,7 +83,9 @@ export default function DevWidget({ sayfa = 'Anasayfa' }) {
     >
       <div className="dev-widget-header">
         <span className="dev-widget-title">GLAMWORLD {VERSIYON}</span>
+        <Tooltip text="Geliştirici Panelini Gizle" position="bottom">
         <button className="dev-widget-close" onClick={() => setGizli(true)}>Gizle</button>
+      </Tooltip>
       </div>
       <div className="dev-widget-row">
         <span className="dev-widget-label">Tarih</span>
