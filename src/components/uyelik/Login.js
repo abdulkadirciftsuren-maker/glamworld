@@ -123,21 +123,22 @@ function Login() {
           <span className="cizgi" />
         </div>
 
-        <Tooltip text="Google hesabınla giriş yap" position="top">
-          <button onClick={googleGiris} disabled={yukleniyor} className="google-btn">
-            <GoogleLogo />
-            Google ile Giriş Yap
-          </button>
-        </Tooltip>
-
-        <Tooltip text="Telefon numaranla giriş yap (yakında aktif)" position="top">
-          <button
-            onClick={() => setHata('Telefon ile giriş yakında aktif olacak.')}
-            className="telefon-btn"
-          >
-            Telefon ile Giriş Yap
-          </button>
-        </Tooltip>
+        <div className="sosyal-buton-grup">
+          <Tooltip text="Google hesabınla giriş yap" position="top">
+            <button onClick={googleGiris} disabled={yukleniyor} className="google-btn">
+              <GoogleLogo />
+              Google ile Giriş Yap
+            </button>
+          </Tooltip>
+          <Tooltip text="Telefon numaranla giriş yap (yakında aktif)" position="top">
+            <button
+              onClick={() => setHata('Telefon ile giriş yakında aktif olacak.')}
+              className="telefon-btn"
+            >
+              Telefon ile Giriş Yap
+            </button>
+          </Tooltip>
+        </div>
 
         <p className="login-alt-link">
           Üye değil misin? <Link to="/uye-ol">Üye Ol</Link>

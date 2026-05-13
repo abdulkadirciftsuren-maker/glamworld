@@ -701,6 +701,16 @@ Her input'ta autocomplete attribute olacak:
 
 ---
 
+## 50. KART BOYUTLARI — Responsive
+
+- Müşteri/Profesyonel kartları her ekranda YAN YANA (%48 genişlik)
+- Telefon dikey: padding 10px, font-size 12px, ikon 40x40px
+- Tablet: padding 15px, font-size 13px
+- PC: padding 20px, font-size 14px
+- ASLA ekranı kaplayacak kadar büyük olmasın
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.

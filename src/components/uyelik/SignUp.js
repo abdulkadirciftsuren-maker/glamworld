@@ -219,16 +219,18 @@ export default function SignUp() {
           <span className="cizgi" /><span className="veya">veya</span><span className="cizgi" />
         </div>
 
-        <Tooltip text="Google hesabınla üye ol" position="top">
-          <button onClick={googleKayit} disabled={yukleniyor} className="google-btn">
-            <GoogleLogo /> Google ile Üye Ol
-          </button>
-        </Tooltip>
-        <Tooltip text="Telefon numaranla üye ol (yakında aktif)" position="top">
-          <button onClick={() => setHata('Telefon ile kayıt yakında aktif olacak.')} className="telefon-btn">
-            Telefon ile Üye Ol
-          </button>
-        </Tooltip>
+        <div className="sosyal-buton-grup">
+          <Tooltip text="Google hesabınla üye ol" position="top">
+            <button onClick={googleKayit} disabled={yukleniyor} className="google-btn">
+              <GoogleLogo /> Google ile Üye Ol
+            </button>
+          </Tooltip>
+          <Tooltip text="Telefon numaranla üye ol (yakında aktif)" position="top">
+            <button onClick={() => setHata('Telefon ile kayıt yakında aktif olacak.')} className="telefon-btn">
+              Telefon ile Üye Ol
+            </button>
+          </Tooltip>
+        </div>
 
         <p className="signup-alt-link">
           Zaten hesabın var mı? <Link to="/giris">Giriş Yap</Link>

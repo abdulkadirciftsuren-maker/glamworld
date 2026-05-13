@@ -2,10 +2,20 @@
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
-@keyframes pirlantaParilti {
-  0%, 100% { filter: brightness(1) drop-shadow(0 0 4px rgba(100,180,255,0.5)); }
-  50% { filter: brightness(1.4) drop-shadow(0 0 12px rgba(100,180,255,0.9)); }
+@keyframes diamondShine {
+  0% { filter: brightness(1) drop-shadow(0 0 5px #1E90FF); transform: scale(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 20px #00BFFF); transform: scale(1.05); }
+  100% { filter: brightness(1) drop-shadow(0 0 5px #1E90FF); transform: scale(1); }
 }
+.blue-diamond { animation: diamondShine 2s ease-in-out infinite; display: block; }
+
+@keyframes silverShine {
+  0% { filter: brightness(1) drop-shadow(0 0 5px #C0C0C0); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 15px #E8E8E8); }
+  100% { filter: brightness(1) drop-shadow(0 0 5px #C0C0C0); }
+}
+.silver-star { animation: silverShine 2.5s ease-in-out infinite; display: block; }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
@@ -29,11 +39,12 @@
   max-width: 520px;
   margin: 20px auto;
   animation: fadeIn 0.4s ease;
+  box-sizing: border-box;
 }
 .signup-logo { color: #FFD700; font-family: Georgia, serif; font-size: 1.6rem; text-align: center; margin: 0 0 4px; letter-spacing: 3px; }
-.signup-baslik { color: #fff; text-align: center; font-size: 1.2rem; font-weight: 400; margin: 0 0 24px; }
+.signup-baslik { color: #FFD700; text-align: center; font-size: 1.3rem; font-weight: 600; margin: 0 0 20px; }
 
-.signup-alan { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.signup-alan { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
 .signup-alan label { color: rgba(255,215,0,0.8); font-size: 0.82rem; }
 .signup-alan input {
   background: rgba(255,255,255,0.06);
@@ -41,76 +52,66 @@
   border-radius: 8px;
   color: #fff;
   font-size: 0.95rem;
-  padding: 11px 13px;
+  padding: 10px 12px;
   outline: none;
   width: 100%;
   box-sizing: border-box;
 }
 .signup-alan input:focus { border-color: rgba(255,215,0,0.6); }
-.iki-sutun { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-/* Animasyonlar */
-@keyframes diamondShine {
-  0% { filter: brightness(1) drop-shadow(0 0 5px #1E90FF); transform: scale(1); }
-  50% { filter: brightness(1.5) drop-shadow(0 0 20px #00BFFF); transform: scale(1.05); }
-  100% { filter: brightness(1) drop-shadow(0 0 5px #1E90FF); transform: scale(1); }
+/* İsim + Soyisim yan yana */
+.iki-sutun { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Üyelik kartları — her zaman yan yana (Madde 50) */
+.uyelik-secim {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
 }
-.blue-diamond { animation: diamondShine 2s ease-in-out infinite; display: block; }
-
-@keyframes silverShine {
-  0% { filter: brightness(1) drop-shadow(0 0 5px #C0C0C0); }
-  50% { filter: brightness(1.3) drop-shadow(0 0 15px #E8E8E8); }
-  100% { filter: brightness(1) drop-shadow(0 0 5px #C0C0C0); }
-}
-.silver-star { animation: silverShine 2.5s ease-in-out infinite; display: block; }
-
-/* Üyelik kartları */
-.uyelik-secim { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
 .uyelik-kart {
-  border-radius: 14px;
-  padding: 20px 14px;
+  border-radius: 12px;
+  padding: 14px 10px;
   cursor: pointer;
   text-align: center;
   transition: transform 0.25s, box-shadow 0.25s;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
+  gap: 5px;
   background: rgba(0,0,0,0.6);
-  border: 2.5px solid transparent;
+  border: 2px solid transparent;
   position: relative;
+  box-sizing: border-box;
 }
-.uyelik-kart:hover { transform: translateY(-5px); }
+.uyelik-kart:hover { transform: translateY(-3px); }
 
-/* Gümüş kart */
-.silver-card { border-image: linear-gradient(135deg, #E8E8E8, #C0C0C0, #A8A8A8) 1; border-color: #C0C0C0; }
-.silver-card:hover { box-shadow: 0 0 22px rgba(192,192,192,0.5); }
+.silver-card { border-color: #C0C0C0; }
+.silver-card:hover { box-shadow: 0 0 18px rgba(192,192,192,0.4); }
 .silver-card.secili {
   border-color: #E8E8E8;
   background: rgba(192,192,192,0.08);
-  box-shadow: 0 0 28px rgba(192,192,192,0.6);
+  box-shadow: 0 0 22px rgba(192,192,192,0.5);
 }
-.silver-card.secili::after { content: '✓'; position: absolute; top: 8px; right: 10px; color: #C0C0C0; font-size: 1rem; font-weight: 700; }
+.silver-card.secili::after { content: '✓'; position: absolute; top: 6px; right: 8px; color: #C0C0C0; font-size: 0.85rem; font-weight: 700; }
 
-/* Altın/pırlanta kart */
 .gold-card { border-color: #FFD700; }
-.gold-card:hover { box-shadow: 0 0 25px rgba(255,215,0,0.5); }
+.gold-card:hover { box-shadow: 0 0 20px rgba(255,215,0,0.4); }
 .gold-card.secili {
   border-color: #FFD700;
   background: rgba(255,215,0,0.06);
-  box-shadow: 0 0 30px rgba(255,215,0,0.7);
+  box-shadow: 0 0 24px rgba(255,215,0,0.6);
 }
-.gold-card.secili::after { content: '✓'; position: absolute; top: 8px; right: 10px; color: #FFD700; font-size: 1rem; font-weight: 700; }
-.gold-card.secili .blue-diamond { animation-duration: 1s; }
+.gold-card.secili::after { content: '✓'; position: absolute; top: 6px; right: 8px; color: #FFD700; font-size: 0.85rem; font-weight: 700; }
 
 .kart-etiket-pirlanta {
   background: linear-gradient(90deg, #FFD700, #FFA500);
   color: #0a0a0a;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 2px 6px;
   border-radius: 20px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 .kart-baslik-silver {
   background: linear-gradient(135deg, #E8E8E8, #A0A0A0);
@@ -118,7 +119,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 .kart-baslik-gold {
   background: linear-gradient(135deg, #FFD700, #FFA500);
@@ -126,15 +127,15 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
-.kart-aciklama { color: rgba(255,255,255,0.5); font-size: 0.72rem; line-height: 1.4; }
-.kart-etiket-silver { color: #C0C0C0; font-size: 0.72rem; }
-.kart-etiket-gold { color: rgba(255,215,0,0.75); font-size: 0.72rem; }
+.kart-aciklama { color: rgba(255,255,255,0.5); font-size: 0.68rem; line-height: 1.3; }
+.kart-etiket-silver { color: #C0C0C0; font-size: 0.68rem; }
+.kart-etiket-gold { color: rgba(255,215,0,0.75); font-size: 0.68rem; }
 
-.sartlar-satir { display: flex; align-items: center; gap: 8px; margin: 12px 0; cursor: pointer; }
+.sartlar-satir { display: flex; align-items: center; gap: 8px; margin: 10px 0; cursor: pointer; }
 .sartlar-satir input[type="checkbox"] { accent-color: #FFD700; width: 15px; height: 15px; flex-shrink: 0; }
-.sartlar-satir span { color: rgba(255,255,255,0.55); font-size: 0.82rem; }
+.sartlar-satir span { color: rgba(255,255,255,0.55); font-size: 0.8rem; }
 .sartlar-satir a { color: rgba(255,215,0,0.75); text-decoration: none; }
 
 .signup-hata { color: #ff6b6b; font-size: 0.82rem; margin: 0 0 8px; text-align: center; }
@@ -149,15 +150,21 @@
   cursor: pointer;
   font-size: 1rem;
   font-weight: 700;
-  padding: 14px;
+  padding: 13px;
   width: 100%;
+  box-sizing: border-box;
+  display: block;
   margin-top: 4px;
 }
 .signup-ana-btn:disabled { opacity: 0.5; cursor: not-allowed; animation: none; background: rgba(255,215,0,0.3); }
 
-.signup-ayirici { display: flex; align-items: center; gap: 10px; margin: 18px 0 12px; }
+.signup-ayirici { display: flex; align-items: center; gap: 10px; margin: 16px 0 12px; }
 .signup-ayirici span.cizgi { background: rgba(255,215,0,0.2); flex: 1; height: 1px; display: block; }
 .signup-ayirici span.veya { color: rgba(255,255,255,0.35); font-size: 0.78rem; }
+
+/* Sosyal butonlar grubu */
+.sosyal-buton-grup { display: flex; flex-direction: column; gap: 12px; }
+.sosyal-buton-grup > span { width: 100%; }
 
 .google-btn {
   background: #fff;
@@ -171,9 +178,12 @@
   gap: 10px;
   font-size: 0.9rem;
   font-weight: 500;
-  padding: 11px;
+  padding: 11px 16px;
   width: 100%;
+  box-sizing: border-box;
 }
+.google-btn:hover { background: #f8f8f8; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+
 .telefon-btn {
   background: transparent;
   border: 1px solid rgba(255,215,0,0.35);
@@ -181,16 +191,12 @@
   color: #FFD700;
   cursor: pointer;
   font-size: 0.9rem;
-  padding: 12px;
+  padding: 12px 16px;
   width: 100%;
-  margin-top: 10px;
+  box-sizing: border-box;
+  display: block;
 }
-/* Tooltip sarmalarının tam genişlik alması (Madde 49) */
-.google-btn, .telefon-btn,
-.signup-ana-btn { display: block; }
-
-.signup-alt-link { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 18px; text-align: center; }
-.signup-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
+.telefon-btn:hover { border-color: #FFD700; }
 
 .kapat-btn {
   position: fixed;
@@ -208,17 +214,32 @@
   justify-content: center;
   font-size: 1.1rem;
   z-index: 100;
+  flex-shrink: 0;
 }
+.kapat-btn:hover { background: rgba(255,215,0,0.2); }
 
-/* Responsive */
+.signup-alt-link { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 16px; text-align: center; }
+.signup-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
+
+/* Responsive — Madde 50 */
 @media (max-width: 480px) {
-  .signup-kart { padding: 24px 16px; }
-  .uyelik-secim, .iki-sutun { grid-template-columns: 1fr; }
+  .signup-kart { padding: 20px 14px; }
+  .uyelik-kart { padding: 10px 8px; }
+  .uyelik-kart .blue-diamond,
+  .uyelik-kart .silver-star { width: 40px; height: 40px; }
+  .kart-baslik-silver, .kart-baslik-gold { font-size: 0.82rem; }
+  .kart-aciklama { font-size: 0.62rem; }
   .kapat-btn { width: 40px; height: 40px; }
+  .iki-sutun { grid-template-columns: 1fr 1fr; }
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .signup-kart { width: 70%; }
+  .uyelik-kart { padding: 14px 10px; }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .signup-kart { width: 60%; }
+  .kapat-btn { width: 44px; height: 44px; }
+}
+@media (min-width: 1025px) {
+  .kapat-btn { width: 48px; height: 48px; }
 }
