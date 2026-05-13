@@ -7,6 +7,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* X butonu tooltip — fixed butona yapışık */
+.kapat-tooltip { position: fixed !important; }
+.kapat-tooltip::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.92);
+  color: #FFD700;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  border: 1px solid rgba(255,215,0,0.3);
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 99999;
+}
+.kapat-tooltip:hover::after { opacity: 1; }
+@media (max-width: 480px) { .kapat-tooltip::after { font-size: 13px; } }
+
 @keyframes tooltipFadeIn {
   from { opacity: 0; transform: translateX(-50%) translateY(4px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }

@@ -221,28 +221,13 @@
 .signup-alt-link { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 16px; text-align: center; }
 .signup-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
 
-/* Responsive — Madde 16 + 50 — kartlar HER ZAMAN yan yana */
+/* Responsive */
 @media (max-width: 480px) {
-  .signup-kart { padding: 16px 12px; }
-  /* Kartlar YAN YANA kalır, küçülür */
-  .uyelik-secim { grid-template-columns: 1fr 1fr; gap: 6px; }
-  .uyelik-kart { padding: 8px 6px; }
-  .uyelik-kart .blue-diamond,
-  .uyelik-kart .silver-star { width: 36px !important; height: 36px !important; }
-  .kart-baslik-silver, .kart-baslik-gold { font-size: 0.75rem; }
-  .kart-aciklama { font-size: 0.6rem; display: none; }
-  .kart-etiket-silver, .kart-etiket-gold, .kart-etiket-pirlanta { font-size: 0.58rem; }
-  /* İsim+Soyisim yan yana küçük ekranda da */
-  .iki-sutun { grid-template-columns: 1fr 1fr; gap: 6px; }
-  .signup-alan input { padding: 8px 10px; font-size: 0.88rem; }
+  .signup-kart { padding: 20px 14px; }
   .kapat-btn { width: 40px; height: 40px; font-size: 1rem; }
-  /* Sosyal butonlar tam genişlik */
-  .sosyal-buton-grup { gap: 8px; }
-  .google-btn, .telefon-btn { font-size: 0.85rem; padding: 10px 12px; }
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .signup-kart { width: 80%; }
-  .uyelik-kart { padding: 12px 10px; }
   .kapat-btn { width: 40px; height: 40px; }
 }
 @media (min-width: 769px) and (max-width: 1024px) {

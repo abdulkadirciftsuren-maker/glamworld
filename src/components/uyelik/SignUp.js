@@ -131,9 +131,7 @@ export default function SignUp() {
 
   return (
     <div className="signup-sayfa">
-      <Tooltip text="Kapat" position="bottom">
-        <button className="kapat-btn" onClick={() => navigate('/')}>&#x2715;</button>
-      </Tooltip>
+      <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
       <div className="signup-kart">
         <h1 className="signup-logo">GLAMWORLD</h1>

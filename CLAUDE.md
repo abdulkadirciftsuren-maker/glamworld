@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.3 — Son)
+# GLAMWORLD — Proje Anayasası (V5.4 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -449,8 +449,8 @@ Sadece küçültüp büyütme YASAK. Her cihaz için ayrı düzen.
 İkonların üzerine parmak yaklaşınca ikon ismi **üstünde** küçük kutuda görünür.
 Parmağın altında DEĞİL — parmağın üstünde, görünür olacak şekilde.
 
-**TOOLTIP X (ÇARPI) KURALI:** Yazı "Kapat", konum butonun altında (sağ üstteyse alta in, madde 35).
-**TOOLTIP GERİ BUTONU:** Yazı "Geri Dön", butonun TAM üstünde (8px). Buton sürüklenebilir olsa da tooltip butona yapışık kalır.
+**TOOLTIP X (ÇARPI) KURALI:** Yazı "Kapat", butonun tam altında 8px, PC 15px font, telefon 13px. Ekran köşesine değil butona yapışık.
+**TOOLTIP GERİ BUTONU:** Yazı "Geri Dön", butonun tam üstünde 8px.
 
 ---
 
@@ -566,15 +566,12 @@ Tüm ödemeler anlık işlenir. Başarısız işlem kullanıcıya bildirilir.
 
 ## 34. GERİ DÖNÜŞ DÜĞMESİ — Her Sayfada Zorunlu
 
-- **SAĞ ALTTA altın geri ok düğmesi** (her sayfada) — telefonda parmak rahat ulaşır
-- **SÜRÜKLENEBİLİR** — parmakla istediği yere taşınsın
-- Konum **localStorage'a kaydedilsin** — sayfa yenilense de aynı yerde dursun
-- Boyut: 56x56px (parmak için geniş, daire şeklinde)
+- **SAĞ ALTTA altın geri ok düğmesi** (her sayfada) — SABİT konum, sürükleme YOK
+- `position: fixed; bottom: 20px; right: 20px` — her zaman sağ altta
+- Boyut: 56x56px, daire şeklinde
 - `window.history.back()` ile çalışır (Android tarzı)
-- Tooltip: "Geri" — parmağın üstünde gösterilir (madde 24)
+- Tooltip: "Geri Dön" — butonun tam üstünde 8px
 - **Anasayfada gizlenir**
-- **Varsayılan konum:** sağ alt (window.innerWidth-76, window.innerHeight-76)
-- **Ekran sınırı:** resize + orientationchange olayında otomatik içe çeker
 - **z-index: 9999** her zaman üstte
 
 ---
@@ -727,7 +724,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 13 Mayıs 2026 — V5.3 (Tooltip eski sisteme döndü, GeriButon resize+tooltip, Madde 24+34 güncellendi)*
+*Son güncelleme: 13 Mayıs 2026 — V5.4 (GeriButon sabit sağ alt, X tooltip CSS::after, Kart boyut düzeltme)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
