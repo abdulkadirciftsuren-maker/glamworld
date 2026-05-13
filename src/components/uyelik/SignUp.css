@@ -221,6 +221,16 @@
 .signup-alt-link { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 16px; text-align: center; }
 .signup-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
 
+/* Telefon dikey — kart yüksekliği kısa (genişlik dokunulmaz) */
+@media (max-width: 480px) and (orientation: portrait) {
+  .uyelik-kart { padding-top: 12px; padding-bottom: 12px; }
+  .blue-diamond, .silver-star { width: 40px !important; height: 40px !important; margin-bottom: 4px; }
+  .kart-baslik-silver, .kart-baslik-gold { margin: 4px 0; }
+  .kart-aciklama { margin: 3px 0; font-size: 0.62rem; line-height: 1.3; }
+  .kart-etiket-pirlanta { margin-top: 4px; }
+  .uyelik-secim { gap: 8px; margin: 10px 0; }
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .signup-kart { padding: 20px 14px; }

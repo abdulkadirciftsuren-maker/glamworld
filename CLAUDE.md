@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.4 — Son)
+# GLAMWORLD — Proje Anayasası (V5.5 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -570,7 +570,8 @@ Tüm ödemeler anlık işlenir. Başarısız işlem kullanıcıya bildirilir.
 - **SÜRÜKLENEBİLİR** — kullanıcı parmakla taşıyabilir
 - **Konum HATIRLANMAZ** (localStorage YOK) — her sayfa açılışında sağ alta sıfırlanır
 - `useLocation` ile route izlenir, değişince konum sıfırlanır
-- Telefon döndürüldüğünde ekran içinde kalır
+- orientationchange (telefon dönüşü) → otomatik sağ alta sıfırlanır
+- resize (bilgisayar ekran değişimi) → otomatik sağ alta sıfırlanır
 - Boyut: telefon dikey 48px | telefon yatay 44px | tablet 52px | PC 56px
 - `window.history.back()` ile çalışır
 - Tooltip: "Geri Dön" — butonun tam üstünde 8px
@@ -662,7 +663,8 @@ Her input'ta autocomplete attribute olacak:
 - Aynı kart yapısı (X, logo, başlık)
 - Başlık: **"GLAMWORLD'e Katıl"** (altın)
 - Form alanları: İsim + Soyisim, E-posta, Şifre, Şifre Tekrar, Telefon (ülke kodu)
-- **Müşteri / Profesyonel seçimi** — 2 büyük kart (AuthChoice.js)
+- **Müşteri / Profesyonel seçimi** — 2 büyük kart (SignUp içinde)
+- Telefon dikey `@media (max-width:480px) and (orientation:portrait)`: kart yüksekliği (padding-top/bottom, ikon) küçülür — GENİŞLİK DOKUNULMAZ
 - Kullanım şartları onayı checkbox
 - Altın "Üye Ol" butonu (shimmer)
 - Google / Telefon alternatifleri
@@ -727,7 +729,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 13 Mayıs 2026 — V5.4 (GeriButon sürüklenebilir+localStorage yok+sayfa sıfırlama, Madde 34 güncellendi)*
+*Son güncelleme: 13 Mayıs 2026 — V5.5 (GeriButon resize/orientation→sağ alt, Kart telefon dikey yükseklik kısa)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

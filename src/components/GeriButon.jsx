@@ -26,12 +26,12 @@ export default function GeriButon() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const yeniden = () => setKonum(k => sinirIcinde(k.x, k.y));
-    window.addEventListener('resize', yeniden);
-    window.addEventListener('orientationchange', yeniden);
+    const sagAltaSifirla = () => setKonum(sagAlt());
+    window.addEventListener('resize', sagAltaSifirla);
+    window.addEventListener('orientationchange', sagAltaSifirla);
     return () => {
-      window.removeEventListener('resize', yeniden);
-      window.removeEventListener('orientationchange', yeniden);
+      window.removeEventListener('resize', sagAltaSifirla);
+      window.removeEventListener('orientationchange', sagAltaSifirla);
     };
   }, []);
 
