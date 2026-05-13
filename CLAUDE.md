@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.7 — Son)
+# GLAMWORLD — Proje Anayasası (V5.9 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -773,6 +773,202 @@ Her input'ta autocomplete attribute olacak:
 
 ---
 
+## 56. PROFESYONEL ÜYELİK PAKETLERİ
+
+**TEMEL PAKET (Ücretsiz):**
+- Aylık 3 randevu sınırı
+- Standart profil
+- Müşteri ödemesinden %15 komisyon
+- Reklam görünür, standart destek
+
+**PIRLANTA PAKET (Launch: 4.99€/ay):**
+- Sınırsız randevu
+- Arama sonuçlarında öne çıkma
+- %10 komisyon
+- Basit analitik (gelir takibi, randevu sayısı)
+- Pırlanta rozet, e-posta desteği
+
+**MAVİ PIRLANTA PAKET (Launch: 9.99€/ay):**
+- Pırlanta paketteki her şey
+- AI yardımcı (Glami) tam erişim
+- Detaylı analitik (gelir, müşteri davranışı, trend)
+- Reklamsız, öncelikli destek (24 saat)
+- %5 komisyon
+- Mavi Pırlanta rozet — en prestijli
+- Öne çıkma garantisi (premium yerleştirme)
+
+---
+
+## 57. LAUNCH FİYAT STRATEJİSİ
+
+**İlk 1 Yıl (Launch Dönemi):** Pırlanta 4.99€/ay | Mavi Pırlanta 9.99€/ay
+
+**2. Yıldan İtibaren (Normal Fiyat):** Pırlanta 14.99€/ay | Mavi Pırlanta 29.99€/ay
+
+**Erken Üye Sadakati:** İlk 1 yılda üye olan profesyoneller aboneliklerini kesmediği sürece HAYAT BOYU launch fiyatında kalır. Abonelik kesip yeniden alınırsa normal fiyat geçer.
+
+**Pazar Karşılaştırması:** Booksy ~30€, Fresha ~25€ — GLAMWORLD launch 4.99-9.99€ (6 kat ucuz). Hedef: hızlı kullanıcı kazanımı.
+
+---
+
+## 58. 30 GÜN ÜCRETSİZ DENEME
+
+- Yeni profesyonel üye olunca otomatik 30 gün Pırlanta paket aktif
+- Kart bilgisi kayıt ANINDA istenmez
+- Deneme bitiminde 3 seçenek: Temel (ücretsiz) | Pırlanta | Mavi Pırlanta
+- 30 gün boyunca tüm özellikler açık
+
+---
+
+## 59. MÜŞTERİ ÖDEME MODELİ
+
+- Müşteri üyeliği TAMAMEN ÜCRETSİZ (hep böyle kalacak)
+- Müşteri sadece randevu/hizmet aldığında öder
+- Ödeme profesyonele gider, GLAMWORLD komisyon alır:
+  * Temel profesyonel → %15
+  * Pırlanta → %10
+  * Mavi Pırlanta → %5
+
+---
+
+## 60. ÖDEME YÖNTEMLERİ (Detay)
+
+Profesyonel paket ve müşteri randevu ödemeleri için:
+- Kredi kartı (Visa, Mastercard, Amex)
+- Apple Pay
+- Google Pay
+- PayPal
+- Klarna (Almanya/AB için popüler)
+- SEPA havale (AB içi)
+- Bitcoin / Ethereum / USDT
+
+---
+
+## 61. ANASAYFA YAPISI (Genel)
+
+Anasayfa yukarıdan aşağı sırayla:
+
+1. **HEADER** (Madde 62) — sticky, üstte sabit
+2. **YATAY MENÜ ŞERİDİ** (Madde 65) — header'ın altında
+3. **HERO BÖLÜMÜ** (Madde 66) — büyük karşılama
+4. **TANITIM KARTLARI** — 3 kart yan yana:
+   - Müşteri: "Randevu al, profesyonelleri keşfet"
+   - Profesyonel: "İşini büyüt, müşteri kazan"
+   - Premium: "AI yardım, analitik, öne çıkma"
+5. **AKIŞ BÖLÜMÜ** — Reels, Canlı yayınlar, Öne çıkan profesyoneller (B8'de detaylanacak)
+6. **FOOTER** — Hakkımızda, İletişim, Yardım, Şartlar, Gizlilik, Sosyal medya
+
+Madde 7 (Hoş Geldin animasyonu) + Madde 10 (Şehir Bandı) + Madde 25 (Piyasa Şeridi) ile uyumlu.
+
+---
+
+## 62. HEADER (Üst Başlık)
+
+- Yükseklik: 60-70px (telefon), 70-80px (PC)
+- Arka plan: `rgba(0,0,0,0.95)` + alt çizgi altın 1px
+- Sticky: scroll'da yukarıda sabit — z-index: 1000
+
+**Düzen (soldan sağa):**
+
+- SOL: Hamburger (☰) — 28x28px, altın
+- ORTA: GLAMWORLD logosu + iki yanında pırlanta (Pirlanta.jsx, Madde 51)
+- SAĞ: 4 ikon → Arama, Bildirim (kırmızı badge), Mesaj (badge), Profil avatarı
+
+**Telefon:** Sadece Hamburger + Logo + Profil görünür; Arama/Bildirim/Mesaj hamburger menü içinde.
+
+**İkon boyutu:** Telefon 22-24px | PC 26-28px
+
+**Hover:** altın glow + Tooltip (Madde 24)
+
+---
+
+## 63. HAMBURGER MENÜ PANELİ
+
+**Açılma:** Soldan slide-in (0.3s ease-out), arkasında `rgba(0,0,0,0.6)` overlay, fade-in. Overlay tıklama / X / ESC ile kapanır.
+
+**Genişlik:** Telefon %85 | Tablet 360px | PC 320px | Yükseklik: 100vh
+
+**Üst Bölüm (Kullanıcı):**
+- Giriş yapılmışsa: Profil resmi (60x60, altın çerçeve), Ad Soyad (altın), Üyelik tipi
+- Giriş yapılmamışsa: "Misafir Kullanıcı" + "Giriş Yap" / "Üye Ol" butonları yan yana
+
+**Menü Maddeleri:**
+Profilim | Mesajlarım (badge) | Randevularım | Üyelik Paketim | Bildirimler | Ayarlar | Dil Seçimi (11 dil, bayraklı alt menü) | Yardım & Destek | Kullanım Şartları & Gizlilik
+
+**Alt Bölüm:** Çıkış Yap (kırmızı) | Versiyon bilgisi (küçük)
+
+**Her madde:** Sol küçük pırlanta (Pirlanta.jsx 12-14px) | Beyaz 15px yazı | Hover: yazı altın + pırlanta parlar | Aktif sayfa: `rgba(255,215,0,0.1)` arka plan
+
+---
+
+## 64. SWIPE GESTURE (Parmakla Açma)
+
+Native touch event'ler (Hammer.js vb. kütüphane YASAK — gereksiz şişirme).
+
+**Sağa Kaydır → Hamburger menü açılır:**
+- touchstart x: 0-30px arası (sol kenar)
+- touchend x: en az 80px sağda
+- Süre: 500ms'den kısa
+- Panel parmakla birlikte kayar (touchmove takibi)
+
+**Sola Kaydır → Bildirim paneli açılır:**
+- touchstart x: `window.innerWidth - 30`'dan büyük (sağ kenar)
+- Aynı eşik mantığı
+
+**Performans:** `requestAnimationFrame` + `passive: true` listener (scroll engellenmez)
+
+**PC:** Swipe çalışmaz — hamburger ikonu ile açılır.
+
+---
+
+## 65. YATAY MENÜ ŞERİDİ
+
+- Header'ın hemen altında, yükseklik 50-55px
+- Sticky DEĞİL (scroll'da yukarı kayar)
+- Arka plan: `rgba(0,0,0,0.8)` + alt çizgi altın 1px
+
+**Maddeler (soldan sağa):**
+Anasayfa | Keşfet | Berberler | Kuaförler | Marketplace | Mesajlar | Randevular | Cüzdan | Profil
+
+**Her madde:** Küçük pırlanta ikonu (10-14px) + Beyaz 14px yazı + Padding 8x16px
+
+**Hover:** Yazı altın (0.2s transition) + pırlanta hızlanır + alttan ince altın çizgi
+
+**Aktif sayfa:** Yazı altın gradient + kalın alt çizgi (3px) + glow
+
+**Telefon:** Yatay scroll (overflow-x: auto), scrollbar gizli, sağda fade gölge
+
+**PC:** Hepsi yan yana sığar, ortalı veya space-around
+
+---
+
+## 66. HERO BÖLÜMÜ (Karşılama)
+
+- Menü şeridinin hemen altında
+- Yükseklik: ekran %60-70 (PC), %50 (telefon)
+
+**Arka Plan:**
+- Siyah zemin + uçuşan yarı saydam pırlantalar (CSS animation, parallax)
+- Hafif altın ışık huzmeleri + yıldız tozu (CSS keyframes, JS ağır animasyon YASAK)
+
+**Ana Başlık:** "GLAMWORLD'e Hoş Geldin"
+- 48-64px (PC), 32-40px (telefon) | Altın gradient text
+- Animasyon: fade-in + scale-up (1sn)
+
+**Alt Başlık:** "Dünyanın en büyük güzellik platformu"
+- 18-22px (PC), 14-16px (telefon) | Beyaz/açık gri
+- Animasyon: fade-in (0.5s gecikme)
+
+**CTA Butonlar (yan yana):**
+1. "Üye Ol" — altın gradient pill, 180x52px (PC) / 160x48px (telefon), shimmer, hover translateY(-3px)
+2. "Giriş Yap" — transparan + altın çerçeve, aynı boyut, hover altın dolar
+
+Telefon dar ise: alt alta (margin-top: 12px)
+
+**Alt Ok:** "Aşağı kaydır" animasyonlu chevron (hafif zıplama)
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -783,7 +979,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 13 Mayıs 2026 — V5.7 (Madde 52-55: SosyalButon 5 yöntem, Login/SignUp yeni akış, Prof ek alanlar)*
+*Son güncelleme: 14 Mayıs 2026 — V5.9 (Madde 61-66: Anasayfa yapısı, Header, Hamburger menü, Swipe gesture, Yatay menü şeridi, Hero bölümü)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
