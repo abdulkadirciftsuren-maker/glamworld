@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Tooltip from './Tooltip';
 import './DevWidget.css';
 
-const VERSIYON = 'V2.B3';
+const VERSIYON = 'V2.B6';
 
 export default function DevWidget({ sayfa = 'Anasayfa' }) {
   const [gizli, setGizli] = useState(() => {
