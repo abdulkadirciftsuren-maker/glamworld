@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './DevWidget.css';
 
-const VERSIYON = 'V2.B1';
+const VERSIYON = 'V2.B3';
 
 export default function DevWidget({ sayfa = 'Anasayfa' }) {
   const [gizli, setGizli] = useState(false);

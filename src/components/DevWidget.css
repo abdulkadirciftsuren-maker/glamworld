@@ -1,7 +1,7 @@
 .dev-widget {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  left: 20px;
   width: 240px;
   background: rgba(0, 0, 0, 0.88);
   border: 2px solid #FFD700;
@@ -75,8 +75,8 @@
 
 .dev-widget-mini {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  left: 20px;
   background: rgba(0, 0, 0, 0.88);
   border: 2px solid #FFD700;
   border-radius: 8px;

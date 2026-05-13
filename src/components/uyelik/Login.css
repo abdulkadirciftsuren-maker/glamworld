@@ -1,0 +1,165 @@
+/* Login sayfası stilleri - GLAMWORLD V5 */
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.login-sayfa {
+  background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+/* Kapat butonu */
+.kapat-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,215,0,0.1);
+  border: 1.5px solid #FFD700;
+  border-radius: 50%;
+  color: #FFD700;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 100;
+}
+.kapat-btn:hover { background: rgba(255,215,0,0.2); }
+
+/* Tooltip */
+.kapat-btn::after {
+  content: 'Kapat';
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 4px;
+  color: #FFD700;
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.kapat-btn:hover::after { opacity: 1; }
+
+/* Kart */
+.login-kart {
+  background: rgba(255,215,0,0.04);
+  border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 16px;
+  padding: 40px 32px;
+  width: 100%;
+}
+.login-logo { color: #FFD700; font-family: Georgia, serif; font-size: 1.8rem; text-align: center; margin: 0 0 4px; letter-spacing: 3px; }
+.login-baslik { color: #fff; text-align: center; font-size: 1.2rem; font-weight: 400; margin: 0 0 28px; }
+
+/* Form */
+.login-alan { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.login-alan label { color: rgba(255,215,0,0.8); font-size: 0.85rem; }
+.login-alan input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  padding: 12px 14px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.login-alan input:focus { border-color: rgba(255,215,0,0.6); }
+
+/* Alt seçenekler */
+.alt-secenekler { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.checkbox-label { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,0.6); font-size: 0.85rem; cursor: pointer; }
+.checkbox-label input[type="checkbox"] { accent-color: #FFD700; width: 15px; height: 15px; cursor: pointer; }
+.unuttu-link { color: rgba(255,215,0,0.7); font-size: 0.82rem; text-decoration: none; }
+.unuttu-link:hover { color: #FFD700; }
+
+.login-hata { color: #ff6b6b; font-size: 0.85rem; margin: 0 0 8px; text-align: center; }
+
+/* Ana buton */
+.login-ana-btn {
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+  border: none;
+  border-radius: 10px;
+  color: #0a0a0a;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 14px;
+  width: 100%;
+}
+.login-ana-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+/* Ayırıcı */
+.login-ayirici { display: flex; align-items: center; gap: 10px; margin: 20px 0 14px; }
+.login-ayirici span.cizgi { background: rgba(255,215,0,0.2); flex: 1; height: 1px; display: block; }
+.login-ayirici span.veya { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
+
+/* Google butonu */
+.google-btn {
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 10px;
+  color: #3c4043;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 12px;
+  width: 100%;
+}
+.google-btn:hover { background: #f8f8f8; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+
+/* Telefon butonu */
+.telefon-btn {
+  background: transparent;
+  border: 1px solid rgba(255,215,0,0.35);
+  border-radius: 10px;
+  color: #FFD700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-top: 10px;
+  padding: 13px;
+  width: 100%;
+}
+
+.login-alt-link { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 20px; text-align: center; }
+.login-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-kart { width: 95%; padding: 28px 18px; }
+  .kapat-btn { width: 40px; height: 40px; font-size: 1rem; }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .login-kart { width: 70%; }
+  .kapat-btn { width: 36px; height: 36px; font-size: 0.95rem; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .login-kart { width: 60%; }
+  .kapat-btn { width: 44px; height: 44px; }
+}
+@media (min-width: 1025px) {
+  .login-kart { max-width: 480px; }
+  .kapat-btn { width: 48px; height: 48px; }
+}

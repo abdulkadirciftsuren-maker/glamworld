@@ -1,9 +1,14 @@
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import DevWidget from './components/DevWidget';
+import GeriButon from './components/GeriButon';
+import Login from './components/uyelik/Login';
+import SignUp from './components/uyelik/SignUp';
+import AuthChoice from './components/uyelik/AuthChoice';
 import './App.css';
 
-function App() {
+function Anasayfa() {
   return (
-    <div className="App" style={{ background: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ background: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
       <header style={{ textAlign: 'center', padding: '60px 20px' }}>
         <h1 style={{ color: '#FFD700', fontFamily: 'Georgia, serif', fontSize: '2.5rem', margin: 0 }}>
           GLAMWORLD
@@ -14,6 +19,30 @@ function App() {
       </header>
       <DevWidget sayfa="Anasayfa" />
     </div>
+  );
+}
+
+function Icerik() {
+  const konum = useLocation();
+  const anasayfada = konum.pathname === '/';
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Anasayfa />} />
+        <Route path="/giris" element={<Login />} />
+        <Route path="/uye-ol" element={<SignUp />} />
+        <Route path="/hesap-secimi" element={<AuthChoice />} />
+      </Routes>
+      {!anasayfada && <GeriButon />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter basename="/glamworld">
+      <Icerik />
+    </BrowserRouter>
   );
 }
 
