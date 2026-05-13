@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.6 — Son)
+# GLAMWORLD — Proje Anayasası (V5.7 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -732,6 +732,47 @@ Her input'ta autocomplete attribute olacak:
 
 ---
 
+## 52. SOSYAL GİRİŞ BUTONLARI
+
+- 5 yöntem: Google, Apple, Facebook, Instagram, Telefon
+- Component: `src/components/SosyalButon.jsx`
+- Şekil: pill (border-radius: 999px), marka rengi
+- Düzen: 2+3 grid (Google+Apple üste, Facebook+Instagram+Telefon alta)
+- Press efekti: scale(0.97) + ripple, hover: translateY(-2px)
+- Logolar SVG — emoji YASAK
+
+---
+
+## 53. ÜYE OL AKIŞ SIRASI
+
+1. Hesap Türü seçimi (Müşteri/Profesyonel) — EN ÜSTTE
+2. Sosyal butonlar 5 yöntem (2+3 grid)
+3. "veya" ayracı
+4. Email + Şifre formu
+5. Profesyonel seçilirse EK ALANLAR (Uzmanlık, Şehir, Deneyim, Çalışma Durumu) slide-down
+
+---
+
+## 54. PROFESYONEL EK ALANLAR
+
+- Uzmanlık (dropdown: Berber, Kuaför, Makyaj Sanatçısı, Manikürcü, Estetisyen, Masöz, Diğer)
+- Şehir (text)
+- Deneyim (0–60 yıl)
+- Çalışma Durumu (radio: Çalışıyor / Kendi işi / İş arıyor)
+- Slide-down animasyon 0.35s
+
+---
+
+## 55. GİRİŞ YAP AKIŞ SIRASI
+
+1. Sosyal butonlar (5 yöntem, 2+3 grid)
+2. "veya" ayracı
+3. Email + Şifre formu
+4. Beni Hatırla + Şifremi Unuttum
+5. Alt link: Üye Ol
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -742,7 +783,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 13 Mayıs 2026 — V5.6 (Madde 51: Pırlanta Logo Sistemi — SVG, 4 renk, animasyon)*
+*Son güncelleme: 13 Mayıs 2026 — V5.7 (Madde 52-55: SosyalButon 5 yöntem, Login/SignUp yeni akış, Prof ek alanlar)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

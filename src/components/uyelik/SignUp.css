@@ -221,6 +221,26 @@
 .signup-alt-link { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 16px; text-align: center; }
 .signup-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
 
+.hesap-secim-baslik { color: rgba(255,215,0,0.7); font-size: 0.82rem; margin-bottom: 8px; }
+
+.secim-isareti {
+  position: absolute; top: 6px; right: 8px;
+  background: rgba(0,0,0,0.75); color: #FFD700;
+  padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700;
+}
+
+@keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+.prof-alanlar { animation: slideDown 0.35s ease; }
+
+.prof-alanlar select {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 8px; color: #fff; font-size: 0.95rem; padding: 10px 12px;
+  outline: none; width: 100%; box-sizing: border-box;
+}
+.calisma-durumu { display: flex; gap: 16px; margin: 8px 0; flex-wrap: wrap; }
+.radio-label { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.7); font-size: 0.85rem; cursor: pointer; }
+.radio-label input { accent-color: #FFD700; }
+
 /* Telefon dikey — kart yüksekliği kısa (genişlik dokunulmaz) */
 @media (max-width: 480px) and (orientation: portrait) {
   .uyelik-kart { padding-top: 12px; padding-bottom: 12px; }
