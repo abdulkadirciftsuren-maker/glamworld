@@ -1,18 +1,49 @@
 import { useState, useEffect, useRef } from 'react';
-import Tooltip from './Tooltip';
 
 const DEPO_KEY = 'geriButonKonum';
 
+function varsayilanKonum() {
+  return { x: window.innerWidth - 76, y: window.innerHeight - 76 };
+}
+
+function sinirIcinde(x, y) {
+  const maxX = window.innerWidth - 56;
+  const maxY = window.innerHeight - 56;
+  return {
+    x: Math.max(4, Math.min(x, maxX)),
+    y: Math.max(4, Math.min(y, maxY)),
+  };
+}
+
 export default function GeriButon() {
   const kayitli = localStorage.getItem(DEPO_KEY);
-  const [konum, setKonum] = useState(kayitli ? JSON.parse(kayitli) : null);
+  const [konum, setKonum] = useState(() => {
+    if (kayitli) {
+      const k = JSON.parse(kayitli);
+      return sinirIcinde(k.x, k.y);
+    }
+    return varsayilanKonum();
+  });
   const [suruklendi, setSuruklendi] = useState(false);
+  const [tooltip, setTooltip] = useState(false);
   const surukleniyor = useRef(false);
   const baslangic = useRef({ mx: 0, my: 0, wx: 0, wy: 0 });
   const konumRef = useRef(konum);
   const ref = useRef(null);
 
   konumRef.current = konum;
+
+  useEffect(() => {
+    const yeniden = () => {
+      setKonum(prev => sinirIcinde(prev.x, prev.y));
+    };
+    window.addEventListener('resize', yeniden);
+    window.addEventListener('orientationchange', yeniden);
+    return () => {
+      window.removeEventListener('resize', yeniden);
+      window.removeEventListener('orientationchange', yeniden);
+    };
+  }, []);
 
   const surukleBasla = (e) => {
     e.preventDefault();
@@ -23,6 +54,7 @@ export default function GeriButon() {
     baslangic.current = { mx: cx, my: cy, wx: rect.left, wy: rect.top };
     surukleniyor.current = true;
     setSuruklendi(false);
+    setTooltip(false);
   };
 
   useEffect(() => {
@@ -30,17 +62,17 @@ export default function GeriButon() {
       if (!surukleniyor.current) return;
       const cx = e.touches ? e.touches[0].clientX : e.clientX;
       const cy = e.touches ? e.touches[0].clientY : e.clientY;
-      const yeniX = baslangic.current.wx + (cx - baslangic.current.mx);
-      const yeniY = baslangic.current.wy + (cy - baslangic.current.my);
-      setKonum({ x: yeniX, y: yeniY });
+      const yeni = sinirIcinde(
+        baslangic.current.wx + (cx - baslangic.current.mx),
+        baslangic.current.wy + (cy - baslangic.current.my)
+      );
+      setKonum(yeni);
       setSuruklendi(true);
     };
     const birak = () => {
       if (!surukleniyor.current) return;
       surukleniyor.current = false;
-      if (konumRef.current) {
-        localStorage.setItem(DEPO_KEY, JSON.stringify(konumRef.current));
-      }
+      localStorage.setItem(DEPO_KEY, JSON.stringify(konumRef.current));
     };
     document.addEventListener('mousemove', surukle);
     document.addEventListener('mouseup', birak);
@@ -54,26 +86,29 @@ export default function GeriButon() {
     };
   }, []);
 
-  const geriGit = () => {
-    if (!suruklendi) window.history.back();
-  };
+  const geriGit = () => { if (!suruklendi) window.history.back(); };
 
-  const pozisyon = konum
-    ? { left: konum.x, top: konum.y, bottom: 'auto', right: 'auto' }
-    : { bottom: 20, right: 20 };
+  const uste = konum.y > 80;
 
   return (
-    <Tooltip text="Geri Dön" position="top">
-      <button
-        ref={ref}
-        onClick={geriGit}
-        onMouseDown={surukleBasla}
-        onTouchStart={surukleBasla}
-        style={{ ...s.btn, ...pozisyon }}
-      >
-        &#8592;
-      </button>
-    </Tooltip>
+    <button
+      ref={ref}
+      onClick={geriGit}
+      onMouseDown={surukleBasla}
+      onTouchStart={(e) => { surukleBasla(e); setTimeout(() => setTooltip(true), 100); }}
+      onMouseEnter={() => setTimeout(() => setTooltip(true), 150)}
+      onMouseLeave={() => setTooltip(false)}
+      onTouchEnd={() => setTooltip(false)}
+      onTouchCancel={() => setTooltip(false)}
+      style={{ ...s.btn, left: konum.x, top: konum.y }}
+    >
+      &#8592;
+      {tooltip && (
+        <span style={{ ...s.tip, ...(uste ? s.tipUst : s.tipAlt) }}>
+          Geri Dön
+        </span>
+      )}
+    </button>
   );
 }
 
@@ -92,9 +127,26 @@ const s = {
     justifyContent: 'center',
     fontSize: '1.4rem',
     fontWeight: 'bold',
-    zIndex: 9998,
+    zIndex: 9999,
     boxShadow: '0 4px 20px rgba(255,215,0,0.3)',
     userSelect: 'none',
     touchAction: 'none',
   },
+  tip: {
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: 'rgba(0,0,0,0.92)',
+    color: '#FFD700',
+    fontSize: 'clamp(13px,1.2vw,15px)',
+    fontWeight: 500,
+    padding: '5px 10px',
+    borderRadius: 6,
+    whiteSpace: 'nowrap',
+    pointerEvents: 'none',
+    border: '1px solid rgba(255,215,0,0.3)',
+    zIndex: 10000,
+  },
+  tipUst: { bottom: 'calc(100% + 8px)' },
+  tipAlt: { top: 'calc(100% + 8px)' },
 };

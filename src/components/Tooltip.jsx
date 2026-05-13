@@ -1,100 +1,83 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
-export default function Tooltip({ text, children, position = 'top' }) {
-  const [show, setShow] = useState(false);
-  const [coords, setCoords] = useState({ top: 0, left: 0, dir: 'top' });
-  const hedefRef = useRef(null);
+const TERS = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
+
+export default function Tooltip({ text, position = 'top', children }) {
+  const [gorunur, setGorunur] = useState(false);
+  const [gercekPos, setGercekPos] = useState(position);
   const timer = useRef(null);
+  const balonRef = useRef(null);
+  const sarmaRef = useRef(null);
 
-  const hesapla = useCallback(() => {
-    if (!hedefRef.current) return;
-    const r = hedefRef.current.getBoundingClientRect();
-    const aralik = 8;
-    const yukY = 32;
-    const mobile = window.innerWidth < 768;
-    let dir = position;
-    let top, left;
-
-    if (dir === 'top') {
-      top = r.top - aralik - yukY;
-      if (top < 10) dir = 'bottom';
-    }
-    if (dir === 'bottom') {
-      top = r.bottom + aralik;
-      if (top + yukY > window.innerHeight - 10) dir = 'top';
-    }
-    if (dir === 'top') top = r.top - aralik - yukY;
-    if (dir === 'bottom') top = r.bottom + aralik;
-
-    left = r.left + r.width / 2;
-    if (left < 60) left = 60;
-    if (left > window.innerWidth - 60) left = window.innerWidth - 60;
-
-    setCoords({ top: mobile ? top - 4 : top, left, dir });
-  }, [position]);
-
-  const goster = useCallback(() => {
+  const goster = useCallback((gecikme) => {
     clearTimeout(timer.current);
-    timer.current = setTimeout(() => { hesapla(); setShow(true); }, 100);
-  }, [hesapla]);
+    timer.current = setTimeout(() => setGorunur(true), gecikme);
+  }, []);
 
-  const gizle = useCallback(() => { clearTimeout(timer.current); setShow(false); }, []);
+  const gizle = useCallback(() => {
+    clearTimeout(timer.current);
+    setGorunur(false);
+  }, []);
+
+  useEffect(() => {
+    if (!gorunur || !balonRef.current || !sarmaRef.current) return;
+    const balon = balonRef.current.getBoundingClientRect();
+    const sarma = sarmaRef.current.getBoundingClientRect();
+    const gw = window.innerWidth;
+    const gh = window.innerHeight;
+    let pos = position;
+    if (pos === 'top' && sarma.top - balon.height - 8 < 0) pos = 'bottom';
+    if (pos === 'bottom' && sarma.bottom + balon.height + 8 > gh) pos = 'top';
+    if (pos === 'left' && sarma.left - balon.width - 8 < 0) pos = 'right';
+    if (pos === 'right' && sarma.right + balon.width + 8 > gw) pos = 'left';
+    const cx = sarma.left + sarma.width / 2;
+    if (cx - balon.width / 2 < 8 || cx + balon.width / 2 > gw - 8) pos = TERS[pos] || pos;
+    setGercekPos(pos);
+  }, [gorunur, position]);
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  useEffect(() => {
-    if (!show) return;
-    const kapat = () => setShow(false);
-    window.addEventListener('scroll', kapat, { passive: true });
-    window.addEventListener('touchmove', kapat, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', kapat);
-      window.removeEventListener('touchmove', kapat);
-    };
-  }, [show]);
-
-  const fs = window.innerWidth < 480 ? '13px' : window.innerWidth < 1025 ? '14px' : '15px';
-  const okIsaret = coords.dir === 'top' ? '▼' : '▲';
-  const okStil = coords.dir === 'top'
-    ? { bottom: -10, left: '50%', transform: 'translateX(-50%)', color: 'rgba(0,0,0,0.92)' }
-    : { top: -10, left: '50%', transform: 'translateX(-50%)', color: 'rgba(0,0,0,0.92)' };
+  const pozStil = {
+    top:    { bottom: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)' },
+    bottom: { top: 'calc(100% + 8px)',    left: '50%', transform: 'translateX(-50%)' },
+    left:   { right: 'calc(100% + 8px)',  top: '50%',  transform: 'translateY(-50%)' },
+    right:  { left: 'calc(100% + 8px)',   top: '50%',  transform: 'translateY(-50%)' },
+  };
 
   return (
-    <>
-      <div
-        ref={hedefRef}
-        style={{ display: 'contents' }}
-        onMouseEnter={goster}
-        onMouseLeave={gizle}
-        onTouchStart={goster}
-        onTouchEnd={gizle}
-        onTouchCancel={gizle}
-      >
-        {children}
-      </div>
-      {show && (
-        <div style={{
-          position: 'fixed',
-          top: coords.top,
-          left: coords.left,
-          transform: 'translateX(-50%)',
-          background: 'rgba(0,0,0,0.92)',
-          color: '#FFD700',
-          padding: '6px 12px',
-          borderRadius: 6,
-          fontSize: fs,
-          fontWeight: 500,
-          pointerEvents: 'none',
-          zIndex: 99999,
-          whiteSpace: 'nowrap',
-          border: '1px solid rgba(255,215,0,0.3)',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.5)',
-          animation: 'tooltipFadeIn 0.12s ease',
-        }}>
+    <span ref={sarmaRef} style={s.sarma}
+      onMouseEnter={() => goster(150)}
+      onMouseLeave={gizle}
+      onTouchStart={() => goster(100)}
+      onTouchEnd={gizle}
+      onTouchCancel={gizle}
+    >
+      {children}
+      {gorunur && (
+        <span ref={balonRef} style={{ ...s.balon, ...pozStil[gercekPos] }}>
           {text}
-          <span style={{ position: 'absolute', fontSize: 8, lineHeight: 1, ...okStil }}>{okIsaret}</span>
-        </div>
+        </span>
       )}
-    </>
+    </span>
   );
 }
+
+const s = {
+  sarma: { position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' },
+  balon: {
+    position: 'absolute',
+    background: 'rgba(0,0,0,0.92)',
+    color: '#FFD700',
+    padding: '5px 10px',
+    borderRadius: 6,
+    whiteSpace: 'nowrap',
+    zIndex: 99999,
+    pointerEvents: 'none',
+    border: '1px solid rgba(255,215,0,0.3)',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.6)',
+    animation: 'tooltipFadeIn 0.15s ease',
+    fontSize: 'clamp(13px, 1.2vw, 15px)',
+    fontWeight: 500,
+    letterSpacing: '0.3px',
+  },
+};
