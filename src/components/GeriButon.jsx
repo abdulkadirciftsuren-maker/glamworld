@@ -1,19 +1,92 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+
+function sagAlt() {
+  return { x: window.innerWidth - 80, y: window.innerHeight - 100 };
+}
+
+function sinirIcinde(x, y) {
+  return {
+    x: Math.max(4, Math.min(x, window.innerWidth - 60)),
+    y: Math.max(4, Math.min(y, window.innerHeight - 60)),
+  };
+}
 
 export default function GeriButon() {
+  const [konum, setKonum] = useState(sagAlt);
+  const [suruklendi, setSuruklendi] = useState(false);
   const [tooltip, setTooltip] = useState(false);
+  const surukleniyor = useRef(false);
+  const baslangic = useRef({ mx: 0, my: 0, wx: 0, wy: 0 });
+  const ref = useRef(null);
+  const location = useLocation();
 
-  const geriGit = () => window.history.back();
+  useEffect(() => {
+    setKonum(sagAlt());
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const yeniden = () => setKonum(k => sinirIcinde(k.x, k.y));
+    window.addEventListener('resize', yeniden);
+    window.addEventListener('orientationchange', yeniden);
+    return () => {
+      window.removeEventListener('resize', yeniden);
+      window.removeEventListener('orientationchange', yeniden);
+    };
+  }, []);
+
+  const surukleBasla = (e) => {
+    e.preventDefault();
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const cx = e.touches ? e.touches[0].clientX : e.clientX;
+    const cy = e.touches ? e.touches[0].clientY : e.clientY;
+    baslangic.current = { mx: cx, my: cy, wx: rect.left, wy: rect.top };
+    surukleniyor.current = true;
+    setSuruklendi(false);
+    setTooltip(false);
+  };
+
+  useEffect(() => {
+    const surukle = (e) => {
+      if (!surukleniyor.current) return;
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      setKonum(sinirIcinde(
+        baslangic.current.wx + (cx - baslangic.current.mx),
+        baslangic.current.wy + (cy - baslangic.current.my)
+      ));
+      setSuruklendi(true);
+    };
+    const birak = () => { surukleniyor.current = false; };
+    document.addEventListener('mousemove', surukle);
+    document.addEventListener('mouseup', birak);
+    document.addEventListener('touchmove', surukle, { passive: false });
+    document.addEventListener('touchend', birak);
+    return () => {
+      document.removeEventListener('mousemove', surukle);
+      document.removeEventListener('mouseup', birak);
+      document.removeEventListener('touchmove', surukle);
+      document.removeEventListener('touchend', birak);
+    };
+  }, []);
+
+  const geriGit = () => { if (!suruklendi) window.history.back(); };
+
+  const w = window.innerWidth;
+  const boyut = w < 481 ? 48 : w < 769 ? 44 : w < 1025 ? 52 : 56;
 
   return (
     <button
+      ref={ref}
       onClick={geriGit}
+      onMouseDown={surukleBasla}
+      onTouchStart={(e) => { surukleBasla(e); setTimeout(() => setTooltip(true), 100); }}
       onMouseEnter={() => setTooltip(true)}
       onMouseLeave={() => setTooltip(false)}
-      onTouchStart={() => setTimeout(() => setTooltip(true), 100)}
       onTouchEnd={() => setTooltip(false)}
       onTouchCancel={() => setTooltip(false)}
-      style={s.btn}
+      style={{ ...s.btn, left: konum.x, top: konum.y, width: boyut, height: boyut }}
     >
       &#8592;
       {tooltip && <span style={s.tip}>Geri Dön</span>}
@@ -24,15 +97,11 @@ export default function GeriButon() {
 const s = {
   btn: {
     position: 'fixed',
-    bottom: 20,
-    right: 20,
-    width: 56,
-    height: 56,
     background: 'rgba(255,215,0,0.1)',
     border: '2px solid #FFD700',
     borderRadius: '50%',
     color: '#FFD700',
-    cursor: 'pointer',
+    cursor: 'move',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,6 +110,7 @@ const s = {
     zIndex: 9999,
     boxShadow: '0 4px 20px rgba(255,215,0,0.3)',
     userSelect: 'none',
+    touchAction: 'none',
   },
   tip: {
     position: 'absolute',

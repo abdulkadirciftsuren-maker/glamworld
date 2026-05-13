@@ -566,10 +566,13 @@ Tüm ödemeler anlık işlenir. Başarısız işlem kullanıcıya bildirilir.
 
 ## 34. GERİ DÖNÜŞ DÜĞMESİ — Her Sayfada Zorunlu
 
-- **SAĞ ALTTA altın geri ok düğmesi** (her sayfada) — SABİT konum, sürükleme YOK
-- `position: fixed; bottom: 20px; right: 20px` — her zaman sağ altta
-- Boyut: 56x56px, daire şeklinde
-- `window.history.back()` ile çalışır (Android tarzı)
+- **SAĞ ALTTA altın geri ok düğmesi** (her sayfada)
+- **SÜRÜKLENEBİLİR** — kullanıcı parmakla taşıyabilir
+- **Konum HATIRLANMAZ** (localStorage YOK) — her sayfa açılışında sağ alta sıfırlanır
+- `useLocation` ile route izlenir, değişince konum sıfırlanır
+- Telefon döndürüldüğünde ekran içinde kalır
+- Boyut: telefon dikey 48px | telefon yatay 44px | tablet 52px | PC 56px
+- `window.history.back()` ile çalışır
 - Tooltip: "Geri Dön" — butonun tam üstünde 8px
 - **Anasayfada gizlenir**
 - **z-index: 9999** her zaman üstte
@@ -724,7 +727,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 13 Mayıs 2026 — V5.4 (GeriButon sabit sağ alt, X tooltip CSS::after, Kart boyut düzeltme)*
+*Son güncelleme: 13 Mayıs 2026 — V5.4 (GeriButon sürüklenebilir+localStorage yok+sayfa sıfırlama, Madde 34 güncellendi)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
