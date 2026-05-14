@@ -2,7 +2,10 @@ import { useEffect, useRef } from 'react';
 import './AltinCerceve.css';
 
 export default function AltinCerceve() {
-  const ust = useRef(), alt = useRef(), sol = useRef(), sag = useRef();
+  const ustRef = useRef();
+  const altRef = useRef();
+  const solRef = useRef();
+  const sagRef = useRef();
 
   useEffect(() => {
     const vv = window.visualViewport;
@@ -14,25 +17,21 @@ export default function AltinCerceve() {
       const w = vv.width;
       const h = vv.height;
 
-      if (ust.current) {
-        ust.current.style.left   = `${l}px`;
-        ust.current.style.top    = `${t}px`;
-        ust.current.style.width  = `${w}px`;
+      if (ustRef.current) {
+        ustRef.current.style.transform = `translate(${l}px, ${t}px)`;
+        ustRef.current.style.width = `${w}px`;
       }
-      if (alt.current) {
-        alt.current.style.left   = `${l}px`;
-        alt.current.style.top    = `${t + h - 2}px`;
-        alt.current.style.width  = `${w}px`;
+      if (altRef.current) {
+        altRef.current.style.transform = `translate(${l}px, ${t + h - 2}px)`;
+        altRef.current.style.width = `${w}px`;
       }
-      if (sol.current) {
-        sol.current.style.left   = `${l}px`;
-        sol.current.style.top    = `${t}px`;
-        sol.current.style.height = `${h}px`;
+      if (solRef.current) {
+        solRef.current.style.transform = `translate(${l}px, ${t}px)`;
+        solRef.current.style.height = `${h}px`;
       }
-      if (sag.current) {
-        sag.current.style.left   = `${l + w - 2}px`;
-        sag.current.style.top    = `${t}px`;
-        sag.current.style.height = `${h}px`;
+      if (sagRef.current) {
+        sagRef.current.style.transform = `translate(${l + w - 2}px, ${t}px)`;
+        sagRef.current.style.height = `${h}px`;
       }
     }
 
@@ -40,6 +39,9 @@ export default function AltinCerceve() {
       vv.addEventListener('resize', guncelle);
       vv.addEventListener('scroll', guncelle);
     }
+    document.addEventListener('touchmove', guncelle, { passive: true });
+    document.addEventListener('touchend', guncelle, { passive: true });
+    document.addEventListener('touchcancel', guncelle, { passive: true });
     guncelle();
 
     return () => {
@@ -47,15 +49,18 @@ export default function AltinCerceve() {
         vv.removeEventListener('resize', guncelle);
         vv.removeEventListener('scroll', guncelle);
       }
+      document.removeEventListener('touchmove', guncelle);
+      document.removeEventListener('touchend', guncelle);
+      document.removeEventListener('touchcancel', guncelle);
     };
   }, []);
 
   return (
     <>
-      <div ref={ust} className="ac-cubuk" />
-      <div ref={alt} className="ac-cubuk" />
-      <div ref={sol} className="ac-cubuk ac-dikey" />
-      <div ref={sag} className="ac-cubuk ac-dikey" />
+      <div ref={ustRef} className="ac-cubuk" />
+      <div ref={altRef} className="ac-cubuk" />
+      <div ref={solRef} className="ac-cubuk ac-dikey" />
+      <div ref={sagRef} className="ac-cubuk ac-dikey" />
     </>
   );
 }

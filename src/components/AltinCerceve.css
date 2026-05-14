@@ -5,9 +5,11 @@
   right: 0;
   height: 2px;
   background: #C9A84C;
-  box-shadow: 0 0 6px rgba(201,168,76,0.5);
+  box-shadow: 0 0 6px rgba(201,168,76,0.6);
   pointer-events: none;
   z-index: 9990;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .ac-cubuk.ac-dikey {
