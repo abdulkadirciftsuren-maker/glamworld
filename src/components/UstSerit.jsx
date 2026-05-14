@@ -4,12 +4,39 @@ import Pirlanta from './Pirlanta';
 import './UstSerit.css';
 
 const ULKELER = {
-  DE:{ ad:'Almanya',    sehir:'Berlin',    cc:'de', para:'EUR', tz:'Europe/Berlin' },
-  TR:{ ad:'Türkiye',    sehir:'İstanbul',  cc:'tr', para:'TRY', tz:'Europe/Istanbul' },
-  US:{ ad:'ABD',        sehir:'New York',  cc:'us', para:'USD', tz:'America/New_York' },
-  GB:{ ad:'İngiltere',  sehir:'Londra',    cc:'gb', para:'GBP', tz:'Europe/London' },
-  CH:{ ad:'İsviçre',    sehir:'Zürih',     cc:'ch', para:'CHF', tz:'Europe/Zurich' },
+  DE:{ ad:'Almanya',        sehir:'Berlin',        cc:'de', para:'EUR', tz:'Europe/Berlin' },
+  TR:{ ad:'Türkiye',        sehir:'İstanbul',      cc:'tr', para:'TRY', tz:'Europe/Istanbul' },
+  US:{ ad:'ABD',            sehir:'New York',      cc:'us', para:'USD', tz:'America/New_York' },
+  GB:{ ad:'İngiltere',      sehir:'Londra',        cc:'gb', para:'GBP', tz:'Europe/London' },
+  CH:{ ad:'İsviçre',        sehir:'Zürih',         cc:'ch', para:'CHF', tz:'Europe/Zurich' },
+  RU:{ ad:'Rusya',          sehir:'Moskova',       cc:'ru', para:'RUB', tz:'Europe/Moscow' },
+  UA:{ ad:'Ukrayna',        sehir:'Kiev',          cc:'ua', para:'UAH', tz:'Europe/Kiev' },
+  SA:{ ad:'S. Arabistan',   sehir:'Riyad',         cc:'sa', para:'SAR', tz:'Asia/Riyadh' },
+  AE:{ ad:'BAE',            sehir:'Dubai',         cc:'ae', para:'AED', tz:'Asia/Dubai' },
+  EG:{ ad:'Mısır',          sehir:'Kahire',        cc:'eg', para:'EGP', tz:'Africa/Cairo' },
+  ZA:{ ad:'Güney Afrika',   sehir:'Johannesburg',  cc:'za', para:'ZAR', tz:'Africa/Johannesburg' },
+  NG:{ ad:'Nijerya',        sehir:'Lagos',         cc:'ng', para:'NGN', tz:'Africa/Lagos' },
+  MA:{ ad:'Fas',            sehir:'Kazablanka',    cc:'ma', para:'MAD', tz:'Africa/Casablanca' },
+  BR:{ ad:'Brezilya',       sehir:'São Paulo',     cc:'br', para:'BRL', tz:'America/Sao_Paulo' },
+  AR:{ ad:'Arjantin',       sehir:'Buenos Aires',  cc:'ar', para:'ARS', tz:'America/Argentina/Buenos_Aires' },
+  MX:{ ad:'Meksika',        sehir:'Mexico City',   cc:'mx', para:'MXN', tz:'America/Mexico_City' },
+  CO:{ ad:'Kolombiya',      sehir:'Bogota',        cc:'co', para:'COP', tz:'America/Bogota' },
+  JP:{ ad:'Japonya',        sehir:'Tokyo',         cc:'jp', para:'JPY', tz:'Asia/Tokyo' },
+  CN:{ ad:'Çin',            sehir:'Pekin',         cc:'cn', para:'CNY', tz:'Asia/Shanghai' },
+  HK:{ ad:'Hong Kong',      sehir:'Hong Kong',     cc:'hk', para:'HKD', tz:'Asia/Hong_Kong' },
+  MY:{ ad:'Malezya',        sehir:'Kuala Lumpur',  cc:'my', para:'MYR', tz:'Asia/Kuala_Lumpur' },
+  IN:{ ad:'Hindistan',      sehir:'Yeni Delhi',    cc:'in', para:'INR', tz:'Asia/Kolkata' },
+  PK:{ ad:'Pakistan',       sehir:'İslamabad',     cc:'pk', para:'PKR', tz:'Asia/Karachi' },
+  AU:{ ad:'Avustralya',     sehir:'Sydney',        cc:'au', para:'AUD', tz:'Australia/Sydney' },
 };
+
+const GRUPLAR = [
+  ['DE','TR','US','GB','CH'],
+  ['RU','UA','SA','AE','EG'],
+  ['ZA','NG','MA','BR','AR'],
+  ['MX','CO','JP','CN','HK'],
+  ['MY','IN','PK','AU'],
+];
 
 function saatTz(tz) {
   return new Date().toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit', timeZone: tz });
@@ -83,7 +110,7 @@ export default function UstSerit() {
     return (kurlar[para] / kurlar[bazPara]).toFixed(2);
   }
 
-  function blok(p) {
+  function dovizBlok(p) {
     return [
       <span key={`${p}bd`} className="t-item t-kullanici">
         <Pirlanta renk="mavi" boyut={12} />
@@ -104,23 +131,20 @@ export default function UstSerit() {
     ].filter(Boolean);
   }
 
-  const ulkeler = Object.entries(ULKELER).map(([k, u]) => (
-    <span key={`u-${k}`} className="t-item t-ulke">
-      {flag(u.cc)}
-      <span className="t-altin">{u.sehir}</span>
-      <span className="t-beyaz">{saatTz(u.tz)}</span>
-      <span className="t-kur">1 {bazPara}={kur(u.para)} {u.para}</span>
-    </span>
-  ));
-
-  const items = [
-    ...blok('a'),
-    ulkeler[0], ulkeler[1],
-    ...blok('b'),
-    ulkeler[2], ulkeler[3],
-    ...blok('c'),
-    ulkeler[4],
-  ];
+  const items = GRUPLAR.flatMap((grup, gi) => [
+    ...dovizBlok(`g${gi}`),
+    ...grup.map(k => {
+      const u = ULKELER[k];
+      return (
+        <span key={`u-${k}`} className="t-item t-ulke">
+          {flag(u.cc)}
+          <span className="t-altin">{u.sehir}</span>
+          <span className="t-beyaz">{saatTz(u.tz)}</span>
+          <span className="t-kur">1 {bazPara}={kur(u.para)} {u.para}</span>
+        </span>
+      );
+    }),
+  ]);
 
   return (
     <div className="ust-serit"
