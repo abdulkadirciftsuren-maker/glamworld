@@ -66,7 +66,13 @@ export default function SignUp() {
   useEffect(() => {
     const esc = (e) => { if (e.key === 'Escape') navigate('/'); };
     document.addEventListener('keydown', esc);
-    return () => document.removeEventListener('keydown', esc);
+    window.history.pushState(null, '', window.location.pathname);
+    const popstate = () => navigate('/');
+    window.addEventListener('popstate', popstate);
+    return () => {
+      document.removeEventListener('keydown', esc);
+      window.removeEventListener('popstate', popstate);
+    };
   }, [navigate]);
 
   const g = (alan) => (e) => setForm(f => ({ ...f, [alan]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));

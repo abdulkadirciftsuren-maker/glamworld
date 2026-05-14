@@ -31,7 +31,13 @@ export default function Login() {
   useEffect(() => {
     const esc = (e) => { if (e.key === 'Escape') navigate('/'); };
     document.addEventListener('keydown', esc);
-    return () => document.removeEventListener('keydown', esc);
+    window.history.pushState(null, '', window.location.pathname);
+    const popstate = () => navigate('/');
+    window.addEventListener('popstate', popstate);
+    return () => {
+      document.removeEventListener('keydown', esc);
+      window.removeEventListener('popstate', popstate);
+    };
   }, [navigate]);
 
   const emailGiris = async (e) => {
