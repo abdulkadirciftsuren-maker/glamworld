@@ -109,7 +109,7 @@ export default function SignUp() {
   const yakinda = () => setHata('Bu yöntem yakında aktif olacak.');
 
   return (
-    <div className="signup-sayfa">
+    <div className="signup-sayfa" onContextMenu={(e) => e.preventDefault()}>
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
       <div className="signup-kart">
@@ -133,7 +133,7 @@ export default function SignUp() {
           </Tooltip>
           <Tooltip text="Pırlanta Üye - Profesyonel" position="top" style={{ width: '100%' }}>
             <button type="button" className={`uyelik-kart gold-card${hesapTuru==='profesyonel'?' secili':''}`} onClick={() => setHesapTuru('profesyonel')}>
-              <div className="kart-etiket-pirlanta">Pırlanta Üye</div>
+              <span className="kart-etiket-pirlanta">Pırlanta Üye</span>
               <BlueDiamond />
               <div className="kart-baslik-gold">Profesyonel</div>
               <div className="kart-aciklama">Profil oluştur, gelir takibi</div>

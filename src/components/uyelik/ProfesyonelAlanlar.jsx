@@ -21,32 +21,36 @@ const ULKELER = [
 ];
 
 const SEHIR_DATA = {
-  de:['Berlin','Münih','Hamburg','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig','Dresden','Hannover','Nürnberg','Dortmund'],
-  tr:['İstanbul','Ankara','İzmir','Bursa','Antalya','Adana','Konya','Gaziantep','Kocaeli','Mersin','Trabzon','Samsun'],
-  ua:['Kyiv','Lviv','Odessa','Kharkiv','Dnipro','Zaporizhzhia','Vinnitsya'],
-  nl:['Amsterdam','Rotterdam','Lahey','Utrecht','Eindhoven','Groningen','Tilburg'],
-  at:['Viyana','Graz','Linz','Salzburg','İnnsbruck','Klagenfurt'],
-  ch:['Zürih','Cenevre','Basel','Bern','Lozan','Winterthur'],
-  be:['Brüksel','Antwerp','Ghent','Liège','Charleroi'],
-  fr:['Paris','Lyon','Marsilya','Toulouse','Bordeaux','Lille','Nantes','Strasbourg'],
-  gb:['Londra','Manchester','Birmingham','Glasgow','Leeds','Liverpool','Edinburgh','Bristol'],
-  us:['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','Dallas','San Diego','San Jose'],
-  it:['Roma','Milan','Napoli','Torino','Palermo','Bologna','Floransa','Venedik'],
-  es:['Madrid','Barselona','Valencia','Sevilla','Bilbao','Zaragoza','Málaga'],
-  pl:['Varşova','Kraków','Gdańsk','Wrocław','Poznań','Łódź'],
-  ru:['Moskova','St. Petersburg','Novosibirsk','Yekaterinburg','Kazan','Nijniy Novgorod'],
-  se:['Stockholm','Göteborg','Malmö','Uppsala','Västerås'],
-  no:['Oslo','Bergen','Stavanger','Trondheim'],
-  dk:['Kopenhag','Aarhus','Odense','Aalborg'],
-  sa:['Riyad','Cidde','Mekke','Medine','Dammam'],
-  ae:['Dubai','Abu Dabi','Sharjah','Ajman'],
-  cn:['Pekin','Şanghay','Guangzhou','Shenzhen','Chengdu','Tianjin','Wuhan'],
-  jp:['Tokyo','Osaka','Yokohama','Nagoya','Sapporo','Fukuoka','Kyoto'],
-  kr:['Seul','Busan','Incheon','Daegu','Daejeon'],
-  in:['Mumbai','Delhi','Bangalore','Hyderabad','Chennai','Kolkata','Pune'],
-  br:['São Paulo','Rio de Janeiro','Brasília','Salvador','Fortaleza','Curitiba'],
-  ca:['Toronto','Vancouver','Montreal','Calgary','Ottawa','Edmonton'],
-  au:['Sydney','Melbourne','Brisbane','Perth','Adelaide','Gold Coast'],
+  de:['Berlin','Münih','Hamburg','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig','Dresden','Hannover','Nürnberg','Duisburg','Dortmund','Essen','Bremen','Bochum','Wuppertal','Bielefeld','Bonn','Münster','Aachen','Augsburg','Karlsruhe','Mainz','Wiesbaden','Freiburg','Heidelberg','Kiel','Magdeburg','Erfurt','Saarbrücken','Rostock'],
+  tr:['İstanbul','Ankara','İzmir','Bursa','Antalya','Adana','Konya','Gaziantep','Kocaeli','Mersin','Diyarbakır','Eskişehir','Trabzon','Kayseri','Samsun','Denizli','Malatya','Şanlıurfa','Manisa','Erzurum','Balıkesir','Tekirdağ','Kahramanmaraş','Van','Batman','Elazığ','Rize','Ordu','Kütahya','Muğla','Çorum','Tokat'],
+  ua:['Kyiv','Lviv','Odessa','Kharkiv','Dnipro','Zaporizhzhia','Vinnitsya','Mykolaiv','Chernivtsi','Sumy','Poltava','Cherkasy'],
+  nl:['Amsterdam','Rotterdam','Lahey','Utrecht','Eindhoven','Groningen','Tilburg','Alkmaar','Arnhem','Breda','Nijmegen','Enschede'],
+  at:['Viyana','Graz','Linz','Salzburg','İnnsbruck','Klagenfurt','Villach','Wels','Steyr','Dornbirn'],
+  ch:['Zürih','Cenevre','Basel','Bern','Lozan','Winterthur','Luzern','St. Gallen','Lugano','Biel','Thun','La Chaux-de-Fonds'],
+  be:['Brüksel','Antwerp','Ghent','Liège','Charleroi','Namur','Mechelen','Bruges','Leuven','Aalst'],
+  fr:['Paris','Lyon','Marsilya','Toulouse','Bordeaux','Lille','Nantes','Strasbourg','Rennes','Grenoble','Montpellier','Nice','Clermont-Ferrand','Tours','Brest','Rouen','Toulon','Amiens','Dijon','Angers','Reims','Saint-Étienne','Metz','Besançon'],
+  gb:['Londra','Manchester','Birmingham','Glasgow','Leeds','Liverpool','Edinburgh','Bristol','Sheffield','Bradford','Cardiff','Leicester','Coventry','Nottingham','Newcastle','Southampton','Brighton','Plymouth','Reading','Belfast'],
+  us:['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','Dallas','San Diego','Jacksonville','Austin','Columbus','Charlotte','Indianapolis','San Francisco','Seattle','Denver','Nashville','El Paso','Portland','Las Vegas','Memphis','Boston','Detroit','Atlanta','Miami','Minneapolis','Tampa'],
+  it:['Roma','Milan','Napoli','Torino','Palermo','Bologna','Floransa','Venedik','Catania','Bari','Verona','Messina','Padua','Trieste','Taranto','Brescia','Parma','Modena','Reggio Calabria','Prato','Bergamo','Perugia'],
+  es:['Madrid','Barselona','Valencia','Sevilla','Bilbao','Zaragoza','Málaga','Murcia','Palma','Alicante','Córdoba','Valladolid','Vigo','Gijón','Granada','La Coruña','Vitoria','Oviedo','Badalona','Elche'],
+  pl:['Varşova','Kraków','Gdańsk','Wrocław','Poznań','Łódź','Katowice','Bydgoszcz','Lublin','Szczecin','Białystok','Gdynia'],
+  ru:['Moskova','St. Petersburg','Novosibirsk','Yekaterinburg','Kazan','Nijniy Novgorod','Çelyabinsk','Samara','Ufa','Rostov-na-Donu','Omsk','Krasnoyarsk'],
+  se:['Stockholm','Göteborg','Malmö','Uppsala','Västerås','Örebro','Linköping','Helsingborg','Jönköping','Norrköping'],
+  no:['Oslo','Bergen','Stavanger','Trondheim','Drammen','Fredrikstad','Kristiansand','Tromsø','Sandnes'],
+  dk:['Kopenhag','Aarhus','Odense','Aalborg','Esbjerg','Randers','Kolding','Horsens','Roskilde'],
+  sa:['Riyad','Cidde','Mekke','Medine','Dammam','Taif','Tabuk','Buraydah','Khamis Mushait'],
+  ae:['Dubai','Abu Dabi','Sharjah','Ajman','Al Ain','Ras al-Khaimah','Fujairah'],
+  cn:['Pekin','Şanghay','Guangzhou','Shenzhen','Chengdu','Tianjin','Wuhan','Çongçing','Nanjing','Hangzhou','Sian','Harbin','Shenyang','Qingdao','Jinan','Changsha'],
+  jp:['Tokyo','Osaka','Yokohama','Nagoya','Sapporo','Fukuoka','Kyoto','Kobe','Kawasaki','Saitama','Hiroshima','Sendai'],
+  kr:['Seul','Busan','Incheon','Daegu','Daejeon','Gwangju','Suwon','Ulsan','Changwon','Goyang'],
+  in:['Mumbai','Delhi','Bangalore','Hyderabad','Chennai','Kolkata','Pune','Ahmedabad','Jaipur','Surat','Lucknow','Kanpur','Nagpur','Patna','Indore','Bhopal'],
+  br:['São Paulo','Rio de Janeiro','Brasília','Salvador','Fortaleza','Curitiba','Manaus','Recife','Belo Horizonte','Porto Alegre','Belém','Goiânia'],
+  ca:['Toronto','Vancouver','Montreal','Calgary','Ottawa','Edmonton','Mississauga','Winnipeg','Quebec City','Hamilton','Brampton'],
+  au:['Sydney','Melbourne','Brisbane','Perth','Adelaide','Gold Coast','Canberra','Newcastle','Wollongong','Sunshine Coast','Hobart'],
+  gr:['Atina','Selanik','Patras','İraklion','Volos','Larissa','Rhodes'],
+  pt:['Lizbon','Porto','Braga','Setúbal','Coimbra','Funchal','Aveiro'],
+  ro:['Bükreş','Kluj','Timişoara','Yaş','Konstansa','Kraiova','Brăila'],
+  hu:['Budapeşte','Debrecen','Miskolc','Pécs','Győr','Nyíregyháza','Kecskemét'],
 };
 
 const TUM_SEHIRLER = [...new Set(Object.values(SEHIR_DATA).flat())];
@@ -55,6 +59,13 @@ function tahminEt() {
   const lang = (navigator.language || 'de').split('-')[0].toLowerCase();
   const M = { de:'de',tr:'tr',uk:'ua',nl:'nl',fr:'fr',en:'gb',ru:'ru',it:'it',es:'es',pl:'pl',at:'at',sv:'se',no:'no',da:'dk' };
   return ULKELER.find(u => u.cc === (M[lang] || 'de')) || ULKELER[0];
+}
+
+function kodSoy(v, ulkeler) {
+  if (!v.startsWith('+')) return { numara: v.replace(/\D/g, ''), ulke: null };
+  const esles = ulkeler.find(u => v.startsWith(u.kod));
+  if (esles) return { numara: v.slice(esles.kod.length).replace(/[\s\-().]/g, ''), ulke: esles };
+  return { numara: v.replace(/\D/g, ''), ulke: null };
 }
 
 export function TelefonInput({ onChange }) {
@@ -71,21 +82,28 @@ export function TelefonInput({ onChange }) {
     return () => { document.removeEventListener('mousedown', kapat); document.removeEventListener('touchstart', kapat); };
   }, []);
 
+  const guncelle = (yeniUlke, yeniNumara) => {
+    setNumara(yeniNumara);
+    if (yeniUlke) setUlke(yeniUlke);
+    onChange({ target: { value: `${(yeniUlke || ulke).kod} ${yeniNumara}` } });
+  };
+
   const numDegis = (e) => {
-    const n = e.target.value.replace(/\D/g, '');
-    setNumara(n);
-    onChange({ target: { value: `${ulke.kod} ${n}` } });
+    const v = e.target.value;
+    if (v.startsWith('+')) {
+      const { numara: n, ulke: u } = kodSoy(v, ULKELER);
+      guncelle(u, n);
+    } else {
+      guncelle(null, v.replace(/\D/g, ''));
+    }
   };
 
   const handlePaste = (e) => {
     const pasted = e.clipboardData.getData('text').trim();
     if (pasted.startsWith('+')) {
       e.preventDefault();
-      const esles = ULKELER.find(u => pasted.startsWith(u.kod));
-      const n = (esles ? pasted.slice(esles.kod.length) : pasted).replace(/[\s\-().]/g, '');
-      if (esles) setUlke(esles);
-      setNumara(n);
-      onChange({ target: { value: `${esles ? esles.kod : ulke.kod} ${n}` } });
+      const { numara: n, ulke: u } = kodSoy(pasted, ULKELER);
+      guncelle(u, n);
     }
   };
 
@@ -151,8 +169,21 @@ export function SehirOnericisi({ value, onChange }) {
   const [seciliUlke, setSeciliUlke] = useState('de');
   const [ara, setAra] = useState('');
 
+  useEffect(() => {
+    if (acik) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
+    return () => { document.body.style.overflow = ''; document.body.style.position = ''; document.body.style.width = ''; };
+  }, [acik]);
+
   const sehirler = ara
-    ? TUM_SEHIRLER.filter(s => s.toLowerCase().includes(ara.toLowerCase())).slice(0, 12)
+    ? TUM_SEHIRLER.filter(s => s.toLowerCase().includes(ara.toLowerCase())).slice(0, 16)
     : (SEHIR_DATA[seciliUlke] || []);
 
   const sec = (s) => { onChange({ target: { value: s } }); setAcik(false); setAra(''); };
@@ -186,13 +217,17 @@ export function SehirOnericisi({ value, onChange }) {
             </div>
             <input type="text" value={ara} onChange={e => setAra(e.target.value)} placeholder="Şehir ara..." className="pa-city-search" />
             <div className="pa-city-list">
-              {sehirler.map(s => (
+              {sehirler.length > 0 ? sehirler.map(s => (
                 <Tooltip key={s} text={s} position="top">
                   <button type="button" className={`pa-city-item${value === s ? ' ak' : ''}`} onClick={() => sec(s)}>{s}</button>
                 </Tooltip>
-              ))}
-              {ara && sehirler.length === 0 && (
-                <button type="button" className="pa-city-item pa-city-custom" onClick={() => sec(ara)}>"{ara}" — kaydet</button>
+              )) : (
+                <p className="pa-city-bos">Şehir adını yukarıya yazın</p>
+              )}
+              {ara && !sehirler.find(s => s.toLowerCase() === ara.toLowerCase()) && (
+                <Tooltip text={`"${ara}" olarak kaydet`} position="top">
+                  <button type="button" className="pa-city-item pa-city-custom" onClick={() => sec(ara)}>"{ara}" — kaydet</button>
+                </Tooltip>
               )}
             </div>
           </div>

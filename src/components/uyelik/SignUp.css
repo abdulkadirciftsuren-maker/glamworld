@@ -98,7 +98,7 @@
 }
 .silver-card.secili::after { content: '✓'; position: absolute; top: 6px; right: 8px; color: #C0C0C0; font-size: 0.85rem; font-weight: 700; }
 
-.gold-card { border-color: #FFD700; }
+.gold-card { border-color: #FFD700; padding-top: 26px; }
 .gold-card:hover { box-shadow: 0 0 20px rgba(255,215,0,0.4); }
 .gold-card.secili {
   border-color: #FFD700;
@@ -108,13 +108,18 @@
 .gold-card.secili::after { content: '✓'; position: absolute; top: 6px; right: 8px; color: #FFD700; font-size: 0.85rem; font-weight: 700; }
 
 .kart-etiket-pirlanta {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
   background: linear-gradient(90deg, #FFD700, #FFA500);
   color: #0a0a0a;
   font-size: 0.58rem;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2px 8px;
   border-radius: 20px;
   letter-spacing: 0.3px;
+  white-space: nowrap;
 }
 .kart-baslik-silver {
   background: linear-gradient(135deg, #E8E8E8, #A0A0A0);
@@ -161,45 +166,6 @@
 }
 .signup-ana-btn:disabled { opacity: 0.5; cursor: not-allowed; animation: none; background: rgba(255,215,0,0.3); }
 
-.signup-ayirici { display: flex; align-items: center; gap: 10px; margin: 16px 0 12px; }
-.signup-ayirici span.cizgi { background: rgba(255,215,0,0.2); flex: 1; height: 1px; display: block; }
-.signup-ayirici span.veya { color: rgba(255,255,255,0.35); font-size: 0.78rem; }
-
-/* Sosyal butonlar grubu */
-.sosyal-buton-grup { display: flex; flex-direction: column; gap: 12px; }
-.sosyal-buton-grup > span { width: 100%; }
-
-.google-btn {
-  background: #fff;
-  border: 1px solid #dadce0;
-  border-radius: 10px;
-  color: #3c4043;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 11px 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-.google-btn:hover { background: #f8f8f8; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
-
-.telefon-btn {
-  background: transparent;
-  border: 1px solid rgba(255,215,0,0.35);
-  border-radius: 10px;
-  color: #FFD700;
-  cursor: pointer;
-  font-size: 0.9rem;
-  padding: 12px 16px;
-  width: 100%;
-  box-sizing: border-box;
-  display: block;
-}
-.telefon-btn:hover { border-color: #FFD700; }
 
 .kapat-btn {
   position: fixed;

@@ -159,6 +159,8 @@
   flex-direction: column;
   box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
   overflow: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 .pa-city-header {
   display: flex;
@@ -244,6 +246,7 @@
 .pa-city-item:hover { background: rgba(255,215,0,0.1); border-color: rgba(255,215,0,0.4); color: #FFD700; }
 .pa-city-item.ak    { background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700; font-weight: 600; }
 .pa-city-custom { border-style: dashed; color: rgba(255,215,0,0.6); grid-column: 1 / -1; }
+.pa-city-bos { color: rgba(255,255,255,0.35); font-size: 13px; text-align: center; grid-column: 1 / -1; padding: 16px; margin: 0; }
 
 /* ─── DENEYİM ─── */
 .pa-den-grid {
