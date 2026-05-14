@@ -1,9 +1,10 @@
 .ust-serit {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 26px;
-  background: linear-gradient(90deg, #0a0a0a, #1a1a1a, #0a0a0a);
-  border-bottom: 1px solid #FFD700;
+  height: 36px;
+  background: linear-gradient(90deg, #0d0d0d, #1f1800, #0d0d0d);
+  border-top: 2px solid #FFD700;
+  border-bottom: 2px solid #FFD700;
   overflow: hidden;
   z-index: 1001;
   user-select: none !important;
@@ -11,7 +12,7 @@
   -webkit-touch-callout: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
-@media (min-width: 768px) { .ust-serit { height: 30px; } }
+@media (min-width: 768px) { .ust-serit { height: 40px; } }
 
 @keyframes ticker {
   0%   { transform: translateX(0); }
@@ -29,9 +30,9 @@
 .t-item {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 0 14px;
-  font-size: 11px;
+  gap: 5px;
+  padding: 0 16px;
+  font-size: 13px;
   position: relative;
 }
 .t-item:not(:last-child)::after {
