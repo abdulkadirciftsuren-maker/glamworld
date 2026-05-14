@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-ro
 import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import Pirlanta from './components/Pirlanta';
+import UstSerit from './components/UstSerit';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
 import './App.css';
@@ -53,6 +54,7 @@ function Icerik() {
 function App() {
   return (
     <BrowserRouter basename="/glamworld">
+      <UstSerit />
       <Icerik />
     </BrowserRouter>
   );

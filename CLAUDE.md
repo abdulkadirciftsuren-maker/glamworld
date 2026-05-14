@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.12 — Son)
+# GLAMWORLD — Proje Anayasası (V5.13 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1071,6 +1071,49 @@ Yeni özellik isteğinde Code şu adımları uygular:
 
 ---
 
+## 74. ÜST İNCE ŞERİT (TICKER)
+
+- Sayfanın EN ÜSTÜNDE, header'dan önce, `position: fixed; top: 0; z-index: 1001`
+- Yükseklik: 24px (telefon), 28px (PC)
+- Arka plan: `linear-gradient(90deg, #0a0a0a, #1a1a1a, #0a0a0a)` + alt çizgi altın 1px
+- İçerik sağdan sola yumuşak kayar (CSS keyframes, 40s döngü)
+- Hover/touch → animasyon durur (kullanıcı okuyabilir)
+- İçerik: Kullanıcı saati | Ülke+Şehir (bayraksız flagcdn) | USD/TRY | EUR/TRY | GBP/TRY | BTC/USD | 5 şehir saati
+- Emoji YASAK — flagcdn.com bayrakları + metin kullanılır
+- Component: `src/components/UstSerit.jsx` + `src/components/UstSerit.css`
+- Body padding-top: 24px (telefon), 28px (PC) eklenir ki içerik altına gizlenmesin
+
+---
+
+## 75. KONUM API (Otomatik Şehir/Ülke Tespiti)
+
+- Öncelik: 1) Tarayıcı Geolocation 2) ipapi.co (IP-based) 3) Varsayılan: Berlin, DE
+- Endpoint: `https://ipapi.co/json/`
+- localStorage cache: `glamworld_user_location`, 24 saat geçerli
+- Hata olursa: Berlin, Almanya varsayılan
+
+---
+
+## 76. DÖVİZ API (Gerçek Kurlar)
+
+- Endpoint: `https://open.er-api.com/v6/latest/USD` (ücretsiz)
+- Güncelleme: 30 dakika, localStorage cache: `glamworld_exchange_rates`
+- Gösterilecek: USD/TRY, EUR/TRY, GBP/TRY
+- Bitcoin: `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd`
+- Hata varsa: cache göster, cache yoksa "---" göster, çökmez
+
+---
+
+## 77. TICKER ANİMASYONU
+
+```css
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+```
+- İçerik 2 kere render edilir (seamless loop için)
+- Hover + touch → `animation-play-state: paused`
+
+---
+
 ## 72b. ŞEHİRE GÖRE İÇERİK
 
 Kullanıcı kayıt sırasında şehir seçtiğinde, anasayfa ve Keşfet sayfası o şehirdeki profesyonelleri ve hizmetleri öne çıkarır.
@@ -1093,7 +1136,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.12 (Madde 72: Dokunulmaz dosyalar koruma sistemi + Madde 73: Yeni özellik ekleme kuralı)*
+*Son güncelleme: 14 Mayıs 2026 — V5.13 (Madde 74-77: Üst İnce Şerit, Konum API, Döviz API, Ticker animasyonu)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
