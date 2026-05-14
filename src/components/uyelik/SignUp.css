@@ -68,8 +68,10 @@
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin: 14px 0;
+  align-items: stretch;
 }
-.uyelik-secim > span { width: 100%; }
+.uyelik-secim > span { width: 100%; display: flex; }
+.uyelik-kart { height: 100%; }
 .uyelik-kart {
   border-radius: 12px;
   padding: 14px 10px;
@@ -223,6 +225,22 @@
 .signup-alt-link a { color: #FFD700; text-decoration: none; font-weight: 600; }
 
 .hesap-secim-baslik { color: rgba(255,215,0,0.7); font-size: 0.82rem; margin-bottom: 8px; }
+
+.cinsiyet-secim { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.cinsiyet-label {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.cinsiyet-label input[type="radio"] { display: none; }
+.cinsiyet-label:hover { background: rgba(255,215,0,0.08); border-color: rgba(255,215,0,0.3); color: #fff; }
+.cinsiyet-label.aktif { background: rgba(255,215,0,0.13); border-color: #FFD700; color: #FFD700; font-weight: 600; }
 
 .secim-isareti {
   position: absolute; top: 6px; right: 8px;

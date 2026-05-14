@@ -7,24 +7,53 @@ const ULKELER = [
   {cc:'ch',isim:'İsviçre',kod:'+41'},{cc:'be',isim:'Belçika',kod:'+32'},{cc:'fr',isim:'Fransa',kod:'+33'},{cc:'gb',isim:'İngiltere',kod:'+44'},{cc:'us',isim:'ABD',kod:'+1'},
   {cc:'it',isim:'İtalya',kod:'+39'},{cc:'es',isim:'İspanya',kod:'+34'},{cc:'pl',isim:'Polonya',kod:'+48'},{cc:'ru',isim:'Rusya',kod:'+7'},{cc:'pt',isim:'Portekiz',kod:'+351'},
   {cc:'gr',isim:'Yunanistan',kod:'+30'},{cc:'ro',isim:'Romanya',kod:'+40'},{cc:'bg',isim:'Bulgaristan',kod:'+359'},{cc:'hr',isim:'Hırvatistan',kod:'+385'},{cc:'rs',isim:'Sırbistan',kod:'+381'},
-  {cc:'al',isim:'Arnavutluk',kod:'+355'},{cc:'ba',isim:'Bosna Hersek',kod:'+387'},{cc:'az',isim:'Azerbaycan',kod:'+994'},{cc:'kz',isim:'Kazakistan',kod:'+7'},{cc:'ge',isim:'Gürcistan',kod:'+995'},
+  {cc:'al',isim:'Arnavutluk',kod:'+355'},{cc:'ba',isim:'Bosna Hersek',kod:'+387'},{cc:'az',isim:'Azerbaycan',kod:'+994'},{cc:'ge',isim:'Gürcistan',kod:'+995'},{cc:'am',isim:'Ermenistan',kod:'+374'},
+  {cc:'se',isim:'İsveç',kod:'+46'},{cc:'no',isim:'Norveç',kod:'+47'},{cc:'dk',isim:'Danimarka',kod:'+45'},{cc:'fi',isim:'Finlandiya',kod:'+358'},{cc:'hu',isim:'Macaristan',kod:'+36'},
+  {cc:'cz',isim:'Çekya',kod:'+420'},{cc:'sk',isim:'Slovakya',kod:'+421'},{cc:'lt',isim:'Litvanya',kod:'+370'},{cc:'lv',isim:'Letonya',kod:'+371'},{cc:'ee',isim:'Estonya',kod:'+372'},
   {cc:'sa',isim:'S. Arabistan',kod:'+966'},{cc:'ae',isim:'BAE',kod:'+971'},{cc:'eg',isim:'Mısır',kod:'+20'},{cc:'ir',isim:'İran',kod:'+98'},{cc:'iq',isim:'Irak',kod:'+964'},
+  {cc:'jo',isim:'Ürdün',kod:'+962'},{cc:'lb',isim:'Lübnan',kod:'+961'},{cc:'sy',isim:'Suriye',kod:'+963'},{cc:'kz',isim:'Kazakistan',kod:'+7'},{cc:'uz',isim:'Özbekistan',kod:'+998'},
   {cc:'cn',isim:'Çin',kod:'+86'},{cc:'jp',isim:'Japonya',kod:'+81'},{cc:'kr',isim:'G. Kore',kod:'+82'},{cc:'in',isim:'Hindistan',kod:'+91'},{cc:'pk',isim:'Pakistan',kod:'+92'},
-  {cc:'br',isim:'Brezilya',kod:'+55'},{cc:'mx',isim:'Meksika',kod:'+52'},{cc:'ca',isim:'Kanada',kod:'+1'},{cc:'au',isim:'Avustralya',kod:'+61'},{cc:'za',isim:'G. Afrika',kod:'+27'},
-  {cc:'ma',isim:'Fas',kod:'+212'},{cc:'dz',isim:'Cezayir',kod:'+213'},{cc:'ng',isim:'Nijerya',kod:'+234'},{cc:'id',isim:'Endonezya',kod:'+62'},{cc:'my',isim:'Malezya',kod:'+60'},
+  {cc:'bd',isim:'Bangladeş',kod:'+880'},{cc:'th',isim:'Tayland',kod:'+66'},{cc:'vn',isim:'Vietnam',kod:'+84'},{cc:'id',isim:'Endonezya',kod:'+62'},{cc:'my',isim:'Malezya',kod:'+60'},
+  {cc:'sg',isim:'Singapur',kod:'+65'},{cc:'ph',isim:'Filipinler',kod:'+63'},{cc:'br',isim:'Brezilya',kod:'+55'},{cc:'mx',isim:'Meksika',kod:'+52'},{cc:'ar',isim:'Arjantin',kod:'+54'},
+  {cc:'co',isim:'Kolombiya',kod:'+57'},{cc:'cl',isim:'Şili',kod:'+56'},{cc:'ca',isim:'Kanada',kod:'+1'},{cc:'au',isim:'Avustralya',kod:'+61'},{cc:'nz',isim:'Yeni Zelanda',kod:'+64'},
+  {cc:'za',isim:'G. Afrika',kod:'+27'},{cc:'ng',isim:'Nijerya',kod:'+234'},{cc:'ke',isim:'Kenya',kod:'+254'},{cc:'et',isim:'Etiyopya',kod:'+251'},{cc:'ma',isim:'Fas',kod:'+212'},
+  {cc:'dz',isim:'Cezayir',kod:'+213'},{cc:'tn',isim:'Tunus',kod:'+216'},{cc:'ly',isim:'Libya',kod:'+218'},{cc:'gh',isim:'Gana',kod:'+233'},{cc:'tz',isim:'Tanzanya',kod:'+255'},
 ];
 
-const SEHIRLER = [
-  'Berlin','Münih','Hamburg','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig','Dortmund','Essen',
-  'Bremen','Dresden','Hannover','Nürnberg','Duisburg','Bochum','Wuppertal','Bielefeld','Bonn','Münster',
-  'İstanbul','Ankara','İzmir','Bursa','Antalya','Adana','Konya','Gaziantep','Kocaeli','Mersin',
-  'Trabzon','Samsun','Eskişehir','Diyarbakır','Kayseri','Amsterdam','Rotterdam','Viyana','Zürih','Paris',
-  'Lyon','Marsilya','Londra','Manchester','Brüksel','Roma','Milan','Madrid','Barselona','Varşova',
-];
+const SEHIR_DATA = {
+  de:['Berlin','Münih','Hamburg','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig','Dresden','Hannover','Nürnberg','Dortmund'],
+  tr:['İstanbul','Ankara','İzmir','Bursa','Antalya','Adana','Konya','Gaziantep','Kocaeli','Mersin','Trabzon','Samsun'],
+  ua:['Kyiv','Lviv','Odessa','Kharkiv','Dnipro','Zaporizhzhia','Vinnitsya'],
+  nl:['Amsterdam','Rotterdam','Lahey','Utrecht','Eindhoven','Groningen','Tilburg'],
+  at:['Viyana','Graz','Linz','Salzburg','İnnsbruck','Klagenfurt'],
+  ch:['Zürih','Cenevre','Basel','Bern','Lozan','Winterthur'],
+  be:['Brüksel','Antwerp','Ghent','Liège','Charleroi'],
+  fr:['Paris','Lyon','Marsilya','Toulouse','Bordeaux','Lille','Nantes','Strasbourg'],
+  gb:['Londra','Manchester','Birmingham','Glasgow','Leeds','Liverpool','Edinburgh','Bristol'],
+  us:['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','Dallas','San Diego','San Jose'],
+  it:['Roma','Milan','Napoli','Torino','Palermo','Bologna','Floransa','Venedik'],
+  es:['Madrid','Barselona','Valencia','Sevilla','Bilbao','Zaragoza','Málaga'],
+  pl:['Varşova','Kraków','Gdańsk','Wrocław','Poznań','Łódź'],
+  ru:['Moskova','St. Petersburg','Novosibirsk','Yekaterinburg','Kazan','Nijniy Novgorod'],
+  se:['Stockholm','Göteborg','Malmö','Uppsala','Västerås'],
+  no:['Oslo','Bergen','Stavanger','Trondheim'],
+  dk:['Kopenhag','Aarhus','Odense','Aalborg'],
+  sa:['Riyad','Cidde','Mekke','Medine','Dammam'],
+  ae:['Dubai','Abu Dabi','Sharjah','Ajman'],
+  cn:['Pekin','Şanghay','Guangzhou','Shenzhen','Chengdu','Tianjin','Wuhan'],
+  jp:['Tokyo','Osaka','Yokohama','Nagoya','Sapporo','Fukuoka','Kyoto'],
+  kr:['Seul','Busan','Incheon','Daegu','Daejeon'],
+  in:['Mumbai','Delhi','Bangalore','Hyderabad','Chennai','Kolkata','Pune'],
+  br:['São Paulo','Rio de Janeiro','Brasília','Salvador','Fortaleza','Curitiba'],
+  ca:['Toronto','Vancouver','Montreal','Calgary','Ottawa','Edmonton'],
+  au:['Sydney','Melbourne','Brisbane','Perth','Adelaide','Gold Coast'],
+};
+
+const TUM_SEHIRLER = [...new Set(Object.values(SEHIR_DATA).flat())];
 
 function tahminEt() {
   const lang = (navigator.language || 'de').split('-')[0].toLowerCase();
-  const M = { de:'de',tr:'tr',uk:'ua',nl:'nl',fr:'fr',en:'gb',ru:'ru',it:'it',es:'es',pl:'pl',at:'at' };
+  const M = { de:'de',tr:'tr',uk:'ua',nl:'nl',fr:'fr',en:'gb',ru:'ru',it:'it',es:'es',pl:'pl',at:'at',sv:'se',no:'no',da:'dk' };
   return ULKELER.find(u => u.cc === (M[lang] || 'de')) || ULKELER[0];
 }
 
@@ -47,6 +76,19 @@ export function TelefonInput({ onChange }) {
     setNumara(n);
     onChange({ target: { value: `${ulke.kod} ${n}` } });
   };
+
+  const handlePaste = (e) => {
+    const pasted = e.clipboardData.getData('text').trim();
+    if (pasted.startsWith('+')) {
+      e.preventDefault();
+      const esles = ULKELER.find(u => pasted.startsWith(u.kod));
+      const n = (esles ? pasted.slice(esles.kod.length) : pasted).replace(/[\s\-().]/g, '');
+      if (esles) setUlke(esles);
+      setNumara(n);
+      onChange({ target: { value: `${esles ? esles.kod : ulke.kod} ${n}` } });
+    }
+  };
+
   const ulkeSec = (u) => { setUlke(u); setAcik(false); setArama(''); onChange({ target: { value: `${u.kod} ${numara}` } }); };
   const filtre = useMemo(() => arama ? ULKELER.filter(u => u.isim.toLowerCase().includes(arama.toLowerCase()) || u.kod.includes(arama)) : ULKELER, [arama]);
 
@@ -59,7 +101,7 @@ export function TelefonInput({ onChange }) {
           <span className="pa-arr">▾</span>
         </button>
       </Tooltip>
-      <input type="tel" value={numara} onChange={numDegis} placeholder="Telefon numarası" className="pa-tel-input" autoComplete="tel" />
+      <input type="tel" value={numara} onChange={numDegis} onPaste={handlePaste} placeholder="Telefon numarası" className="pa-tel-input" autoComplete="tel" />
       {acik && (
         <div className="pa-tel-drop">
           <input type="text" value={arama} onChange={e => setArama(e.target.value)} placeholder="Ülke ara..." className="pa-search" autoFocus />
@@ -85,7 +127,7 @@ const UZM = [
   { id:'estetisyen',isim:'Estetisyen',   ikon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="4"/><path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg> },
   { id:'masoz',     isim:'Masöz',        ikon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 10c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v2c0 3.3-2.7 6-6 6H10c-3.3 0-6-2.7-6-6v-2z"/></svg> },
   { id:'cilt',      isim:'Cilt Bakımı',  ikon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg> },
-  { id:'kas',       isim:'Kaş & Kirpik', ikon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><ellipse cx="12" cy="12" rx="10" ry="6"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="9" x2="12" y2="6"/></svg> },
+  { id:'kas',       isim:'Kaş & Kirpik', ikon:<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><ellipse cx="12" cy="12" rx="10" ry="6"/><circle cx="12" cy="12" r="3"/></svg> },
   { id:'diger',     isim:'Diğer',        ikon:<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg> },
 ];
 
@@ -105,41 +147,58 @@ export function UzmanlikSecici({ value, onChange }) {
 }
 
 export function SehirOnericisi({ value, onChange }) {
-  const [oneriler, setOneriler] = useState([]);
   const [acik, setAcik] = useState(false);
-  const wRef = useRef(null);
+  const [seciliUlke, setSeciliUlke] = useState('de');
+  const [ara, setAra] = useState('');
 
-  useEffect(() => {
-    const kapat = (e) => { if (wRef.current && !wRef.current.contains(e.target)) setAcik(false); };
-    document.addEventListener('mousedown', kapat);
-    document.addEventListener('touchstart', kapat);
-    return () => { document.removeEventListener('mousedown', kapat); document.removeEventListener('touchstart', kapat); };
-  }, []);
+  const sehirler = ara
+    ? TUM_SEHIRLER.filter(s => s.toLowerCase().includes(ara.toLowerCase())).slice(0, 12)
+    : (SEHIR_DATA[seciliUlke] || []);
 
-  const degis = (e) => {
-    const v = e.target.value;
-    onChange(e);
-    const f = v.length ? SEHIRLER.filter(s => s.toLowerCase().startsWith(v.toLowerCase())).slice(0, 7) : SEHIRLER.slice(0, 8);
-    setOneriler(f); setAcik(f.length > 0);
-  };
-  const sec = (s) => { onChange({ target: { value: s } }); setAcik(false); };
+  const sec = (s) => { onChange({ target: { value: s } }); setAcik(false); setAra(''); };
 
   return (
-    <div className="pa-sehir-wrap" ref={wRef}>
-      <input type="text" value={value} onChange={degis} onFocus={() => { if (!value) { setOneriler(SEHIRLER.slice(0, 8)); setAcik(true); } }} placeholder="Şehir yazın..." className="pa-sehir-in" autoComplete="off" />
-      {acik && oneriler.length > 0 && (
-        <div className="pa-sehir-drop">
-          {oneriler.map(s => (
-            <Tooltip key={s} text={s} position="top">
-              <button type="button" className="pa-sehir-item" onClick={() => sec(s)}>
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                {s}
-              </button>
-            </Tooltip>
-          ))}
+    <>
+      <Tooltip text="Şehir seç" position="top" style={{ width: '100%' }}>
+        <button type="button" className="pa-sehir-tetik" onClick={() => setAcik(true)}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" className="pa-loc-ikon"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          {value || <span className="pa-placeholder">Şehir seçin...</span>}
+        </button>
+      </Tooltip>
+      {acik && (
+        <div className="pa-city-overlay" onClick={() => setAcik(false)}>
+          <div className="pa-city-panel" onClick={e => e.stopPropagation()}>
+            <div className="pa-city-header">
+              <span className="pa-city-title">Şehir Seç</span>
+              <Tooltip text="Kapat" position="top">
+                <button type="button" className="pa-city-kapat" onClick={() => setAcik(false)}>✕</button>
+              </Tooltip>
+            </div>
+            <div className="pa-ulke-scroll">
+              {ULKELER.map(u => (
+                <Tooltip key={u.cc} text={u.isim} position="top">
+                  <button type="button" className={`pa-ulke-chip${seciliUlke === u.cc ? ' ak' : ''}`} onClick={() => { setSeciliUlke(u.cc); setAra(''); }}>
+                    <img src={`https://flagcdn.com/16x12/${u.cc}.png`} alt={u.isim} className="pa-flag" />
+                    <span>{u.isim}</span>
+                  </button>
+                </Tooltip>
+              ))}
+            </div>
+            <input type="text" value={ara} onChange={e => setAra(e.target.value)} placeholder="Şehir ara..." className="pa-city-search" />
+            <div className="pa-city-list">
+              {sehirler.map(s => (
+                <Tooltip key={s} text={s} position="top">
+                  <button type="button" className={`pa-city-item${value === s ? ' ak' : ''}`} onClick={() => sec(s)}>{s}</button>
+                </Tooltip>
+              ))}
+              {ara && sehirler.length === 0 && (
+                <button type="button" className="pa-city-item pa-city-custom" onClick={() => sec(ara)}>"{ara}" — kaydet</button>
+              )}
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

@@ -54,7 +54,7 @@ function hataMesaji(kod) {
   return m[kod] || 'Kayıt başarısız.';
 }
 
-const BOŞ_FORM = { isim:'', soyisim:'', email:'', sifre:'', sifreTekrar:'', telefon:'', uzmanlik:'', sehir:'', deneyim:'', durum:'', sartlar:false };
+const BOŞ_FORM = { isim:'', soyisim:'', email:'', sifre:'', sifreTekrar:'', telefon:'', cinsiyet:'', uzmanlik:'', sehir:'', deneyim:'', durum:'', sartlar:false };
 
 export default function SignUp() {
   const [hesapTuru, setHesapTuru] = useState(null);
@@ -90,7 +90,7 @@ export default function SignUp() {
       await updateProfile(s.user, { displayName: `${form.isim} ${form.soyisim}` });
       await setDoc(doc(db, 'kullanicilar', s.user.uid), {
         isim: form.isim, soyisim: form.soyisim, email: form.email,
-        telefon: form.telefon, hesapTuru,
+        telefon: form.telefon, cinsiyet: form.cinsiyet, hesapTuru,
         ...(hesapTuru === 'profesyonel' ? { uzmanlik: form.uzmanlik, sehir: form.sehir, deneyim: form.deneyim, durum: form.durum } : {}),
         olusturuldu: new Date().toISOString(),
       });
@@ -168,6 +168,17 @@ export default function SignUp() {
             <div className="signup-alan"><label>Şifre Tekrar</label><input type="password" value={form.sifreTekrar} onChange={g('sifreTekrar')} autoComplete="new-password" /></div>
           </div>
           <div className="signup-alan"><label>Telefon</label><TelefonInput value={form.telefon} onChange={g('telefon')} /></div>
+          <div className="signup-alan">
+            <label>Cinsiyet</label>
+            <div className="cinsiyet-secim">
+              {['Erkek','Kadın','Belirtmek İstemiyorum'].map(c => (
+                <label key={c} className={`cinsiyet-label${form.cinsiyet===c?' aktif':''}`}>
+                  <input type="radio" name="cinsiyet" value={c} checked={form.cinsiyet===c} onChange={g('cinsiyet')} />
+                  {c}
+                </label>
+              ))}
+            </div>
+          </div>
 
           {hesapTuru === 'profesyonel' && (
             <div className="prof-alanlar">
