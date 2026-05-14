@@ -164,29 +164,36 @@ export function UzmanlikSecici({ value, onChange }) {
   );
 }
 
+const PIN = <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>;
+
 export function SehirOnericisi({ value, onChange }) {
   const [acik, setAcik] = useState(false);
   const [seciliUlke, setSeciliUlke] = useState('de');
-  const [ara, setAra] = useState('');
+  const [ulkeAra, setUlkeAra] = useState('');
+  const [sehirAra, setSehirAra] = useState('');
 
   useEffect(() => {
-    if (acik) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-    } else {
+    if (!acik) { window.__sehirAcik = false; return; }
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    window.__sehirAcik = true;
+    window.history.pushState(null, '', window.location.pathname);
+    const kapat = () => setAcik(false);
+    window.addEventListener('popstate', kapat, { once: true });
+    return () => {
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-    }
-    return () => { document.body.style.overflow = ''; document.body.style.position = ''; document.body.style.width = ''; };
+      window.__sehirAcik = false;
+      window.removeEventListener('popstate', kapat);
+    };
   }, [acik]);
 
-  const sehirler = ara
-    ? TUM_SEHIRLER.filter(s => s.toLowerCase().includes(ara.toLowerCase())).slice(0, 16)
-    : (SEHIR_DATA[seciliUlke] || []);
-
-  const sec = (s) => { onChange({ target: { value: s } }); setAcik(false); setAra(''); };
+  const filtreUlke = ulkeAra ? ULKELER.filter(u => u.isim.toLowerCase().includes(ulkeAra.toLowerCase())) : ULKELER;
+  const sehirler = sehirAra ? TUM_SEHIRLER.filter(s => s.toLowerCase().includes(sehirAra.toLowerCase())).slice(0, 16) : (SEHIR_DATA[seciliUlke] || []);
+  const sec = (s) => { onChange({ target: { value: s } }); setAcik(false); setSehirAra(''); setUlkeAra(''); };
+  const secilenUlke = ULKELER.find(u => u.cc === seciliUlke);
 
   return (
     <>
@@ -205,30 +212,45 @@ export function SehirOnericisi({ value, onChange }) {
                 <button type="button" className="pa-city-kapat" onClick={() => setAcik(false)}>✕</button>
               </Tooltip>
             </div>
-            <div className="pa-ulke-scroll">
-              {ULKELER.map(u => (
-                <Tooltip key={u.cc} text={u.isim} position="top">
-                  <button type="button" className={`pa-ulke-chip${seciliUlke === u.cc ? ' ak' : ''}`} onClick={() => { setSeciliUlke(u.cc); setAra(''); }}>
-                    <img src={`https://flagcdn.com/16x12/${u.cc}.png`} alt={u.isim} className="pa-flag" />
-                    <span>{u.isim}</span>
-                  </button>
-                </Tooltip>
-              ))}
+
+            <div className="pa-ulke-sec">
+              <input type="text" value={ulkeAra} onChange={e => setUlkeAra(e.target.value)} placeholder="Ülke ara..." className="pa-city-search" autoComplete="off" />
+              <div className="pa-ulke-list">
+                {filtreUlke.map(u => (
+                  <Tooltip key={u.cc} text={u.isim} position="top">
+                    <button type="button" className={`pa-ulke-row${seciliUlke === u.cc ? ' ak' : ''}`} onClick={() => { setSeciliUlke(u.cc); setSehirAra(''); setUlkeAra(''); }}>
+                      <img src={`https://flagcdn.com/16x12/${u.cc}.png`} alt={u.isim} className="pa-flag" />
+                      <span>{u.isim}</span>
+                      {seciliUlke === u.cc && <span className="pa-chk">✓</span>}
+                    </button>
+                  </Tooltip>
+                ))}
+              </div>
             </div>
-            <input type="text" value={ara} onChange={e => setAra(e.target.value)} placeholder="Şehir ara..." className="pa-city-search" autoComplete="off" />
-            <div className="pa-city-list">
-              {sehirler.length > 0 ? sehirler.map(s => (
-                <Tooltip key={s} text={s} position="top">
-                  <button type="button" className={`pa-city-item${value === s ? ' ak' : ''}`} onClick={() => sec(s)}>{s}</button>
-                </Tooltip>
-              )) : (
-                <p className="pa-city-bos">Şehir adını yukarıya yazın</p>
+
+            <div className="pa-sehir-sec">
+              {secilenUlke && (
+                <div className="pa-sehir-baslik">
+                  <img src={`https://flagcdn.com/16x12/${secilenUlke.cc}.png`} alt={secilenUlke.isim} className="pa-flag" />
+                  <span>{secilenUlke.isim} şehirleri</span>
+                </div>
               )}
-              {ara && !sehirler.find(s => s.toLowerCase() === ara.toLowerCase()) && (
-                <Tooltip text={`"${ara}" olarak kaydet`} position="top">
-                  <button type="button" className="pa-city-item pa-city-custom" onClick={() => sec(ara)}>"{ara}" — kaydet</button>
-                </Tooltip>
-              )}
+              <input type="text" value={sehirAra} onChange={e => setSehirAra(e.target.value)} placeholder="Şehir ara..." className="pa-city-search" autoComplete="off" />
+              <div className="pa-city-list">
+                {sehirler.map(s => (
+                  <Tooltip key={s} text={s} position="top">
+                    <button type="button" className={`pa-city-item${value === s ? ' ak' : ''}`} onClick={() => sec(s)}>
+                      {PIN}{s}
+                    </button>
+                  </Tooltip>
+                ))}
+                {sehirler.length === 0 && !sehirAra && <p className="pa-city-bos">Şehir adını yukarı yazın</p>}
+                {sehirAra && !sehirler.find(s => s.toLowerCase() === sehirAra.toLowerCase()) && (
+                  <Tooltip text={`"${sehirAra}" kaydet`} position="top">
+                    <button type="button" className="pa-city-item pa-city-custom" onClick={() => sec(sehirAra)}>"{sehirAra}" — kaydet</button>
+                  </Tooltip>
+                )}
+              </div>
             </div>
           </div>
         </div>

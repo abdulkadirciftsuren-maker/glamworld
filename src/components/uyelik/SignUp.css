@@ -71,7 +71,7 @@
   align-items: stretch;
 }
 .uyelik-secim > span { width: 100%; display: flex; }
-.uyelik-kart { height: 100%; }
+.uyelik-kart { height: 100%; width: 100%; }
 .uyelik-kart {
   border-radius: 12px;
   padding: 14px 10px;

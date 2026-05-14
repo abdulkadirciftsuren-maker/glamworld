@@ -67,7 +67,7 @@ export default function SignUp() {
     const esc = (e) => { if (e.key === 'Escape') navigate('/'); };
     document.addEventListener('keydown', esc);
     window.history.pushState(null, '', window.location.pathname);
-    const popstate = () => navigate('/');
+    const popstate = () => { if (window.__sehirAcik) return; navigate('/'); };
     window.addEventListener('popstate', popstate);
     return () => {
       document.removeEventListener('keydown', esc);
