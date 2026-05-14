@@ -26,12 +26,19 @@ export default function GeriButon() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const sagAltaSifirla = () => setKonum(sagAlt());
-    window.addEventListener('resize', sagAltaSifirla);
-    window.addEventListener('orientationchange', sagAltaSifirla);
+    let sonGenislik = window.innerWidth;
+    const resizeSifirla = () => {
+      if (window.innerWidth !== sonGenislik) {
+        sonGenislik = window.innerWidth;
+        setKonum(sagAlt());
+      }
+    };
+    const orientationSifirla = () => setKonum(sagAlt());
+    window.addEventListener('resize', resizeSifirla);
+    window.addEventListener('orientationchange', orientationSifirla);
     return () => {
-      window.removeEventListener('resize', sagAltaSifirla);
-      window.removeEventListener('orientationchange', sagAltaSifirla);
+      window.removeEventListener('resize', resizeSifirla);
+      window.removeEventListener('orientationchange', orientationSifirla);
     };
   }, []);
 
