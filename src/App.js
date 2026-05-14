@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
@@ -52,6 +53,30 @@ function Icerik() {
 }
 
 function App() {
+  useEffect(() => {
+    const noMenu = (e) => {
+      const t = e.target.tagName;
+      if (t !== 'INPUT' && t !== 'TEXTAREA' && t !== 'SELECT') e.preventDefault();
+    };
+    const noCopy = (e) => {
+      const t = e.target.tagName;
+      if (t !== 'INPUT' && t !== 'TEXTAREA') e.preventDefault();
+    };
+    const noDrag = (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    };
+    document.addEventListener('contextmenu', noMenu);
+    document.addEventListener('copy', noCopy);
+    document.addEventListener('cut', noCopy);
+    document.addEventListener('dragstart', noDrag);
+    return () => {
+      document.removeEventListener('contextmenu', noMenu);
+      document.removeEventListener('copy', noCopy);
+      document.removeEventListener('cut', noCopy);
+      document.removeEventListener('dragstart', noDrag);
+    };
+  }, []);
+
   return (
     <BrowserRouter basename="/glamworld">
       <UstSerit />

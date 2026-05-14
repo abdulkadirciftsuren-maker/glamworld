@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
 import './UstSerit.css';
 
@@ -37,11 +38,15 @@ function flag(cc) {
 }
 
 export default function UstSerit() {
+  const { pathname } = useLocation();
   const [saat, setSaat]     = useState(new Date());
   const [konum, setKonum]   = useState(null);
   const [kurlar, setKurlar] = useState(null);
   const [btc, setBtc]       = useState(null);
+  const [eth, setEth]       = useState(null);
   const [dur, setDur]       = useState(false);
+  const altin = 2580;
+  const gumus = 29;
 
   useEffect(() => {
     const id = setInterval(() => setSaat(new Date()), 1000);
@@ -80,63 +85,79 @@ export default function UstSerit() {
   }, []);
 
   useEffect(() => {
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd')
       .then(r => r.json())
-      .then(d => setBtc(d.bitcoin?.usd))
+      .then(d => { setBtc(d.bitcoin?.usd); setEth(d.ethereum?.usd); })
       .catch(() => {});
   }, []);
 
-  const kulKod   = konum?.code || 'DE';
-  const kulUlke  = ULKELER[kulKod] || ULKELER.DE;
-  const bazPara  = kulUlke.para;
-  const fmt      = (d) => d.toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit' });
+  if (pathname === '/giris' || pathname === '/uye-ol') return null;
+
+  const kulKod  = konum?.code || 'DE';
+  const kulUlke = ULKELER[kulKod] || ULKELER.DE;
+  const bazPara = kulUlke.para;
+  const fmt     = (d) => d.toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit' });
 
   function kur(para) {
     if (!kurlar || !kurlar[para] || !kurlar[bazPara]) return '---';
     return (kurlar[para] / kurlar[bazPara]).toFixed(2);
   }
 
-  const dovizler = Object.entries(ULKELER)
-    .filter(([k, u]) => u.para !== bazPara)
-    .map(([k, u]) => ({ cc: u.cc, para: u.para, deger: kur(u.para) }));
-
-  const sehirler = Object.entries(ULKELER)
-    .filter(([k]) => k !== kulKod)
-    .map(([k, u]) => ({ cc: u.cc, sehir: u.sehir, tz: u.tz }));
-
   const items = [
-    <span key="saat" className="t-item">
+    <span key="saat" className="t-item t-saat">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span className="t-beyaz">{fmt(saat)}</span>
+      <span className="t-altin">{fmt(saat)}</span>
     </span>,
 
-    <span key="kullanici" className="t-item t-kullanici">
+    <span key="buradasin" className="t-item t-kullanici">
       <Pirlanta renk="mavi" boyut={12} />
       {flag(kulUlke.cc)}
       <span className="t-altin">{konum?.city || kulUlke.sehir}, {konum?.country || kulUlke.ad}</span>
       <span className="t-rozet">BURADASIN</span>
     </span>,
 
-    ...dovizler.map(d => (
-      <span key={`dov-${d.para}`} className="t-item">
-        {flag(d.cc)}
-        <span className="t-para-kod">{d.para}</span>
-        <span className="t-altin">{d.deger}</span>
+    ...Object.entries(ULKELER).map(([k, u]) => (
+      <span key={`ulke-${k}`} className="t-item t-ulke-blok">
+        {flag(u.cc)}
+        <span className="t-altin">{u.sehir}</span>
+        <span className="t-beyaz">{saatTz(u.tz)}</span>
+        <span className="t-para-kod">{u.para}</span>
       </span>
     )),
+
+    <span key="piyasa" className="t-item t-piyasa-sep">PİYASA</span>,
+
+    ...Object.entries(ULKELER)
+      .filter(([, u]) => u.para !== bazPara)
+      .slice(0, 12)
+      .map(([k, u]) => (
+        <span key={`dov-${k}`} className="t-item">
+          {flag(u.cc)}
+          <span className="t-para-kod">{u.para}</span>
+          <span className="t-altin">{kur(u.para)}</span>
+          <span className="t-gri">{bazPara}</span>
+        </span>
+      )),
+
+    <span key="altin" className="t-item">
+      <span className="t-altin-label">ALTIN</span>
+      <span className="t-altin">${altin}</span>
+    </span>,
+
+    <span key="gumus" className="t-item">
+      <span className="t-gumus-label">GÜMÜŞ</span>
+      <span className="t-beyaz">${gumus}</span>
+    </span>,
 
     btc && <span key="btc" className="t-item">
       <span className="t-btc">BTC</span>
       <span className="t-btc-deger">${btc.toLocaleString()}</span>
     </span>,
 
-    ...sehirler.map(s => (
-      <span key={`s-${s.cc}`} className="t-item">
-        {flag(s.cc)}
-        <span className="t-altin">{s.sehir}</span>
-        <span className="t-beyaz">{saatTz(s.tz)}</span>
-      </span>
-    )),
+    eth && <span key="eth" className="t-item">
+      <span className="t-eth">ETH</span>
+      <span className="t-eth-deger">${eth.toLocaleString()}</span>
+    </span>,
   ].filter(Boolean);
 
   return (

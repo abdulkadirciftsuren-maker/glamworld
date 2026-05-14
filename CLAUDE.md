@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.15 — Son)
+# GLAMWORLD — Proje Anayasası (V5.16 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -995,11 +995,13 @@ Telefon dar ise: alt alta (margin-top: 12px)
 
 ## 69. KOPYALAMA/SEÇİM ENGELLEME
 
-- Tüm buton, kart, logo, başlık, paragraf metinleri `user-select: none` zorunlu
-- `-webkit-touch-callout: none` — Android uzun basma menüsü engellenir
-- `-webkit-tap-highlight-color: transparent` — mavi/gri parıltı kaldırılır
-- Resimler ve SVG: `user-drag: none` — sürükleme engellenir
+- Tüm buton, kart, logo, başlık, paragraf metinleri `user-select: none !important` zorunlu
+- `-webkit-touch-callout: none !important` — Android uzun basma menüsü engellenir
+- `-webkit-tap-highlight-color: transparent !important`
+- Resimler ve SVG: `user-drag: none !important` — sürükleme engellenir
 - **İSTİSNA:** `input`, `textarea`, `select` → kopyalama/seçim SERBEST (`!important` ile)
+- JS (App.js useEffect): `contextmenu`, `copy`, `cut`, `dragstart` → `preventDefault` (form harici)
+- Sağ tık menüsü, Ctrl+C, Ctrl+X → engellendi
 - Yeni eklenen her component bu kurala otomatik uyar (index.css global kural)
 
 ---
@@ -1082,8 +1084,19 @@ Yeni özellik isteğinde Code şu adımları uygular:
 - Component: `src/components/UstSerit.jsx` + `src/components/UstSerit.css`
 - Body padding-top: 24px (telefon), 28px (PC) eklenir ki içerik altına gizlenmesin
 
-**24 ÜLKE / 5 KITA (B19 itibariyle):**
+**24 ÜLKE / 5 KITA + 24 PARA BİRİMİ (B20 itibariyle):**
 Avrupa: Almanya, İngiltere, İsviçre, Rusya, Ukrayna | Orta Doğu/Afrika: Türkiye, S.Arabistan, Mısır, BAE, Güney Afrika, Nijerya, Fas | Amerika: ABD, Brezilya, Arjantin, Meksika, Kolombiya | Asya: Japonya, Çin, Hong Kong, Malezya, Hindistan, Pakistan | Okyanusya: Avustralya
+
+**İçerik yapısı (B20):**
+1. Kullanıcı saati (altın, büyük)
+2. Kullanıcı şehri (Pırlanta mavi + BURADASIN rozeti + altın)
+3. 24 ülke BLOK (bayrak + şehir altın + saat + para kodu)
+4. PİYASA bölümü (altın çerçeveli başlık)
+5. 12 döviz çifti (otomatik baz para)
+6. ALTIN + GÜMÜŞ (statik fiyat)
+7. BTC (turuncu) + ETH (mavi)
+
+**Modal (Login/SignUp) açıkken:** `return null` — şerit tamamen gizlenir
 
 **İçerik sırası:**
 1. Kullanıcı saati (saat SVG ikonu)
@@ -1123,6 +1136,25 @@ Avrupa: Almanya, İngiltere, İsviçre, Rusya, Ukrayna | Orta Doğu/Afrika: Tür
 
 ---
 
+## 79. ALTIN ÇERÇEVE (Sayfa Dekorasyonu)
+
+- `body { border: 1.5px solid rgba(255,215,0,0.55); box-shadow: inset 0 0 14px rgba(255,215,0,0.1); }`
+- PC: `border-width: 2px`
+- `box-sizing: border-box; min-height: 100vh`
+- Tüm sayfalarda görünür, modal/popup ile uyumlu
+- Marka kimliği detayı — lüks his verir
+
+---
+
+## 80. MODAL VE ÜST ŞERİT İLİŞKİSİ
+
+- Login (/giris) ve SignUp (/uye-ol) açıkken üst şerit `return null` ile TAMAMEN GİZLENİR
+- `useLocation` ile URL bazlı kontrol (UstSerit.jsx içinde)
+- Modal kapanınca şerit otomatik geri görünür
+- Login/SignUp X butonu (position:fixed, top:16px) artık görünür
+
+---
+
 ## 78. KART DIŞI TIKLAMA ZORUNLULUĞU
 
 - TÜM modal, popup, dropdown, açılır panel'lerde kart DIŞINA tıklama → kapatır
@@ -1156,7 +1188,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.15 (Madde 74 güncellendi: 24 ülke/5 kıta + Login/SignUp kart dışı tıklama hook eklendi)*
+*Son güncelleme: 14 Mayıs 2026 — V5.16 (M.74: 24 ülke blok yapısı+piyasa+metaller+kripto; M.69 güçlendi: JS preventDefault; M.79: altın çerçeve; M.80: modal-şerit gizleme)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

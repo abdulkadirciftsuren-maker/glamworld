@@ -6,10 +6,10 @@
   border-bottom: 1px solid #FFD700;
   overflow: hidden;
   z-index: 1001;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: transparent;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 @media (min-width: 768px) { .ust-serit { height: 30px; } }
 
@@ -22,7 +22,7 @@
   align-items: center;
   height: 100%;
   white-space: nowrap;
-  animation: ticker 90s linear infinite;
+  animation: ticker 120s linear infinite;
 }
 .t-icerik.dur { animation-play-state: paused; }
 
@@ -30,39 +30,36 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 0 18px;
+  padding: 0 14px;
   font-size: 11px;
-  font-weight: 400;
   position: relative;
 }
 .t-item:not(:last-child)::after {
   content: '|';
   position: absolute;
   right: -2px;
-  color: #FFD700;
-  opacity: 0.35;
-  font-size: 10px;
+  color: rgba(255,215,0,0.3);
+  font-size: 9px;
 }
 
-.t-beyaz    { color: rgba(255,255,255,0.85); }
+.t-beyaz    { color: rgba(255,255,255,0.82); }
 .t-altin    { color: #FFD700; font-weight: 600; }
-.t-gri      { color: rgba(255,255,255,0.4); font-size: 10px; }
-.t-para-kod { color: rgba(255,255,255,0.55); font-size: 10px; }
-.t-btc      { color: #F7931A; font-weight: 700; font-size: 11px; }
-.t-btc-deger{ color: #F7931A; font-weight: 600; }
+.t-gri      { color: rgba(255,255,255,0.35); font-size: 9px; }
+.t-para-kod { color: rgba(255,215,0,0.6); font-size: 10px; font-weight: 600; }
 .t-flag     { border-radius: 1px; flex-shrink: 0; }
 
-.t-kullanici {
-  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.14), transparent);
-  border-radius: 4px;
-  padding: 0 22px;
-}
+.t-saat .t-altin { font-size: 13px; }
 
+.t-kullanici {
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.13), transparent);
+  border-radius: 4px;
+  padding: 0 18px;
+}
 .t-rozet {
   display: inline-block;
   background: linear-gradient(135deg, #FFD700, #FFA500);
   color: #000;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   padding: 1px 6px;
   border-radius: 8px;
@@ -74,8 +71,33 @@
   50%       { box-shadow: 0 0 12px rgba(255,215,0,0.9); }
 }
 
+.t-ulke-blok {
+  border-right: 1px solid rgba(255,215,0,0.18);
+  padding-right: 14px;
+  margin-right: 2px;
+  gap: 5px;
+}
+
+.t-piyasa-sep {
+  color: #FFD700;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 0 20px;
+  border-left: 2px solid rgba(255,215,0,0.5);
+  border-right: 2px solid rgba(255,215,0,0.5);
+}
+
+.t-altin-label { color: #FFD700; font-weight: 700; font-size: 10px; }
+.t-gumus-label { color: #C8C8C8; font-weight: 700; font-size: 10px; }
+.t-btc         { color: #F7931A; font-weight: 700; font-size: 11px; }
+.t-btc-deger   { color: #F7931A; font-weight: 600; }
+.t-eth         { color: #627EEA; font-weight: 700; font-size: 11px; }
+.t-eth-deger   { color: #627EEA; font-weight: 600; }
+
 @media (min-width: 768px) {
-  .t-item     { font-size: 12px; padding: 0 22px; }
-  .t-para-kod { font-size: 11px; }
-  .t-btc, .t-btc-deger { font-size: 12px; }
+  .t-item    { font-size: 12px; padding: 0 16px; }
+  .t-para-kod{ font-size: 11px; }
+  .t-gri     { font-size: 10px; }
+  .t-saat .t-altin { font-size: 14px; }
 }
