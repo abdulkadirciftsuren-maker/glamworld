@@ -1,11 +1,9 @@
 .ust-serit {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 24px;
   background: linear-gradient(90deg, #0a0a0a, #1a1a1a, #0a0a0a);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.5);
+  border-bottom: 1px solid rgba(255,215,0,0.5);
   overflow: hidden;
   z-index: 1001;
   user-select: none;
@@ -14,57 +12,72 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-@media (min-width: 768px) {
-  .ust-serit { height: 28px; }
-}
+@media (min-width: 768px) { .ust-serit { height: 28px; } }
 
 @keyframes ticker {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-.ticker-icerik {
+.t-icerik {
   display: inline-flex;
   align-items: center;
   height: 100%;
   white-space: nowrap;
-  animation: ticker 45s linear infinite;
+  animation: ticker 55s linear infinite;
 }
+.t-icerik.dur { animation-play-state: paused; }
 
-.ticker-icerik.dur {
-  animation-play-state: paused;
-}
-
-.ticker-item {
+.t-item {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   padding: 0 18px;
-  color: rgba(255, 255, 255, 0.85);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.2px;
   position: relative;
 }
-
-.ticker-item b {
-  color: #FFD700;
-  font-weight: 600;
-}
-
-.ticker-item:not(:last-child)::after {
+.t-item:not(:last-child)::after {
   content: '|';
   position: absolute;
   right: -1px;
-  color: rgba(255, 215, 0, 0.35);
+  color: rgba(255,215,0,0.3);
   font-size: 10px;
 }
 
-.ticker-flag {
-  border-radius: 1px;
-  flex-shrink: 0;
+.t-beyaz  { color: rgba(255,255,255,0.85); }
+.t-altin  { color: #FFD700; font-weight: 600; }
+.t-gri    { color: rgba(255,255,255,0.45); font-size: 10px; }
+.t-btc    { color: #F7931A; font-weight: 600; font-size: 11px; }
+.t-btc-deger { color: #F7931A; font-weight: 700; }
+
+.t-flag { border-radius: 1px; flex-shrink: 0; }
+
+.t-kullanici {
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.12), transparent);
+  border-radius: 4px;
+  padding: 0 20px;
+}
+
+.t-rozet {
+  display: inline-block;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 8px;
+  letter-spacing: 0.4px;
+  animation: rozetParla 2s ease-in-out infinite;
+}
+
+@keyframes rozetParla {
+  0%, 100% { box-shadow: 0 0 4px rgba(255,215,0,0.4); }
+  50%       { box-shadow: 0 0 12px rgba(255,215,0,0.9); }
 }
 
 @media (min-width: 768px) {
-  .ticker-item { font-size: 12px; padding: 0 22px; }
+  .t-item     { font-size: 12px; padding: 0 22px; }
+  .t-btc      { font-size: 12px; }
 }

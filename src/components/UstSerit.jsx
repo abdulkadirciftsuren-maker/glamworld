@@ -1,32 +1,40 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import Pirlanta from './Pirlanta';
 import './UstSerit.css';
 
-const SEHIRLER = [
-  { isim: 'Berlin',    cc: 'de', ofset: 1 },
-  { isim: 'İstanbul', cc: 'tr', ofset: 3 },
-  { isim: 'New York', cc: 'us', ofset: -5 },
-  { isim: 'London',   cc: 'gb', ofset: 0 },
-  { isim: 'Tokyo',    cc: 'jp', ofset: 9 },
-];
+const ULKELER = {
+  DE: { ad:'Almanya',          sehir:'Berlin',       cc:'de', para:'EUR', tz:'Europe/Berlin' },
+  TR: { ad:'Türkiye',          sehir:'İstanbul',     cc:'tr', para:'TRY', tz:'Europe/Istanbul' },
+  US: { ad:'ABD',              sehir:'New York',     cc:'us', para:'USD', tz:'America/New_York' },
+  GB: { ad:'İngiltere',        sehir:'Londra',       cc:'gb', para:'GBP', tz:'Europe/London' },
+  CH: { ad:'İsviçre',          sehir:'Zürih',        cc:'ch', para:'CHF', tz:'Europe/Zurich' },
+  RU: { ad:'Rusya',            sehir:'Moskova',      cc:'ru', para:'RUB', tz:'Europe/Moscow' },
+  UA: { ad:'Ukrayna',          sehir:'Kiev',         cc:'ua', para:'UAH', tz:'Europe/Kiev' },
+  SA: { ad:'Suudi Arabistan',  sehir:'Riyad',        cc:'sa', para:'SAR', tz:'Asia/Riyadh' },
+  EG: { ad:'Mısır',            sehir:'Kahire',       cc:'eg', para:'EGP', tz:'Africa/Cairo' },
+  AE: { ad:'BAE',              sehir:'Dubai',        cc:'ae', para:'AED', tz:'Asia/Dubai' },
+  JP: { ad:'Japonya',          sehir:'Tokyo',        cc:'jp', para:'JPY', tz:'Asia/Tokyo' },
+  CN: { ad:'Çin',              sehir:'Pekin',        cc:'cn', para:'CNY', tz:'Asia/Shanghai' },
+  HK: { ad:'Hong Kong',        sehir:'Hong Kong',    cc:'hk', para:'HKD', tz:'Asia/Hong_Kong' },
+  MY: { ad:'Malezya',          sehir:'Kuala Lumpur', cc:'my', para:'MYR', tz:'Asia/Kuala_Lumpur' },
+  IN: { ad:'Hindistan',        sehir:'Yeni Delhi',   cc:'in', para:'INR', tz:'Asia/Kolkata' },
+  PK: { ad:'Pakistan',         sehir:'İslamabad',    cc:'pk', para:'PKR', tz:'Asia/Karachi' },
+};
 
-function sehirSaati(ofset) {
-  const simdi = new Date();
-  const utc = simdi.getTime() + simdi.getTimezoneOffset() * 60000;
-  const yerel = new Date(utc + ofset * 3600000);
-  return yerel.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+function saatTz(tz) {
+  return new Date().toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit', timeZone: tz });
 }
 
 function bayrak(cc) {
-  return <img src={`https://flagcdn.com/16x12/${cc}.png`} alt={cc} className="ticker-flag" />;
+  return <img src={`https://flagcdn.com/16x12/${cc}.png`} alt={cc} className="t-flag" />;
 }
 
 export default function UstSerit() {
-  const [saat, setSaat] = useState(() => new Date());
+  const [saat, setSaat] = useState(new Date());
   const [konum, setKonum] = useState(null);
   const [kurlar, setKurlar] = useState(null);
   const [btc, setBtc] = useState(null);
-  const [duraklatildi, setDuraklatildi] = useState(false);
-  const dokunmaRef = useRef(false);
+  const [dur, setDur] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => setSaat(new Date()), 1000);
@@ -42,11 +50,11 @@ export default function UstSerit() {
     fetch('https://ipapi.co/json/')
       .then(r => r.json())
       .then(d => {
-        const loc = { city: d.city, country: d.country_name, cc: d.country_code?.toLowerCase() };
+        const loc = { city: d.city, country: d.country_name, code: d.country_code?.toUpperCase() || 'DE' };
         setKonum(loc);
         localStorage.setItem('glamworld_user_location', JSON.stringify({ location: loc, timestamp: Date.now() }));
       })
-      .catch(() => setKonum({ city: 'Berlin', country: 'Almanya', cc: 'de' }));
+      .catch(() => setKonum({ city:'Berlin', country:'Almanya', code:'DE' }));
   }, []);
 
   useEffect(() => {
@@ -71,39 +79,71 @@ export default function UstSerit() {
       .catch(() => {});
   }, []);
 
-  const fmt = (d) => d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-  const try_ = kurlar?.TRY;
-  const eur_ = kurlar?.EUR;
-  const gbp_ = kurlar?.GBP;
+  const kulKod = konum?.code || 'DE';
+  const kulUlke = ULKELER[kulKod] || ULKELER.DE;
+  const bazPara = kulUlke.para;
+
+  function doviz(kaynak, hedef) {
+    if (!kurlar) return '---';
+    const r = kurlar[kaynak] && kurlar[hedef]
+      ? (kurlar[hedef] / kurlar[kaynak]).toFixed(2)
+      : '---';
+    return r;
+  }
+
+  const dovizCiftleri = bazPara === 'TRY'
+    ? [['USD','TRY'],['EUR','TRY'],['GBP','TRY'],['JPY','TRY'],['CHF','TRY']]
+    : bazPara === 'USD'
+    ? [['USD','EUR'],['USD','GBP'],['USD','TRY'],['USD','JPY'],['USD','CHF']]
+    : [['USD',bazPara],['EUR',bazPara],['GBP',bazPara],['TRY',bazPara],['JPY',bazPara]];
+
+  const fmt = (d) => d.toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit' });
 
   const items = [
-    <span key="saat" className="ticker-item">
+    <span key="saat" className="t-item">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      {fmt(saat)}
+      <span className="t-beyaz">{fmt(saat)}</span>
     </span>,
-    konum && <span key="konum" className="ticker-item">
-      {bayrak(konum.cc)}{konum.city}, {konum.country}
+
+    <span key="kullanici" className="t-item t-kullanici">
+      <Pirlanta renk="mavi" boyut={12} />
+      {bayrak(kulUlke.cc)}
+      <span className="t-altin">{konum?.city || kulUlke.sehir}, {konum?.country || kulUlke.ad}</span>
+      <span className="t-rozet">BURADASIN</span>
     </span>,
-    try_ && <span key="usd" className="ticker-item">USD/TRY <b>{try_.toFixed(2)}</b></span>,
-    try_ && eur_ && <span key="eur" className="ticker-item">EUR/TRY <b>{(try_ / eur_).toFixed(2)}</b></span>,
-    try_ && gbp_ && <span key="gbp" className="ticker-item">GBP/TRY <b>{(try_ / gbp_).toFixed(2)}</b></span>,
-    btc && <span key="btc" className="ticker-item">BTC <b>${btc.toLocaleString()}</b></span>,
-    ...SEHIRLER.map(s => (
-      <span key={s.isim} className="ticker-item">
-        {bayrak(s.cc)}{s.isim} {sehirSaati(s.ofset)}
+
+    ...dovizCiftleri.map(([k, h]) => (
+      <span key={`${k}${h}`} className="t-item">
+        <span className="t-gri">{k}/{h}</span>
+        <span className="t-altin">{doviz(k, h)}</span>
       </span>
     )),
+
+    btc && <span key="btc" className="t-item">
+      <span className="t-btc">BTC</span>
+      <span className="t-btc-deger">${btc.toLocaleString()}</span>
+    </span>,
+
+    ...Object.entries(ULKELER)
+      .filter(([k]) => k !== kulKod)
+      .map(([k, u]) => (
+        <span key={`tz-${k}`} className="t-item">
+          {bayrak(u.cc)}
+          <span className="t-altin">{u.sehir}</span>
+          <span className="t-beyaz">{saatTz(u.tz)}</span>
+        </span>
+      )),
   ].filter(Boolean);
 
   return (
     <div
       className="ust-serit"
-      onMouseEnter={() => setDuraklatildi(true)}
-      onMouseLeave={() => setDuraklatildi(false)}
-      onTouchStart={() => { dokunmaRef.current = true; setDuraklatildi(true); }}
-      onTouchEnd={() => { dokunmaRef.current = false; setDuraklatildi(false); }}
+      onMouseEnter={() => setDur(true)}
+      onMouseLeave={() => setDur(false)}
+      onTouchStart={() => setDur(true)}
+      onTouchEnd={() => setDur(false)}
     >
-      <div className={`ticker-icerik${duraklatildi ? ' dur' : ''}`}>
+      <div className={`t-icerik${dur ? ' dur' : ''}`}>
         {items}{items}
       </div>
     </div>

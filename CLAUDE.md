@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.13 — Son)
+# GLAMWORLD — Proje Anayasası (V5.14 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1076,12 +1076,21 @@ Yeni özellik isteğinde Code şu adımları uygular:
 - Sayfanın EN ÜSTÜNDE, header'dan önce, `position: fixed; top: 0; z-index: 1001`
 - Yükseklik: 24px (telefon), 28px (PC)
 - Arka plan: `linear-gradient(90deg, #0a0a0a, #1a1a1a, #0a0a0a)` + alt çizgi altın 1px
-- İçerik sağdan sola yumuşak kayar (CSS keyframes, 40s döngü)
+- İçerik sağdan sola yumuşak kayar (CSS keyframes, 55s döngü)
 - Hover/touch → animasyon durur (kullanıcı okuyabilir)
-- İçerik: Kullanıcı saati | Ülke+Şehir (bayraksız flagcdn) | USD/TRY | EUR/TRY | GBP/TRY | BTC/USD | 5 şehir saati
 - Emoji YASAK — flagcdn.com bayrakları + metin kullanılır
 - Component: `src/components/UstSerit.jsx` + `src/components/UstSerit.css`
 - Body padding-top: 24px (telefon), 28px (PC) eklenir ki içerik altına gizlenmesin
+
+**16 ÜLKE (B18 itibariyle):**
+Almanya, Türkiye, ABD, İngiltere, İsviçre, Rusya, Ukrayna, Suudi Arabistan, Mısır, BAE, Japonya, Çin, Hong Kong, Malezya, Hindistan, Pakistan
+
+**İçerik sırası:**
+1. Kullanıcı saati (saat SVG ikonu)
+2. Kullanıcı şehri (ÖZEL VURGU: Pırlanta mavi + "BURADASIN" altın rozeti + parlama animasyonu)
+3. Döviz çiftleri — otomatik baz para (kullanıcı ülkesine göre TRY/USD/EUR/diğer)
+4. Bitcoin (turuncu #F7931A)
+5. 15 diğer ülkenin şehir saatleri (bayrak + şehir altın + saat beyaz)
 
 ---
 
@@ -1114,6 +1123,17 @@ Yeni özellik isteğinde Code şu adımları uygular:
 
 ---
 
+## 78. KART DIŞI TIKLAMA ZORUNLULUĞU
+
+- TÜM modal, popup, dropdown, açılır panel'lerde kart DIŞINA tıklama → kapatır
+- ESC tuşu → kapatır
+- X butonu → kapatır (zaten var)
+- Hook: `src/hooks/useKartDisiTiklama.js` — yeni modal yapan herkes kullanmak ZORUNDA
+- Kullanım: `useKartDisiTiklama(ref, onKapat, aktif)`
+- İstisna: Kullanıcı form alanına yazıyorken dış tıklama kapatmaz
+
+---
+
 ## 72b. ŞEHİRE GÖRE İÇERİK
 
 Kullanıcı kayıt sırasında şehir seçtiğinde, anasayfa ve Keşfet sayfası o şehirdeki profesyonelleri ve hizmetleri öne çıkarır.
@@ -1136,7 +1156,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.13 (Madde 74-77: Üst İnce Şerit, Konum API, Döviz API, Ticker animasyonu)*
+*Son güncelleme: 14 Mayıs 2026 — V5.14 (Madde 74 güncellendi: 16 ülke + otomatik baz para + BURADASIN rozeti; Madde 78: Kart dışı tıklama zorunluluğu)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
