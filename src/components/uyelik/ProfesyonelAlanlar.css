@@ -1,0 +1,237 @@
+.pa-flag { border-radius: 2px; flex-shrink: 0; }
+.pa-arr  { font-size: 10px; opacity: 0.5; margin-left: 2px; }
+.pa-dim  { opacity: 0.45; margin-left: auto; font-size: 12px; }
+
+/* ─── TELEFON ─── */
+.pa-tel-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 8px;
+  position: relative;
+  overflow: visible;
+}
+.pa-tel-wrap:focus-within { border-color: rgba(255,215,0,0.6); }
+
+.pa-tel-prefix {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 10px;
+  background: rgba(255,215,0,0.07);
+  border: none;
+  border-right: 1px solid rgba(255,215,0,0.2);
+  border-radius: 8px 0 0 8px;
+  color: #FFD700;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.pa-tel-prefix:hover { background: rgba(255,215,0,0.14); }
+
+.pa-tel-kod { letter-spacing: 0.3px; }
+
+.pa-tel-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  outline: none;
+  min-width: 0;
+}
+
+.pa-tel-drop {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 9999;
+  background: #111;
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 10px;
+  min-width: 220px;
+  box-shadow: 0 10px 36px rgba(0,0,0,0.7);
+  overflow: hidden;
+}
+
+.pa-search {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  border-bottom: 1px solid rgba(255,215,0,0.15);
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.pa-tel-list {
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,215,0,0.3) transparent;
+}
+
+.pa-tel-opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 14px;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.85);
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+  transition: background 0.12s;
+}
+.pa-tel-opt:hover { background: rgba(255,215,0,0.08); }
+.pa-tel-opt.ak    { background: rgba(255,215,0,0.12); color: #FFD700; }
+
+/* ─── UZMANLIK GRİD ─── */
+.pa-uzm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pa-uzm-kart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  background: rgba(255,255,255,0.04);
+  border: 2px solid rgba(255,215,0,0.18);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.pa-uzm-kart:hover {
+  background: rgba(255,215,0,0.07);
+  border-color: rgba(255,215,0,0.45);
+  transform: translateY(-2px);
+}
+.pa-uzm-kart.ak {
+  background: rgba(255,215,0,0.11);
+  border-color: #FFD700;
+  box-shadow: 0 0 14px rgba(255,215,0,0.25);
+}
+
+.pa-uzm-ikon { color: rgba(255,215,0,0.6); display: flex; align-items: center; }
+.pa-uzm-kart.ak .pa-uzm-ikon { color: #FFD700; filter: drop-shadow(0 0 5px rgba(255,215,0,0.5)); }
+
+.pa-uzm-nm { color: rgba(255,255,255,0.75); font-size: 11px; text-align: center; line-height: 1.2; }
+.pa-uzm-kart.ak .pa-uzm-nm { color: #FFD700; font-weight: 600; }
+
+/* ─── ŞEHİR ─── */
+.pa-sehir-wrap { position: relative; }
+
+.pa-sehir-in {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.pa-sehir-in:focus { border-color: rgba(255,215,0,0.6); }
+
+.pa-sehir-drop {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  z-index: 9999;
+  background: #111;
+  border: 1px solid rgba(255,215,0,0.25);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+}
+
+.pa-sehir-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 9px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,215,0,0.06);
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+  transition: background 0.12s;
+}
+.pa-sehir-item:last-child { border-bottom: none; }
+.pa-sehir-item:hover { background: rgba(255,215,0,0.09); color: #FFD700; }
+.pa-sehir-item svg { fill: rgba(255,215,0,0.5); flex-shrink: 0; }
+
+/* ─── DENEYİM ─── */
+.pa-den-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.pa-den-kart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 16px 10px;
+  background: rgba(255,255,255,0.04);
+  border: 2px solid rgba(255,215,0,0.18);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.pa-den-kart:hover {
+  background: rgba(255,215,0,0.07);
+  border-color: rgba(255,215,0,0.45);
+  transform: translateY(-2px);
+}
+.pa-den-kart.ak {
+  background: rgba(255,215,0,0.11);
+  border-color: #FFD700;
+  box-shadow: 0 0 16px rgba(255,215,0,0.25);
+}
+
+.pa-den-ikon { color: rgba(255,215,0,0.6); display: flex; align-items: center; }
+.pa-den-kart.ak .pa-den-ikon { color: #FFD700; filter: drop-shadow(0 0 6px rgba(255,215,0,0.5)); }
+
+.pa-den-nm { color: #fff; font-size: 13px; font-weight: 600; }
+.pa-den-kart.ak .pa-den-nm { color: #FFD700; }
+
+.pa-den-ac { color: rgba(255,215,0,0.6); font-size: 11px; }
+.pa-den-kart.ak .pa-den-ac { color: rgba(255,215,0,0.9); }
+
+/* ─── RESPONSIVE ─── */
+@media (min-width: 1025px) {
+  .pa-uzm-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .pa-den-grid { grid-template-columns: repeat(4, 1fr); }
+  .pa-den-kart { padding: 20px 12px; }
+}
+@media (max-width: 480px) {
+  .pa-uzm-grid { gap: 6px; }
+  .pa-uzm-kart { padding: 10px 4px; }
+  .pa-uzm-nm   { font-size: 10px; }
+  .pa-den-kart { padding: 12px 8px; }
+  .pa-tel-drop { min-width: 180px; }
+}

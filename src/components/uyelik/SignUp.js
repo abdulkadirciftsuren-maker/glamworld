@@ -7,6 +7,7 @@ import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import Tooltip from '../Tooltip';
+import { TelefonInput, UzmanlikSecici, SehirOnericisi, DeneyimSecici } from './ProfesyonelAlanlar';
 import './SignUp.css';
 
 function SilverStar() {
@@ -166,20 +167,21 @@ export default function SignUp() {
             <div className="signup-alan"><label>Şifre</label><input type="password" value={form.sifre} onChange={g('sifre')} autoComplete="new-password" /></div>
             <div className="signup-alan"><label>Şifre Tekrar</label><input type="password" value={form.sifreTekrar} onChange={g('sifreTekrar')} autoComplete="new-password" /></div>
           </div>
-          <div className="signup-alan"><label>Telefon</label><input type="tel" value={form.telefon} onChange={g('telefon')} autoComplete="tel" /></div>
+          <div className="signup-alan"><label>Telefon</label><TelefonInput value={form.telefon} onChange={g('telefon')} /></div>
 
           {hesapTuru === 'profesyonel' && (
             <div className="prof-alanlar">
               <div className="signup-alan">
                 <label>Uzmanlık Alanı</label>
-                <select value={form.uzmanlik} onChange={g('uzmanlik')}>
-                  <option value="">Seçiniz...</option>
-                  {['Berber','Kuaför','Makyaj Sanatçısı','Manikürcü','Estetisyen','Masöz','Diğer'].map(u => <option key={u} value={u}>{u}</option>)}
-                </select>
+                <UzmanlikSecici value={form.uzmanlik} onChange={g('uzmanlik')} />
               </div>
-              <div className="iki-sutun">
-                <div className="signup-alan"><label>Şehir</label><input type="text" value={form.sehir} onChange={g('sehir')} /></div>
-                <div className="signup-alan"><label>Deneyim (yıl)</label><input type="number" value={form.deneyim} onChange={g('deneyim')} min="0" max="60" /></div>
+              <div className="signup-alan">
+                <label>Şehir</label>
+                <SehirOnericisi value={form.sehir} onChange={g('sehir')} />
+              </div>
+              <div className="signup-alan">
+                <label>Deneyim</label>
+                <DeneyimSecici value={form.deneyim} onChange={g('deneyim')} />
               </div>
               <div className="calisma-durumu">
                 {['Çalışıyor','Kendi işi','İş arıyor'].map(d => (
