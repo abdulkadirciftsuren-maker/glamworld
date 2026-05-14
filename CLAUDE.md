@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.10 — Son)
+# GLAMWORLD — Proje Anayasası (V5.11 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -591,23 +591,24 @@ Tüm ödemeler anlık işlenir. Başarısız işlem kullanıcıya bildirilir.
 
 ---
 
-## 36. SAYAÇ — OTOMATIK ARTMA TABLOSU
+## 36. SAYAÇ — OTOMATİK ARTMA SİSTEMİ
 
-Her büyük değişiklikten sonra B sayacı 1 artar. Geliştirici Widget'ta görünür.
+Sayaç `src/sayac.json` dosyasından okunur. DevWidget hardcoded değer YOKTUR, dinamik okur.
 
-| Sayaç | Kapsam |
-|-------|--------|
-| B1 | React + Widget |
-| B2 | CLAUDE.md V4 |
-| B3 | Firebase + Üyelik sayfaları |
-| B4 | Header + Üst Menü + Piyasa Şeridi |
-| B5 | Splash + Anasayfa kartları |
-| B6 | Marketplace |
-| B7 | Messenger |
-| B8 | AI sistemleri |
+**Her commit öncesi zorunlu adımlar:**
+1. `npm run bump` → sayac.json buildNumber +1 artar
+2. `git add src/sayac.json && git commit -m "..."` → commit yapılır
 
-- Format: `GLAMWORLD V2.B3`
-- Her `git commit`'inde DevWidget'taki sayaç manuel güncellenir
+**MANUEL DEĞİŞTİRME YASAK.** Script dışında sayac.json'a el atılmaz.
+
+**Dosyalar:**
+- `src/sayac.json` — buildNumber, version, lastUpdated, lastCommit
+- `scripts/increment-counter.js` — Node.js script, +1 artırır
+- `package.json` → `"bump": "node scripts/increment-counter.js"`
+
+**Format:** `GLAMWORLD V2.B{buildNumber}` — DevWidget otomatik gösterir.
+
+**Mevcut sayaç:** B13 (B13.1 son commit)
 
 ---
 
@@ -1046,7 +1047,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.10 (Madde 67-71: Anayasa okuma zorunluluğu, Tooltip zorunlu, Kopyalama engelleme, Uyum raporu, Kural F güçlendirme)*
+*Son güncelleme: 14 Mayıs 2026 — V5.11 (Madde 36 güncellendi: Otomatik sayaç sistemi — src/sayac.json + npm run bump)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

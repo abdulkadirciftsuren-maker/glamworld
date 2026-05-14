@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import Tooltip from './Tooltip';
+import sayac from '../sayac.json';
 import './DevWidget.css';
 
-const VERSIYON = 'V2.B6';
+const VERSIYON = `${sayac.version}.B${sayac.buildNumber}`;
 
 export default function DevWidget({ sayfa = 'Anasayfa' }) {
   const [gizli, setGizli] = useState(() => {
