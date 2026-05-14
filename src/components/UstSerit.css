@@ -1,104 +1,15 @@
 .ust-serit {
   position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 36px;
-  background: linear-gradient(90deg, #0d0d0d, #1f1800, #0d0d0d);
-  border-top: 2px solid #FFD700;
-  border-bottom: 2px solid #FFD700;
-  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(90deg, #0a0a0a, #1a1500, #0a0a0a);
+  border-bottom: 1px solid #C9A84C;
   z-index: 1001;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  -webkit-touch-callout: none !important;
-  -webkit-tap-highlight-color: transparent !important;
+  pointer-events: none;
 }
-@media (min-width: 768px) { .ust-serit { height: 40px; } }
-
-@keyframes ticker {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.t-icerik {
-  display: inline-flex;
-  align-items: center;
-  height: 100%;
-  white-space: nowrap;
-  animation: ticker 120s linear infinite;
-}
-.t-icerik.dur { animation-play-state: paused; }
-
-.t-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0 16px;
-  font-size: 13px;
-  position: relative;
-}
-.t-item:not(:last-child)::after {
-  content: '|';
-  position: absolute;
-  right: -2px;
-  color: rgba(255,215,0,0.3);
-  font-size: 9px;
-}
-
-.t-beyaz    { color: rgba(255,255,255,0.82); }
-.t-altin    { color: #FFD700; font-weight: 600; }
-.t-gri      { color: rgba(255,255,255,0.35); font-size: 9px; }
-.t-para-kod { color: rgba(255,215,0,0.6); font-size: 10px; font-weight: 600; }
-.t-flag     { border-radius: 1px; flex-shrink: 0; }
-
-.t-saat .t-altin { font-size: 13px; }
-
-.t-kullanici {
-  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.13), transparent);
-  border-radius: 4px;
-  padding: 0 18px;
-}
-.t-rozet {
-  display: inline-block;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #000;
-  font-size: 8px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 8px;
-  letter-spacing: 0.4px;
-  animation: rozetParla 2s ease-in-out infinite;
-}
-@keyframes rozetParla {
-  0%, 100% { box-shadow: 0 0 4px rgba(255,215,0,0.4); }
-  50%       { box-shadow: 0 0 12px rgba(255,215,0,0.9); }
-}
-
-.t-ulke-blok {
-  border-right: 1px solid rgba(255,215,0,0.18);
-  padding-right: 14px;
-  margin-right: 2px;
-  gap: 5px;
-}
-
-.t-piyasa-sep {
-  color: #FFD700;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  padding: 0 20px;
-  border-left: 2px solid rgba(255,215,0,0.5);
-  border-right: 2px solid rgba(255,215,0,0.5);
-}
-
-.t-altin-label { color: #FFD700; font-weight: 700; font-size: 10px; }
-.t-gumus-label { color: #C8C8C8; font-weight: 700; font-size: 10px; }
-.t-btc         { color: #F7931A; font-weight: 700; font-size: 11px; }
-.t-btc-deger   { color: #F7931A; font-weight: 600; }
-.t-eth         { color: #627EEA; font-weight: 700; font-size: 11px; }
-.t-eth-deger   { color: #627EEA; font-weight: 600; }
 
 @media (min-width: 768px) {
-  .t-item    { font-size: 12px; padding: 0 16px; }
-  .t-para-kod{ font-size: 11px; }
-  .t-gri     { font-size: 10px; }
-  .t-saat .t-altin { font-size: 14px; }
+  .ust-serit { height: 26px; }
 }

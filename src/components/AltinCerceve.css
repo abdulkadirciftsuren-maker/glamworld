@@ -1,0 +1,10 @@
+.altin-cerceve {
+  position: fixed;
+  inset: 0;
+  border: 2px solid #C9A84C;
+  box-shadow:
+    inset 0 0 12px rgba(201,168,76,0.18),
+    0 0 6px rgba(201,168,76,0.12);
+  pointer-events: none;
+  z-index: 9990;
+}
