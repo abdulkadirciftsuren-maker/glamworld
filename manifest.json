@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "GLAMWORLD",
+  "name": "GLAMWORLD — Güzellik Platformu",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +18,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/glamworld/",
+  "scope": "/glamworld/",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#000000"
 }
