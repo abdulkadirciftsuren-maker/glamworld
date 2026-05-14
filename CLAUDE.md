@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.14 — Son)
+# GLAMWORLD — Proje Anayasası (V5.15 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1082,8 +1082,8 @@ Yeni özellik isteğinde Code şu adımları uygular:
 - Component: `src/components/UstSerit.jsx` + `src/components/UstSerit.css`
 - Body padding-top: 24px (telefon), 28px (PC) eklenir ki içerik altına gizlenmesin
 
-**16 ÜLKE (B18 itibariyle):**
-Almanya, Türkiye, ABD, İngiltere, İsviçre, Rusya, Ukrayna, Suudi Arabistan, Mısır, BAE, Japonya, Çin, Hong Kong, Malezya, Hindistan, Pakistan
+**24 ÜLKE / 5 KITA (B19 itibariyle):**
+Avrupa: Almanya, İngiltere, İsviçre, Rusya, Ukrayna | Orta Doğu/Afrika: Türkiye, S.Arabistan, Mısır, BAE, Güney Afrika, Nijerya, Fas | Amerika: ABD, Brezilya, Arjantin, Meksika, Kolombiya | Asya: Japonya, Çin, Hong Kong, Malezya, Hindistan, Pakistan | Okyanusya: Avustralya
 
 **İçerik sırası:**
 1. Kullanıcı saati (saat SVG ikonu)
@@ -1156,7 +1156,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.14 (Madde 74 güncellendi: 16 ülke + otomatik baz para + BURADASIN rozeti; Madde 78: Kart dışı tıklama zorunluluğu)*
+*Son güncelleme: 14 Mayıs 2026 — V5.15 (Madde 74 güncellendi: 24 ülke/5 kıta + Login/SignUp kart dışı tıklama hook eklendi)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

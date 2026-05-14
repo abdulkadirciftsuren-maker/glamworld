@@ -3,38 +3,45 @@ import Pirlanta from './Pirlanta';
 import './UstSerit.css';
 
 const ULKELER = {
-  DE: { ad:'Almanya',          sehir:'Berlin',       cc:'de', para:'EUR', tz:'Europe/Berlin' },
-  TR: { ad:'Türkiye',          sehir:'İstanbul',     cc:'tr', para:'TRY', tz:'Europe/Istanbul' },
-  US: { ad:'ABD',              sehir:'New York',     cc:'us', para:'USD', tz:'America/New_York' },
-  GB: { ad:'İngiltere',        sehir:'Londra',       cc:'gb', para:'GBP', tz:'Europe/London' },
-  CH: { ad:'İsviçre',          sehir:'Zürih',        cc:'ch', para:'CHF', tz:'Europe/Zurich' },
-  RU: { ad:'Rusya',            sehir:'Moskova',      cc:'ru', para:'RUB', tz:'Europe/Moscow' },
-  UA: { ad:'Ukrayna',          sehir:'Kiev',         cc:'ua', para:'UAH', tz:'Europe/Kiev' },
-  SA: { ad:'Suudi Arabistan',  sehir:'Riyad',        cc:'sa', para:'SAR', tz:'Asia/Riyadh' },
-  EG: { ad:'Mısır',            sehir:'Kahire',       cc:'eg', para:'EGP', tz:'Africa/Cairo' },
-  AE: { ad:'BAE',              sehir:'Dubai',        cc:'ae', para:'AED', tz:'Asia/Dubai' },
-  JP: { ad:'Japonya',          sehir:'Tokyo',        cc:'jp', para:'JPY', tz:'Asia/Tokyo' },
-  CN: { ad:'Çin',              sehir:'Pekin',        cc:'cn', para:'CNY', tz:'Asia/Shanghai' },
-  HK: { ad:'Hong Kong',        sehir:'Hong Kong',    cc:'hk', para:'HKD', tz:'Asia/Hong_Kong' },
-  MY: { ad:'Malezya',          sehir:'Kuala Lumpur', cc:'my', para:'MYR', tz:'Asia/Kuala_Lumpur' },
-  IN: { ad:'Hindistan',        sehir:'Yeni Delhi',   cc:'in', para:'INR', tz:'Asia/Kolkata' },
-  PK: { ad:'Pakistan',         sehir:'İslamabad',    cc:'pk', para:'PKR', tz:'Asia/Karachi' },
+  DE:{ ad:'Almanya',         sehir:'Berlin',        cc:'de', para:'EUR', tz:'Europe/Berlin' },
+  GB:{ ad:'İngiltere',       sehir:'Londra',        cc:'gb', para:'GBP', tz:'Europe/London' },
+  CH:{ ad:'İsviçre',         sehir:'Zürih',         cc:'ch', para:'CHF', tz:'Europe/Zurich' },
+  RU:{ ad:'Rusya',           sehir:'Moskova',       cc:'ru', para:'RUB', tz:'Europe/Moscow' },
+  UA:{ ad:'Ukrayna',         sehir:'Kiev',          cc:'ua', para:'UAH', tz:'Europe/Kiev' },
+  TR:{ ad:'Türkiye',         sehir:'İstanbul',      cc:'tr', para:'TRY', tz:'Europe/Istanbul' },
+  SA:{ ad:'S. Arabistan',    sehir:'Riyad',         cc:'sa', para:'SAR', tz:'Asia/Riyadh' },
+  EG:{ ad:'Mısır',           sehir:'Kahire',        cc:'eg', para:'EGP', tz:'Africa/Cairo' },
+  AE:{ ad:'BAE',             sehir:'Dubai',         cc:'ae', para:'AED', tz:'Asia/Dubai' },
+  ZA:{ ad:'Güney Afrika',    sehir:'Johannesburg',  cc:'za', para:'ZAR', tz:'Africa/Johannesburg' },
+  NG:{ ad:'Nijerya',         sehir:'Lagos',         cc:'ng', para:'NGN', tz:'Africa/Lagos' },
+  MA:{ ad:'Fas',             sehir:'Kazablanka',    cc:'ma', para:'MAD', tz:'Africa/Casablanca' },
+  US:{ ad:'ABD',             sehir:'New York',      cc:'us', para:'USD', tz:'America/New_York' },
+  BR:{ ad:'Brezilya',        sehir:'São Paulo',     cc:'br', para:'BRL', tz:'America/Sao_Paulo' },
+  AR:{ ad:'Arjantin',        sehir:'Buenos Aires',  cc:'ar', para:'ARS', tz:'America/Argentina/Buenos_Aires' },
+  MX:{ ad:'Meksika',         sehir:'Mexico City',   cc:'mx', para:'MXN', tz:'America/Mexico_City' },
+  CO:{ ad:'Kolombiya',       sehir:'Bogota',        cc:'co', para:'COP', tz:'America/Bogota' },
+  JP:{ ad:'Japonya',         sehir:'Tokyo',         cc:'jp', para:'JPY', tz:'Asia/Tokyo' },
+  CN:{ ad:'Çin',             sehir:'Pekin',         cc:'cn', para:'CNY', tz:'Asia/Shanghai' },
+  HK:{ ad:'Hong Kong',       sehir:'Hong Kong',     cc:'hk', para:'HKD', tz:'Asia/Hong_Kong' },
+  MY:{ ad:'Malezya',         sehir:'Kuala Lumpur',  cc:'my', para:'MYR', tz:'Asia/Kuala_Lumpur' },
+  IN:{ ad:'Hindistan',       sehir:'Yeni Delhi',    cc:'in', para:'INR', tz:'Asia/Kolkata' },
+  PK:{ ad:'Pakistan',        sehir:'İslamabad',     cc:'pk', para:'PKR', tz:'Asia/Karachi' },
+  AU:{ ad:'Avustralya',      sehir:'Sydney',        cc:'au', para:'AUD', tz:'Australia/Sydney' },
 };
 
 function saatTz(tz) {
   return new Date().toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit', timeZone: tz });
 }
-
-function bayrak(cc) {
+function flag(cc) {
   return <img src={`https://flagcdn.com/16x12/${cc}.png`} alt={cc} className="t-flag" />;
 }
 
 export default function UstSerit() {
-  const [saat, setSaat] = useState(new Date());
-  const [konum, setKonum] = useState(null);
+  const [saat, setSaat]     = useState(new Date());
+  const [konum, setKonum]   = useState(null);
   const [kurlar, setKurlar] = useState(null);
-  const [btc, setBtc] = useState(null);
-  const [dur, setDur] = useState(false);
+  const [btc, setBtc]       = useState(null);
+  const [dur, setDur]       = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => setSaat(new Date()), 1000);
@@ -50,7 +57,7 @@ export default function UstSerit() {
     fetch('https://ipapi.co/json/')
       .then(r => r.json())
       .then(d => {
-        const loc = { city: d.city, country: d.country_name, code: d.country_code?.toUpperCase() || 'DE' };
+        const loc = { city: d.city, country: d.country_name, code: (d.country_code || 'DE').toUpperCase() };
         setKonum(loc);
         localStorage.setItem('glamworld_user_location', JSON.stringify({ location: loc, timestamp: Date.now() }));
       })
@@ -79,25 +86,23 @@ export default function UstSerit() {
       .catch(() => {});
   }, []);
 
-  const kulKod = konum?.code || 'DE';
-  const kulUlke = ULKELER[kulKod] || ULKELER.DE;
-  const bazPara = kulUlke.para;
+  const kulKod   = konum?.code || 'DE';
+  const kulUlke  = ULKELER[kulKod] || ULKELER.DE;
+  const bazPara  = kulUlke.para;
+  const fmt      = (d) => d.toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit' });
 
-  function doviz(kaynak, hedef) {
-    if (!kurlar) return '---';
-    const r = kurlar[kaynak] && kurlar[hedef]
-      ? (kurlar[hedef] / kurlar[kaynak]).toFixed(2)
-      : '---';
-    return r;
+  function kur(para) {
+    if (!kurlar || !kurlar[para] || !kurlar[bazPara]) return '---';
+    return (kurlar[para] / kurlar[bazPara]).toFixed(2);
   }
 
-  const dovizCiftleri = bazPara === 'TRY'
-    ? [['USD','TRY'],['EUR','TRY'],['GBP','TRY'],['JPY','TRY'],['CHF','TRY']]
-    : bazPara === 'USD'
-    ? [['USD','EUR'],['USD','GBP'],['USD','TRY'],['USD','JPY'],['USD','CHF']]
-    : [['USD',bazPara],['EUR',bazPara],['GBP',bazPara],['TRY',bazPara],['JPY',bazPara]];
+  const dovizler = Object.entries(ULKELER)
+    .filter(([k, u]) => u.para !== bazPara)
+    .map(([k, u]) => ({ cc: u.cc, para: u.para, deger: kur(u.para) }));
 
-  const fmt = (d) => d.toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit' });
+  const sehirler = Object.entries(ULKELER)
+    .filter(([k]) => k !== kulKod)
+    .map(([k, u]) => ({ cc: u.cc, sehir: u.sehir, tz: u.tz }));
 
   const items = [
     <span key="saat" className="t-item">
@@ -107,15 +112,16 @@ export default function UstSerit() {
 
     <span key="kullanici" className="t-item t-kullanici">
       <Pirlanta renk="mavi" boyut={12} />
-      {bayrak(kulUlke.cc)}
+      {flag(kulUlke.cc)}
       <span className="t-altin">{konum?.city || kulUlke.sehir}, {konum?.country || kulUlke.ad}</span>
       <span className="t-rozet">BURADASIN</span>
     </span>,
 
-    ...dovizCiftleri.map(([k, h]) => (
-      <span key={`${k}${h}`} className="t-item">
-        <span className="t-gri">{k}/{h}</span>
-        <span className="t-altin">{doviz(k, h)}</span>
+    ...dovizler.map(d => (
+      <span key={`dov-${d.para}`} className="t-item">
+        {flag(d.cc)}
+        <span className="t-para-kod">{d.para}</span>
+        <span className="t-altin">{d.deger}</span>
       </span>
     )),
 
@@ -124,28 +130,18 @@ export default function UstSerit() {
       <span className="t-btc-deger">${btc.toLocaleString()}</span>
     </span>,
 
-    ...Object.entries(ULKELER)
-      .filter(([k]) => k !== kulKod)
-      .map(([k, u]) => (
-        <span key={`tz-${k}`} className="t-item">
-          {bayrak(u.cc)}
-          <span className="t-altin">{u.sehir}</span>
-          <span className="t-beyaz">{saatTz(u.tz)}</span>
-        </span>
-      )),
+    ...sehirler.map(s => (
+      <span key={`s-${s.cc}`} className="t-item">
+        {flag(s.cc)}
+        <span className="t-altin">{s.sehir}</span>
+        <span className="t-beyaz">{saatTz(s.tz)}</span>
+      </span>
+    )),
   ].filter(Boolean);
 
   return (
-    <div
-      className="ust-serit"
-      onMouseEnter={() => setDur(true)}
-      onMouseLeave={() => setDur(false)}
-      onTouchStart={() => setDur(true)}
-      onTouchEnd={() => setDur(false)}
-    >
-      <div className={`t-icerik${dur ? ' dur' : ''}`}>
-        {items}{items}
-      </div>
+    <div className="ust-serit" onMouseEnter={() => setDur(true)} onMouseLeave={() => setDur(false)} onTouchStart={() => setDur(true)} onTouchEnd={() => setDur(false)}>
+      <div className={`t-icerik${dur ? ' dur' : ''}`}>{items}{items}</div>
     </div>
   );
 }

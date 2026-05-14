@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useKartDisiTiklama } from '../../hooks/useKartDisiTiklama';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../firebase';
 import DevWidget from '../DevWidget';
@@ -27,6 +28,8 @@ export default function Login() {
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
   const navigate = useNavigate();
+  const kartRef = useRef(null);
+  useKartDisiTiklama(kartRef, () => navigate('/'));
 
   useEffect(() => {
     const esc = (e) => { if (e.key === 'Escape') navigate('/'); };
@@ -69,7 +72,7 @@ export default function Login() {
       <style>{shimmerCSS}</style>
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
-      <div className="login-kart">
+      <div className="login-kart" ref={kartRef}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:12 }}>
           <Pirlanta renk="altin" boyut={22} />
           <h1 className="login-logo">GLAMWORLD</h1>
