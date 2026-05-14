@@ -83,35 +83,44 @@ export default function UstSerit() {
     return (kurlar[para] / kurlar[bazPara]).toFixed(2);
   }
 
+  function blok(p) {
+    return [
+      <span key={`${p}bd`} className="t-item t-kullanici">
+        <Pirlanta renk="mavi" boyut={12} />
+        {flag(kulUlke.cc)}
+        <span className="t-altin">{konum?.city || kulUlke.sehir}</span>
+        <span className="t-rozet">BURADASIN</span>
+      </span>,
+      <span key={`${p}st`} className="t-item t-saat">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span className="t-altin">{fmt(saat)}</span>
+      </span>,
+      <span key={`${p}us`} className="t-item"><span className="t-label">USD</span><span className="t-altin">{kur('USD')}</span></span>,
+      <span key={`${p}eu`} className="t-item"><span className="t-label">EUR</span><span className="t-altin">{kur('EUR')}</span></span>,
+      <span key={`${p}gb`} className="t-item"><span className="t-label">GBP</span><span className="t-altin">{kur('GBP')}</span></span>,
+      <span key={`${p}al`} className="t-item"><span className="t-label">ALTIN</span><span className="t-altin">${altin}</span></span>,
+      <span key={`${p}gm`} className="t-item"><span className="t-label">GÜMÜŞ</span><span className="t-beyaz">${gumus}</span></span>,
+      btc ? <span key={`${p}bt`} className="t-item"><span className="t-label">BTC</span><span className="t-btc">${Math.round(btc/1000)}K</span></span> : null,
+    ].filter(Boolean);
+  }
+
+  const ulkeler = Object.entries(ULKELER).map(([k, u]) => (
+    <span key={`u-${k}`} className="t-item t-ulke">
+      {flag(u.cc)}
+      <span className="t-altin">{u.sehir}</span>
+      <span className="t-beyaz">{saatTz(u.tz)}</span>
+      <span className="t-kur">1 {bazPara}={kur(u.para)} {u.para}</span>
+    </span>
+  ));
+
   const items = [
-    <span key="saat" className="t-item t-saat">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span className="t-altin">{fmt(saat)}</span>
-    </span>,
-
-    <span key="buradasin" className="t-item t-kullanici">
-      <Pirlanta renk="mavi" boyut={12} />
-      {flag(kulUlke.cc)}
-      <span className="t-altin">{konum?.city || kulUlke.sehir}</span>
-      <span className="t-rozet">BURADASIN</span>
-    </span>,
-
-    <span key="d-usd" className="t-item"><span className="t-label">USD</span><span className="t-altin">{kur('USD')}</span></span>,
-    <span key="d-eur" className="t-item"><span className="t-label">EUR</span><span className="t-altin">{kur('EUR')}</span></span>,
-    <span key="d-gbp" className="t-item"><span className="t-label">GBP</span><span className="t-altin">{kur('GBP')}</span></span>,
-    <span key="d-alt" className="t-item"><span className="t-label">ALTIN</span><span className="t-altin">${altin}</span></span>,
-    <span key="d-gum" className="t-item"><span className="t-label">GÜMÜŞ</span><span className="t-beyaz">${gumus}</span></span>,
-    btc ? <span key="d-btc" className="t-item"><span className="t-label">BTC</span><span className="t-btc">${Math.round(btc/1000)}K</span></span> : null,
-
-    ...Object.entries(ULKELER).map(([k, u]) => (
-      <span key={`u-${k}`} className="t-item t-ulke">
-        {flag(u.cc)}
-        <span className="t-altin">{u.sehir}</span>
-        <span className="t-beyaz">{saatTz(u.tz)}</span>
-        <span className="t-kur">1 {bazPara} = {kur(u.para)} {u.para}</span>
-      </span>
-    )),
-  ].filter(Boolean);
+    ...blok('a'),
+    ulkeler[0], ulkeler[1],
+    ...blok('b'),
+    ulkeler[2], ulkeler[3],
+    ...blok('c'),
+    ulkeler[4],
+  ];
 
   return (
     <div className="ust-serit"
