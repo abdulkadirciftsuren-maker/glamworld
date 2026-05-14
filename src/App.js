@@ -70,21 +70,11 @@ function App() {
     document.addEventListener('copy', noCopy);
     document.addEventListener('cut', noCopy);
     document.addEventListener('dragstart', noDrag);
-
-    const fullscreen = () => {
-      const el = document.documentElement;
-      if (!document.fullscreenElement && el.requestFullscreen) {
-        el.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
-      }
-    };
-    document.addEventListener('touchstart', fullscreen, { passive: true, once: true });
-
     return () => {
       document.removeEventListener('contextmenu', noMenu);
       document.removeEventListener('copy', noCopy);
       document.removeEventListener('cut', noCopy);
       document.removeEventListener('dragstart', noDrag);
-      document.removeEventListener('touchstart', fullscreen);
     };
   }, []);
 
