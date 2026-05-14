@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.11 — Son)
+# GLAMWORLD — Proje Anayasası (V5.12 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1025,7 +1025,53 @@ Code her görev bittikten sonra şu raporu verir:
 
 ---
 
-## 72. ŞEHİRE GÖRE İÇERİK
+## 72. DOKUNULMAZ DOSYALAR LİSTESİ (B15 itibariyle KORUMA ALTINDA)
+
+Aşağıdaki dosyalar B15 itibarıyla KORUMA ALTINA ALINDI. Code yeni iş yaparken bu dosyalara **DOKUNAMAZ**.
+
+**KORUNAN DOSYALAR:**
+1. `src/components/uyelik/Login.js` — Giriş Yap kartı
+2. `src/components/uyelik/Login.css`
+3. `src/components/uyelik/SignUp.js` — Üye Ol kartı
+4. `src/components/uyelik/SignUp.css`
+5. `src/components/uyelik/ProfesyonelAlanlar.jsx`
+6. `src/components/uyelik/ProfesyonelAlanlar.css`
+7. `src/components/SosyalButon.jsx`
+8. `src/components/SosyalButon.css`
+9. `src/components/Pirlanta.jsx`
+10. `src/components/Pirlanta.css`
+11. `src/components/GeriButon.jsx`
+12. `src/components/Tooltip.jsx`
+13. `src/components/DevWidget.jsx` — sayaç sistemi
+14. `src/sayac.json`
+15. `scripts/increment-counter.js`
+
+**KURAL:**
+- Yeni iş yaparken bu dosyalar DEĞİŞTİRİLEMEZ
+- Abdulkadir AÇIK olarak izin verirse değiştirilebilir (örn: "Login'i değiştir")
+- Hata düzeltmesi gerekirse ÖNCE izin alınır
+- İzinsiz dokunma = ANAYASA İHLALİ
+
+---
+
+## 73. YENİ ÖZELLİK EKLEMESİ KURALI
+
+Yeni özellik isteğinde Code şu adımları uygular:
+
+1. **KONTROL:** İstek Madde 72'deki dosyalara dokunmayı gerektiriyor mu?
+   - EVET → ÖNCE Abdulkadir'den izin iste
+   - HAYIR → Devam et
+
+2. **YÖNTEM:** Mümkünse YENİ DOSYA/COMPONENT oluştur
+   - Mevcut dosyaya eklemek yerine modüler yapıyı koru
+   - 300 satır kuralına uy
+
+3. **RAPOR:** Her görev sonunda hangi dosyalara dokunulduğunu listele
+   - "Madde 72 dosyalarına dokunulmadı" garantisi ver
+
+---
+
+## 72b. ŞEHİRE GÖRE İÇERİK
 
 Kullanıcı kayıt sırasında şehir seçtiğinde, anasayfa ve Keşfet sayfası o şehirdeki profesyonelleri ve hizmetleri öne çıkarır.
 
@@ -1047,7 +1093,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.11 (Madde 36 güncellendi: Otomatik sayaç sistemi — src/sayac.json + npm run bump)*
+*Son güncelleme: 14 Mayıs 2026 — V5.12 (Madde 72: Dokunulmaz dosyalar koruma sistemi + Madde 73: Yeni özellik ekleme kuralı)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
