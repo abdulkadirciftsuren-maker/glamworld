@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.16 — Son)
+# GLAMWORLD — Proje Anayasası (V5.17 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1096,6 +1096,9 @@ Avrupa: Almanya, İngiltere, İsviçre, Rusya, Ukrayna | Orta Doğu/Afrika: Tür
 6. ALTIN + GÜMÜŞ (statik fiyat)
 7. BTC (turuncu) + ETH (mavi)
 
+**İçerik yapısı (B21 - 5'er gruplar):**
+Saat → BURADASIN → [5 ülke blok] → [USD/EUR/ALTIN/GÜMÜŞ/BTC/ETH] → [5 ülke blok] → ... (5 grup × 5 ülke = 24 ülke, aralarında döviz)
+
 **Modal (Login/SignUp) açıkken:** `return null` — şerit tamamen gizlenir
 
 **İçerik sırası:**
@@ -1188,7 +1191,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.16 (M.74: 24 ülke blok yapısı+piyasa+metaller+kripto; M.69 güçlendi: JS preventDefault; M.79: altın çerçeve; M.80: modal-şerit gizleme)*
+*Son güncelleme: 14 Mayıs 2026 — V5.17 (M.74: 24 ülke 5'er gruplar arası döviz/ALTIN/BTC yapısı; M.79: body border 2px)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

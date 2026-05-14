@@ -6,14 +6,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border: 1.5px solid rgba(255,215,0,0.55);
-  box-shadow: inset 0 0 14px rgba(255,215,0,0.1);
+  border: 2px solid rgba(255,215,0,0.6);
+  box-shadow: inset 0 0 15px rgba(255,215,0,0.2);
   box-sizing: border-box;
   min-height: 100vh;
 }
 
 @media (min-width: 768px) {
-  body { padding-top: 28px; border-width: 2px; box-shadow: inset 0 0 18px rgba(255,215,0,0.14); }
+  body { padding-top: 28px; }
 }
 
 * {
