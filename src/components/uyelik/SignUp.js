@@ -128,7 +128,7 @@ export default function SignUp() {
 
         <div className="hesap-secim-baslik">Hesap türünü seç:</div>
         <div className="uyelik-secim">
-          <Tooltip text="Müşteri Üyelik" position="top" style={{ width: '100%' }}>
+          <Tooltip text="Müşteri Üyelik" position="top" style={{ width: '100%', display: 'flex' }}>
             <button type="button" className={`uyelik-kart silver-card${hesapTuru==='musteri'?' secili':''}`} onClick={() => setHesapTuru('musteri')}>
               <SilverStar />
               <div className="kart-baslik-silver">Müşteri</div>
@@ -137,7 +137,7 @@ export default function SignUp() {
               {hesapTuru === 'musteri' && <span className="secim-isareti">Seçildi</span>}
             </button>
           </Tooltip>
-          <Tooltip text="Pırlanta Üye - Profesyonel" position="top" style={{ width: '100%' }}>
+          <Tooltip text="Pırlanta Üye - Profesyonel" position="top" style={{ width: '100%', display: 'flex' }}>
             <button type="button" className={`uyelik-kart gold-card${hesapTuru==='profesyonel'?' secili':''}`} onClick={() => setHesapTuru('profesyonel')}>
               <span className="kart-etiket-pirlanta">Pırlanta Üye</span>
               <BlueDiamond />

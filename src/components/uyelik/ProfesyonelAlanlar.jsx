@@ -164,7 +164,7 @@ export function UzmanlikSecici({ value, onChange }) {
   );
 }
 
-const PIN = <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>;
+const PIN = <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>;
 
 export function SehirOnericisi({ value, onChange }) {
   const [acik, setAcik] = useState(false);
@@ -191,7 +191,7 @@ export function SehirOnericisi({ value, onChange }) {
   }, [acik]);
 
   const filtreUlke = ulkeAra ? ULKELER.filter(u => u.isim.toLowerCase().includes(ulkeAra.toLowerCase())) : ULKELER;
-  const sehirler = sehirAra ? TUM_SEHIRLER.filter(s => s.toLowerCase().includes(sehirAra.toLowerCase())).slice(0, 16) : (SEHIR_DATA[seciliUlke] || []);
+  const sehirler = sehirAra ? TUM_SEHIRLER.filter(s => s.toLowerCase().includes(sehirAra.toLowerCase())).slice(0, 20) : (SEHIR_DATA[seciliUlke] || []);
   const sec = (s) => { onChange({ target: { value: s } }); setAcik(false); setSehirAra(''); setUlkeAra(''); };
   const secilenUlke = ULKELER.find(u => u.cc === seciliUlke);
 
@@ -212,44 +212,42 @@ export function SehirOnericisi({ value, onChange }) {
                 <button type="button" className="pa-city-kapat" onClick={() => setAcik(false)}>✕</button>
               </Tooltip>
             </div>
-
-            <div className="pa-ulke-sec">
-              <input type="text" value={ulkeAra} onChange={e => setUlkeAra(e.target.value)} placeholder="Ülke ara..." className="pa-city-search" autoComplete="off" />
-              <div className="pa-ulke-list">
-                {filtreUlke.map(u => (
-                  <Tooltip key={u.cc} text={u.isim} position="top">
-                    <button type="button" className={`pa-ulke-row${seciliUlke === u.cc ? ' ak' : ''}`} onClick={() => { setSeciliUlke(u.cc); setSehirAra(''); setUlkeAra(''); }}>
-                      <img src={`https://flagcdn.com/16x12/${u.cc}.png`} alt={u.isim} className="pa-flag" />
-                      <span>{u.isim}</span>
-                      {seciliUlke === u.cc && <span className="pa-chk">✓</span>}
-                    </button>
-                  </Tooltip>
-                ))}
-              </div>
-            </div>
-
-            <div className="pa-sehir-sec">
-              {secilenUlke && (
-                <div className="pa-sehir-baslik">
-                  <img src={`https://flagcdn.com/16x12/${secilenUlke.cc}.png`} alt={secilenUlke.isim} className="pa-flag" />
-                  <span>{secilenUlke.isim} şehirleri</span>
+            <div className="pa-city-cols">
+              <div className="pa-col-ulke">
+                <div className="pa-col-baslik">ÜLKE</div>
+                <input type="text" value={ulkeAra} onChange={e => setUlkeAra(e.target.value)} placeholder="Ara..." className="pa-col-search" autoComplete="off" />
+                <div className="pa-col-list">
+                  {filtreUlke.map(u => (
+                    <Tooltip key={u.cc} text={u.isim} position="top">
+                      <button type="button" className={`pa-ulke-row${seciliUlke === u.cc ? ' ak' : ''}`} onClick={() => { setSeciliUlke(u.cc); setSehirAra(''); setUlkeAra(''); }}>
+                        <img src={`https://flagcdn.com/16x12/${u.cc}.png`} alt={u.isim} className="pa-flag" />
+                        <span className="pa-ulke-nm">{u.isim}</span>
+                        {seciliUlke === u.cc && <span className="pa-chk">✓</span>}
+                      </button>
+                    </Tooltip>
+                  ))}
                 </div>
-              )}
-              <input type="text" value={sehirAra} onChange={e => setSehirAra(e.target.value)} placeholder="Şehir ara..." className="pa-city-search" autoComplete="off" />
-              <div className="pa-city-list">
-                {sehirler.map(s => (
-                  <Tooltip key={s} text={s} position="top">
-                    <button type="button" className={`pa-city-item${value === s ? ' ak' : ''}`} onClick={() => sec(s)}>
-                      {PIN}{s}
-                    </button>
-                  </Tooltip>
-                ))}
-                {sehirler.length === 0 && !sehirAra && <p className="pa-city-bos">Şehir adını yukarı yazın</p>}
-                {sehirAra && !sehirler.find(s => s.toLowerCase() === sehirAra.toLowerCase()) && (
-                  <Tooltip text={`"${sehirAra}" kaydet`} position="top">
-                    <button type="button" className="pa-city-item pa-city-custom" onClick={() => sec(sehirAra)}>"{sehirAra}" — kaydet</button>
-                  </Tooltip>
-                )}
+              </div>
+              <div className="pa-col-sehir">
+                <div className="pa-col-baslik">
+                  {secilenUlke ? <>{secilenUlke.isim}</> : 'ŞEHİR'}
+                </div>
+                <input type="text" value={sehirAra} onChange={e => setSehirAra(e.target.value)} placeholder="Ara..." className="pa-col-search" autoComplete="off" />
+                <div className="pa-col-list">
+                  {sehirler.map(s => (
+                    <Tooltip key={s} text={s} position="top">
+                      <button type="button" className={`pa-city-row${value === s ? ' ak' : ''}`} onClick={() => sec(s)}>
+                        {PIN}{s}
+                      </button>
+                    </Tooltip>
+                  ))}
+                  {sehirler.length === 0 && <p className="pa-city-bos">← Ülke seçin</p>}
+                  {sehirAra && !sehirler.find(s => s.toLowerCase() === sehirAra.toLowerCase()) && (
+                    <Tooltip text={`"${sehirAra}" kaydet`} position="top">
+                      <button type="button" className="pa-city-row pa-city-custom" onClick={() => sec(sehirAra)}>"{sehirAra}"</button>
+                    </Tooltip>
+                  )}
+                </div>
               </div>
             </div>
           </div>
