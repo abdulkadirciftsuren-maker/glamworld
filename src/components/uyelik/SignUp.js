@@ -6,6 +6,7 @@ import { auth, db } from '../../firebase';
 import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
+import Tooltip from '../Tooltip';
 import './SignUp.css';
 
 function SilverStar() {
@@ -120,21 +121,25 @@ export default function SignUp() {
 
         <div className="hesap-secim-baslik">Hesap türünü seç:</div>
         <div className="uyelik-secim">
-          <button type="button" className={`uyelik-kart silver-card${hesapTuru==='musteri'?' secili':''}`} onClick={() => setHesapTuru('musteri')}>
-            <SilverStar />
-            <div className="kart-baslik-silver">Müşteri</div>
-            <div className="kart-aciklama">Randevu al, profesyonelleri keşfet</div>
-            <div className="kart-etiket-silver">Ücretsiz</div>
-            {hesapTuru === 'musteri' && <span className="secim-isareti">Seçildi</span>}
-          </button>
-          <button type="button" className={`uyelik-kart gold-card${hesapTuru==='profesyonel'?' secili':''}`} onClick={() => setHesapTuru('profesyonel')}>
-            <div className="kart-etiket-pirlanta">Pırlanta Üye</div>
-            <BlueDiamond />
-            <div className="kart-baslik-gold">Profesyonel</div>
-            <div className="kart-aciklama">Profil oluştur, gelir takibi</div>
-            <div className="kart-etiket-gold">Ücretsiz başla</div>
-            {hesapTuru === 'profesyonel' && <span className="secim-isareti">Seçildi</span>}
-          </button>
+          <Tooltip text="Müşteri Üyelik" position="top" style={{ width: '100%' }}>
+            <button type="button" className={`uyelik-kart silver-card${hesapTuru==='musteri'?' secili':''}`} onClick={() => setHesapTuru('musteri')}>
+              <SilverStar />
+              <div className="kart-baslik-silver">Müşteri</div>
+              <div className="kart-aciklama">Randevu al, profesyonelleri keşfet</div>
+              <div className="kart-etiket-silver">Ücretsiz</div>
+              {hesapTuru === 'musteri' && <span className="secim-isareti">Seçildi</span>}
+            </button>
+          </Tooltip>
+          <Tooltip text="Pırlanta Üye - Profesyonel" position="top" style={{ width: '100%' }}>
+            <button type="button" className={`uyelik-kart gold-card${hesapTuru==='profesyonel'?' secili':''}`} onClick={() => setHesapTuru('profesyonel')}>
+              <div className="kart-etiket-pirlanta">Pırlanta Üye</div>
+              <BlueDiamond />
+              <div className="kart-baslik-gold">Profesyonel</div>
+              <div className="kart-aciklama">Profil oluştur, gelir takibi</div>
+              <div className="kart-etiket-gold">Ücretsiz başla</div>
+              {hesapTuru === 'profesyonel' && <span className="secim-isareti">Seçildi</span>}
+            </button>
+          </Tooltip>
         </div>
 
         <div className="sosyal-grid">

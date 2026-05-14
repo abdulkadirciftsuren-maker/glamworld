@@ -36,6 +36,7 @@
 .sosyal-grid { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
 .sosyal-ust { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .sosyal-alt { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.sosyal-ust > span, .sosyal-alt > span { width: 100%; }
 
 .ayrac {
   display: flex;

@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.9 — Son)
+# GLAMWORLD — Proje Anayasası (V5.10 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -969,6 +969,61 @@ Telefon dar ise: alt alta (margin-top: 12px)
 
 ---
 
+## 67. ANAYASA OKUMA ZORUNLULUĞU
+
+- Code her büyük görev başlangıcında CLAUDE.md'yi BAŞTAN SONA OKUR
+- Okuduğunu KANIT olarak gösterir (ilgili madde özetlerini yazar)
+- KANIT VERMEDEN göreve başlanamaz
+- Kanıtsız başlama = CİDDİ HATA, görev iptal edilir
+- Görev bitince Madde 70'e göre uyum raporu verilir
+
+---
+
+## 68. HER BUTONA TOOLTIP ZORUNLU
+
+- Yeni eklenen TÜM tıklanabilir elementlerde Tooltip OLMAK ZORUNDA
+- `Tooltip.jsx` kullanılır — HTML `title` attribute YASAK
+- Yazı kısa, net, Türkçe
+- Position: top (varsayılan)
+- Mobile: `touchstart` 100ms gecikme ile göster, `touchend` anında gizle
+- Desktop: `mouseenter` 150ms gecikme, `mouseleave` anında gizle
+- Madde 24, 46, 47, 48 detaylarına uy
+- Tooltip eksik buton = ANAYASA İHLALİ
+
+---
+
+## 69. KOPYALAMA/SEÇİM ENGELLEME
+
+- Tüm buton, kart, logo, başlık, paragraf metinleri `user-select: none` zorunlu
+- `-webkit-touch-callout: none` — Android uzun basma menüsü engellenir
+- `-webkit-tap-highlight-color: transparent` — mavi/gri parıltı kaldırılır
+- Resimler ve SVG: `user-drag: none` — sürükleme engellenir
+- **İSTİSNA:** `input`, `textarea`, `select` → kopyalama/seçim SERBEST (`!important` ile)
+- Yeni eklenen her component bu kurala otomatik uyar (index.css global kural)
+
+---
+
+## 70. GÖREV BİTİMİ ANAYASA UYUM RAPORU
+
+Code her görev bittikten sonra şu raporu verir:
+1. Hangi maddeler için iş yapıldı?
+2. Hangi maddelere uyuldu?
+3. Hangi maddelere uyulamadı ve neden?
+4. Yarım kalan veya karışık kod var mı?
+5. Eski kod tamamen silindi mi? (Kural F)
+
+---
+
+## 71. KARIIŞIK KOD TEMİZLEME (Kural F Güçlendirme)
+
+- Hiçbir kod `//` veya `/* */` ile yorum satırına alınamaz
+- Eski kod TAMAMEN SİLİNİR
+- `.backup`, `_old`, `_v2` dosya yaratmak YASAK
+- `TODO` veya `FIXME` yorum satırı YASAK (açıklamalar anayasaya yazılır)
+- Git zaten her sürümü saklıyor — ekstra yedek gereksiz
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -979,7 +1034,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.9 (Madde 61-66: Anasayfa yapısı, Header, Hamburger menü, Swipe gesture, Yatay menü şeridi, Hero bölümü)*
+*Son güncelleme: 14 Mayıs 2026 — V5.10 (Madde 67-71: Anayasa okuma zorunluluğu, Tooltip zorunlu, Kopyalama engelleme, Uyum raporu, Kural F güçlendirme)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

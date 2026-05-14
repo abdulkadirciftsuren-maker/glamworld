@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 
 const TERS = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
 
-export default function Tooltip({ text, position = 'top', children }) {
+export default function Tooltip({ text, position = 'top', children, style: extraStyle }) {
   const [gorunur, setGorunur] = useState(false);
   const [gercekPos, setGercekPos] = useState(position);
   const timer = useRef(null);
@@ -45,7 +45,7 @@ export default function Tooltip({ text, position = 'top', children }) {
   };
 
   return (
-    <span ref={sarmaRef} style={s.sarma}
+    <span ref={sarmaRef} style={{ ...s.sarma, ...extraStyle }}
       onMouseEnter={() => goster(150)}
       onMouseLeave={gizle}
       onTouchStart={() => goster(100)}

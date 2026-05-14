@@ -1,3 +1,4 @@
+import Tooltip from './Tooltip';
 import './SosyalButon.css';
 
 const SOSYAL = {
@@ -53,14 +54,15 @@ export default function SosyalButon({ tip, mod = 'uye', onClick }) {
   if (!s) return null;
   const eylem = mod === 'giris' ? 'Giriş Yap' : 'Üye Ol';
   return (
-    <button
-      className={`sosyal-btn sosyal-btn-${tip}`}
-      onClick={onClick}
-      title={`${ISIM[tip]} ile ${eylem}`}
-      style={{ background: s.bg, color: s.yazi, border: `1px solid ${s.cerceve}` }}
-    >
-      <span className="sosyal-ikon">{s.logo}</span>
-      <span className="sosyal-yazi">{ISIM[tip]}</span>
-    </button>
+    <Tooltip text={`${ISIM[tip]} ile ${eylem}`} position="top" style={{ width: '100%' }}>
+      <button
+        className={`sosyal-btn sosyal-btn-${tip}`}
+        onClick={onClick}
+        style={{ background: s.bg, color: s.yazi, border: `1px solid ${s.cerceve}` }}
+      >
+        <span className="sosyal-ikon">{s.logo}</span>
+        <span className="sosyal-yazi">{ISIM[tip]}</span>
+      </button>
+    </Tooltip>
   );
 }
