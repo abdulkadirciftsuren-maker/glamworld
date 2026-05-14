@@ -7,9 +7,7 @@
   overflow: hidden;
   z-index: 1001;
   pointer-events: auto;
-  transition: transform 0.3s ease;
 }
-.ust-serit.gizli { transform: translateY(-100%); }
 @media (min-width: 768px) { .ust-serit { height: 32px; } }
 
 @keyframes ticker {
@@ -21,7 +19,7 @@
   align-items: center;
   height: 100%;
   white-space: nowrap;
-  animation: ticker 100s linear infinite;
+  animation: ticker 150s linear infinite;
   cursor: default;
 }
 .t-icerik.dur { animation-play-state: paused; }

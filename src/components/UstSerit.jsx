@@ -52,7 +52,6 @@ export default function UstSerit() {
   const [kurlar, setKurlar] = useState(null);
   const [btc, setBtc]       = useState(null);
   const [dur, setDur]       = useState(false);
-  const [gizli, setGizli]   = useState(false);
   const altin = 2580;
   const gumus = 29;
 
@@ -90,17 +89,6 @@ export default function UstSerit() {
         localStorage.setItem('glamworld_exchange_rates', JSON.stringify({ rates: d.rates, timestamp: Date.now() }));
       })
       .catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    let timer;
-    const onScroll = () => {
-      setGizli(true);
-      clearTimeout(timer);
-      timer = setTimeout(() => setGizli(false), 600);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => { window.removeEventListener('scroll', onScroll); clearTimeout(timer); };
   }, []);
 
   useEffect(() => {
@@ -159,7 +147,7 @@ export default function UstSerit() {
   ]);
 
   return (
-    <div className={`ust-serit${gizli ? ' gizli' : ''}`}
+    <div className="ust-serit"
       onMouseEnter={() => setDur(true)}
       onMouseLeave={() => setDur(false)}
       onTouchStart={() => setDur(true)}
