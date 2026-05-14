@@ -22,7 +22,7 @@ const ULKELER = [
 
 const SEHIR_DATA = {
   de:['Berlin','Münih','Hamburg','Köln','Frankfurt','Stuttgart','Düsseldorf','Leipzig','Dresden','Hannover','Nürnberg','Duisburg','Dortmund','Essen','Bremen','Bochum','Wuppertal','Bielefeld','Bonn','Münster','Aachen','Augsburg','Karlsruhe','Mainz','Wiesbaden','Freiburg','Heidelberg','Kiel','Magdeburg','Erfurt','Saarbrücken','Rostock'],
-  tr:['İstanbul','Ankara','İzmir','Bursa','Antalya','Adana','Konya','Gaziantep','Kocaeli','Mersin','Diyarbakır','Eskişehir','Trabzon','Kayseri','Samsun','Denizli','Malatya','Şanlıurfa','Manisa','Erzurum','Balıkesir','Tekirdağ','Kahramanmaraş','Van','Batman','Elazığ','Rize','Ordu','Kütahya','Muğla','Çorum','Tokat'],
+  tr:['İstanbul','Ankara','İzmir','Bursa','Antalya','Adana','Konya','Gaziantep','Kocaeli','Mersin','Diyarbakır','Eskişehir','Trabzon','Kayseri','Samsun','Denizli','Malatya','Şanlıurfa','Manisa','Erzurum','Balıkesir','Tekirdağ','Kahramanmaraş','Van','Batman','Elazığ','Rize','Ordu','Kütahya','Muğla','Çorum','Tokat','Mardin'],
   ua:['Kyiv','Lviv','Odessa','Kharkiv','Dnipro','Zaporizhzhia','Vinnitsya','Mykolaiv','Chernivtsi','Sumy','Poltava','Cherkasy'],
   nl:['Amsterdam','Rotterdam','Lahey','Utrecht','Eindhoven','Groningen','Tilburg','Alkmaar','Arnhem','Breda','Nijmegen','Enschede'],
   at:['Viyana','Graz','Linz','Salzburg','İnnsbruck','Klagenfurt','Villach','Wels','Steyr','Dornbirn'],
@@ -215,7 +215,7 @@ export function SehirOnericisi({ value, onChange }) {
                 </Tooltip>
               ))}
             </div>
-            <input type="text" value={ara} onChange={e => setAra(e.target.value)} placeholder="Şehir ara..." className="pa-city-search" />
+            <input type="text" value={ara} onChange={e => setAra(e.target.value)} placeholder="Şehir ara..." className="pa-city-search" autoComplete="off" />
             <div className="pa-city-list">
               {sehirler.length > 0 ? sehirler.map(s => (
                 <Tooltip key={s} text={s} position="top">

@@ -1024,6 +1024,18 @@ Code her görev bittikten sonra şu raporu verir:
 
 ---
 
+## 72. ŞEHİRE GÖRE İÇERİK
+
+Kullanıcı kayıt sırasında şehir seçtiğinde, anasayfa ve Keşfet sayfası o şehirdeki profesyonelleri ve hizmetleri öne çıkarır.
+
+- Seçili şehir kullanıcı profilinde saklanır (Firestore)
+- Anasayfa hero'da: "Berlin'deki Profesyoneller" gibi dinamik başlık
+- Keşfet sayfasında şehir filtresi varsayılan olarak o şehri gösterir
+- Kullanıcı isterse şehri değiştirebilir
+- **Uygulanacağı yer:** Anasayfa (B8+) ve Keşfet (B9+) sayfaları geliştirme aşamasında eklenir
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
