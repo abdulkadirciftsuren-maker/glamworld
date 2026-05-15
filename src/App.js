@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
-import Pirlanta from './components/Pirlanta';
 import UstSerit from './components/UstSerit';
 import AnaMenu from './components/AnaMenu';
 import IkonSeridi from './components/IkonSeridi';
@@ -10,32 +9,16 @@ import SolMenuPencere from './components/SolMenuPencere';
 import AltinCerceve from './components/AltinCerceve';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
+import PirlantaPazari from './sayfalar/PirlantaPazari';
+import Tanisma from './sayfalar/Tanisma';
+import CanliYayinlar from './sayfalar/CanliYayinlar';
+import Harita from './sayfalar/Harita';
+import Egitimler from './sayfalar/Egitimler';
 import './App.css';
 
-function Anasayfa() {
-  const navigate = useNavigate();
+function AnaSayfa() {
   return (
-    <div style={{ background: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
-      <header style={{ textAlign: 'center', padding: '60px 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-          <Pirlanta renk="beyaz" boyut={32} />
-          <h1 style={{ color: '#FFD700', fontFamily: 'Georgia, serif', fontSize: '2.5rem', margin: 0 }}>
-            GLAMWORLD
-          </h1>
-          <Pirlanta renk="beyaz" boyut={32} />
-        </div>
-        <p style={{ color: 'rgba(255,215,0,0.6)', marginTop: 8 }}>
-          Dünyanın Her Yerinden Profesyoneller Bir Arada
-        </p>
-        <div style={{ marginTop: 32, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button onClick={() => navigate('/giris')} style={{ padding: '12px 32px', background: 'transparent', border: '2px solid #FFD700', borderRadius: 999, color: '#FFD700', fontSize: 16, fontWeight: 700, cursor: 'pointer' }}>
-            Giriş Yap
-          </button>
-          <button onClick={() => navigate('/uye-ol')} style={{ padding: '12px 32px', background: 'linear-gradient(135deg,#FFD700,#FFA500)', border: 'none', borderRadius: 999, color: '#000', fontSize: 16, fontWeight: 700, cursor: 'pointer' }}>
-            Üye Ol
-          </button>
-        </div>
-      </header>
+    <div style={{ background: '#0a0a0a', minHeight: '100vh' }}>
       <DevWidget sayfa="Anasayfa" />
     </div>
   );
@@ -45,9 +28,14 @@ function Icerik() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Anasayfa />} />
-        <Route path="/giris" element={<Login />} />
-        <Route path="/uye-ol" element={<SignUp />} />
+        <Route path="/"                element={<AnaSayfa />}       />
+        <Route path="/giris"           element={<Login />}          />
+        <Route path="/uye-ol"          element={<SignUp />}         />
+        <Route path="/pirlanta-pazari" element={<PirlantaPazari />} />
+        <Route path="/tanisma"         element={<Tanisma />}        />
+        <Route path="/canli-yayinlar"  element={<CanliYayinlar />}  />
+        <Route path="/harita"          element={<Harita />}         />
+        <Route path="/egitimler"       element={<Egitimler />}      />
       </Routes>
       <GeriButon />
     </>
@@ -66,9 +54,7 @@ function App() {
       const t = e.target.tagName;
       if (t !== 'INPUT' && t !== 'TEXTAREA') e.preventDefault();
     };
-    const noDrag = (e) => {
-      if (e.target.tagName === 'IMG') e.preventDefault();
-    };
+    const noDrag = (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); };
     document.addEventListener('contextmenu', noMenu);
     document.addEventListener('copy', noCopy);
     document.addEventListener('cut', noCopy);
@@ -86,7 +72,7 @@ function App() {
       <AltinCerceve />
       <UstSerit />
       <AnaMenu onMenuClick={() => setMenuAcik(true)} />
-      <IkonSeridi onMenuAc={() => setMenuAcik(true)} />
+      <IkonSeridi />
       <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
     </BrowserRouter>

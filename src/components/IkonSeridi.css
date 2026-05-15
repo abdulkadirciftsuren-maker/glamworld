@@ -5,6 +5,7 @@
   height: 45px;
   background: transparent;
   padding: 0 8px;
+  position: relative;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -22,8 +23,13 @@
   justify-content: center;
   padding: 6px;
   border-radius: 12px;
-  transition: filter 0.25s ease, transform 0.2s ease;
+  transition: filter 0.3s ease, transform 0.3s ease;
   -webkit-tap-highlight-color: transparent;
+}
+
+.is-btn.aktif .is-ikon {
+  filter: drop-shadow(0 0 12px var(--ikon-renk));
+  transform: scale(1.15);
 }
 
 .is-btn:hover .is-ikon,
@@ -33,7 +39,10 @@
 
 .is-btn:active { transform: scale(0.88); }
 
-.is-ikon { display: block; }
+.is-ikon {
+  display: block;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
 
 @media (min-width: 768px) {
   .is-btn .is-ikon { width: 32px !important; height: 32px !important; }
