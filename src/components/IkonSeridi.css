@@ -5,9 +5,15 @@
   height: 45px;
   background: transparent;
   padding: 0 8px;
-  position: relative;
+  position: sticky;
+  top: 82px;
+  z-index: 998;
   user-select: none;
   -webkit-user-select: none;
+}
+
+@media (min-width: 768px) {
+  .ikon-seridi { top: 102px; }
 }
 
 @media (min-width: 768px) {
