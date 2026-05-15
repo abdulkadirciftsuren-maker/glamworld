@@ -56,11 +56,35 @@
 
 .am-orta {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.am-logo-satir {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.am-slogan {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: rgba(201,168,76,0.75);
+  letter-spacing: 1.5px;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.am-dunya {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 3px rgba(64,224,208,0.5));
 }
 
 /* GLAMWORLD LOGO */

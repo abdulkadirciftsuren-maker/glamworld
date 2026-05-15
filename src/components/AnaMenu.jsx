@@ -55,23 +55,34 @@ export default function AnaMenu({ onMenuClick }) {
       </div>
 
       <div className="am-orta">
-        <div className="am-deko am-deko-sol">
-          <div className="am-deko-cizgi" />
-          <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
-          <div className="am-pirlanta-wrap"><Pirlanta renk="mavi" boyut={20} /></div>
-          <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
+        <div className="am-logo-satir">
+          <div className="am-deko am-deko-sol">
+            <div className="am-deko-cizgi" />
+            <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
+            <div className="am-pirlanta-wrap"><Pirlanta renk="mavi" boyut={20} /></div>
+            <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
+          </div>
+          <span className="am-logo">
+            {LOGO_HARFLER.map((h, i) => (
+              <span key={i} className={`am-harf${h === 'W' ? ' am-w' : ''}`}>{h}</span>
+            ))}
+          </span>
+          <div className="am-deko am-deko-sag">
+            <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
+            <div className="am-pirlanta-wrap"><Pirlanta renk="mavi" boyut={20} /></div>
+            <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
+            <div className="am-deko-cizgi" />
+          </div>
         </div>
-        <span className="am-logo">
-          {LOGO_HARFLER.map((h, i) => (
-            <span key={i} className={`am-harf${h === 'W' ? ' am-w' : ''}`}>{h}</span>
-          ))}
+        <span className="am-slogan">
+          Dünyanın
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#40E0D0" strokeWidth="1.8" className="am-dunya">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Platformu
         </span>
-        <div className="am-deko am-deko-sag">
-          <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
-          <div className="am-pirlanta-wrap"><Pirlanta renk="mavi" boyut={20} /></div>
-          <svg width="10" height="10" viewBox="0 0 10 10" className="am-deko-elmas"><polygon points="5,0 10,5 5,10 0,5" fill="none" stroke="#4A90E2" strokeWidth="1.2" /><polygon points="5,2 8,5 5,8 2,5" fill="rgba(74,144,226,0.35)" stroke="none" /></svg>
-          <div className="am-deko-cizgi" />
-        </div>
       </div>
 
       <div className="am-sag">
