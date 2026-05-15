@@ -2,7 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 function sagAlt() {
-  return { x: window.innerWidth - 80, y: window.innerHeight - 100 };
+  return {
+    x: window.innerWidth - 72,
+    y: window.innerHeight - 88,
+  };
 }
 
 function sinirIcinde(x, y) {
@@ -13,13 +16,13 @@ function sinirIcinde(x, y) {
 }
 
 export default function GeriButon() {
+  const location = useLocation();
   const [konum, setKonum] = useState(sagAlt);
   const [suruklendi, setSuruklendi] = useState(false);
   const [tooltip, setTooltip] = useState(false);
   const surukleniyor = useRef(false);
   const baslangic = useRef({ mx: 0, my: 0, wx: 0, wy: 0 });
   const ref = useRef(null);
-  const location = useLocation();
 
   useEffect(() => {
     setKonum(sagAlt());
@@ -33,7 +36,9 @@ export default function GeriButon() {
         setKonum(sagAlt());
       }
     };
-    const orientationSifirla = () => setKonum(sagAlt());
+    const orientationSifirla = () => {
+      setTimeout(() => setKonum(sagAlt()), 250);
+    };
     window.addEventListener('resize', resizeSifirla);
     window.addEventListener('orientationchange', orientationSifirla);
     return () => {
@@ -78,8 +83,9 @@ export default function GeriButon() {
     };
   }, []);
 
-  const geriGit = () => { if (!suruklendi) window.history.back(); };
+  if (location.pathname === '/') return null;
 
+  const geriGit = () => { if (!suruklendi) window.history.back(); };
   const w = window.innerWidth;
   const boyut = w < 481 ? 48 : w < 769 ? 44 : w < 1025 ? 52 : 56;
 
