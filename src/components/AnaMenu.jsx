@@ -47,7 +47,7 @@ export default function AnaMenu({ onMenuClick }) {
   return (
     <header className={`ana-menu${scrolled ? ' scrolled' : ''}`}>
       <div className="am-sol">
-        <Tooltip text="Menü" position="bottom">
+        <Tooltip text="Menü" position="right">
           <button className="am-btn" onClick={onMenuClick || (() => {})}>
             <HamburgerSvg />
           </button>
@@ -75,19 +75,19 @@ export default function AnaMenu({ onMenuClick }) {
       </div>
 
       <div className="am-sag">
-        <Tooltip text="Ara" position="bottom">
+        <Tooltip text="Ara" position="left">
           <button className="am-btn am-extra"><AramaSvg s={22} /></button>
         </Tooltip>
-        <Tooltip text="Bildirimler" position="bottom">
+        <Tooltip text="Bildirimler" position="left">
           <button className="am-btn am-extra am-badge-wrap">
             <BildirimSvg s={22} />
             <span className="am-badge">0</span>
           </button>
         </Tooltip>
-        <Tooltip text="Dil Seçimi" position="bottom">
+        <Tooltip text="Dil Seçimi" position="left">
           <button className="am-btn am-extra"><DilSvg s={22} /></button>
         </Tooltip>
-        <Tooltip text={giris ? 'Profilim' : 'Giriş Yap'} position="bottom">
+        <Tooltip text={giris ? 'Profilim' : 'Giriş Yap'} position="left">
           <button className="am-btn"><ProfilSvg s={24} foto={foto} /></button>
         </Tooltip>
       </div>
