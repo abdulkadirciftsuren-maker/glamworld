@@ -4,6 +4,7 @@ import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import Pirlanta from './components/Pirlanta';
 import UstSerit from './components/UstSerit';
+import AnaMenu from './components/AnaMenu';
 import AltinCerceve from './components/AltinCerceve';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
@@ -82,6 +83,7 @@ function App() {
     <BrowserRouter basename="/glamworld">
       <AltinCerceve />
       <UstSerit />
+      <AnaMenu />
       <Icerik />
     </BrowserRouter>
   );
