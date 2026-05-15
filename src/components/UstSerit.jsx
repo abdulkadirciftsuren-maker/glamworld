@@ -31,10 +31,8 @@ const ULKELER = {
 };
 
 const GRUPLAR = [
-  ['DE','TR','US','GB','CH'],
-  ['RU','UA','SA','AE','EG'],
-  ['ZA','NG','MA','BR','AR'],
-  ['MX','CO','JP','CN','HK'],
+  ['DE','TR','US','GB','CH','RU','UA','SA','AE','EG'],
+  ['ZA','NG','MA','BR','AR','MX','CO','JP','CN','HK'],
   ['MY','IN','PK','AU'],
 ];
 
@@ -122,11 +120,11 @@ export default function UstSerit() {
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <span className="t-altin">{fmt(saat)}</span>
       </span>,
-      <span key={`${p}us`} className="t-item"><span className="t-label">USD</span><span className="t-altin">{kur('USD')}</span></span>,
-      <span key={`${p}eu`} className="t-item"><span className="t-label">EUR</span><span className="t-altin">{kur('EUR')}</span></span>,
-      <span key={`${p}gb`} className="t-item"><span className="t-label">GBP</span><span className="t-altin">{kur('GBP')}</span></span>,
-      <span key={`${p}al`} className="t-item"><span className="t-label">ALTIN</span><span className="t-altin">${altin}</span></span>,
-      <span key={`${p}gm`} className="t-item"><span className="t-label">GÜMÜŞ</span><span className="t-beyaz">${gumus}</span></span>,
+      <span key={`${p}us`} className="t-item"><span className="t-label">USD</span><span className="t-usd">{kur('USD')}</span></span>,
+      <span key={`${p}eu`} className="t-item"><span className="t-label">EUR</span><span className="t-eur">{kur('EUR')}</span></span>,
+      <span key={`${p}gb`} className="t-item"><span className="t-label">GBP</span><span className="t-gbp">{kur('GBP')}</span></span>,
+      <span key={`${p}al`} className="t-item"><span className="t-label">ALTIN</span><span className="t-gold">${altin}</span></span>,
+      <span key={`${p}gm`} className="t-item"><span className="t-label">GÜMÜŞ</span><span className="t-silver">${gumus}</span></span>,
       btc ? <span key={`${p}bt`} className="t-item"><span className="t-label">BTC</span><span className="t-btc">${Math.round(btc/1000)}K</span></span> : null,
     ].filter(Boolean);
   }
