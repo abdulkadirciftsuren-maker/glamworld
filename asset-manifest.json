@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/glamworld/static/css/main.6bea9b06.css",
-    "main.js": "/glamworld/static/js/main.73f884b0.js",
+    "main.js": "/glamworld/static/js/main.b3973ebc.js",
     "static/js/453.3adcdbc8.chunk.js": "/glamworld/static/js/453.3adcdbc8.chunk.js",
     "index.html": "/glamworld/index.html",
     "main.6bea9b06.css.map": "/glamworld/static/css/main.6bea9b06.css.map",
-    "main.73f884b0.js.map": "/glamworld/static/js/main.73f884b0.js.map",
+    "main.b3973ebc.js.map": "/glamworld/static/js/main.b3973ebc.js.map",
     "453.3adcdbc8.chunk.js.map": "/glamworld/static/js/453.3adcdbc8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6bea9b06.css",
-    "static/js/main.73f884b0.js"
+    "static/js/main.b3973ebc.js"
   ]
 }
