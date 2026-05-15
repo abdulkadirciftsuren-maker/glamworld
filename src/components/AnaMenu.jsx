@@ -87,9 +87,22 @@ export default function AnaMenu({ onMenuClick }) {
         <Tooltip text="Dil Seçimi" position="left">
           <button className="am-btn am-extra"><DilSvg s={22} /></button>
         </Tooltip>
-        <Tooltip text={giris ? 'Profilim' : 'Giriş Yap'} position="left">
-          <button className="am-btn"><ProfilSvg s={24} foto={foto} /></button>
-        </Tooltip>
+        <button
+          className="am-btn am-profil-btn"
+          data-tip={giris ? 'Profilim' : 'Giriş Yap'}
+          onTouchStart={() => {
+            const el = document.querySelector('.am-profil-btn');
+            if (el) el.classList.add('tip-ac');
+          }}
+          onTouchEnd={() => {
+            setTimeout(() => {
+              const el = document.querySelector('.am-profil-btn');
+              if (el) el.classList.remove('tip-ac');
+            }, 800);
+          }}
+        >
+          <ProfilSvg s={24} foto={foto} />
+        </button>
       </div>
     </header>
   );

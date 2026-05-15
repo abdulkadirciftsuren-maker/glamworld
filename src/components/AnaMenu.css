@@ -176,6 +176,29 @@
 }
 
 .am-badge-wrap { position: relative; }
+
+.am-profil-btn { position: relative; }
+.am-profil-btn::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.92);
+  color: #FFD700;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,215,0,0.3);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.am-profil-btn:hover::after,
+.am-profil-btn.tip-ac::after { opacity: 1; }
 .am-badge {
   position: absolute;
   top: 2px; right: 2px;
