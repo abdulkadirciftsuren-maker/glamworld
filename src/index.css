@@ -14,7 +14,7 @@ body {
 }
 
 @media (min-width: 768px) {
-  body { padding-top: 26px; }
+  body { padding-top: 32px; }
 }
 
 * {

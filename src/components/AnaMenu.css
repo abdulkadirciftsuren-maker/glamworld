@@ -1,6 +1,6 @@
 .ana-menu {
   position: sticky;
-  top: 0;
+  top: 22px;
   left: 0;
   right: 0;
   height: 60px;
@@ -19,7 +19,7 @@
 }
 
 @media (min-width: 768px) {
-  .ana-menu { height: 70px; padding: 0 24px; }
+  .ana-menu { height: 70px; top: 32px; padding: 0 24px; }
 }
 
 .am-sol { display: flex; align-items: center; }
