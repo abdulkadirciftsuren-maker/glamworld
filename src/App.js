@@ -18,9 +18,7 @@ import './App.css';
 
 function AnaSayfa() {
   return (
-    <div style={{ background: '#0a0a0a', minHeight: '100vh' }}>
-      <DevWidget sayfa="Anasayfa" />
-    </div>
+    <div style={{ background: '#0a0a0a', minHeight: '100vh' }} />
   );
 }
 
@@ -38,6 +36,7 @@ function Icerik() {
         <Route path="/egitimler"       element={<Egitimler />}      />
       </Routes>
       <GeriButon />
+      <DevWidget sayfa="Sayfa" />
     </>
   );
 }

@@ -22,7 +22,7 @@ export default function IkonSeridi() {
       {IKONLAR.map(({ Icon, renk, isim, yol }) => {
         const aktif = pathname === yol;
         return (
-          <Tooltip key={yol} text={isim} position="bottom">
+          <Tooltip key={yol} text={isim} position="top">
             <button
               className={`is-btn${aktif ? ' aktif' : ''}`}
               style={{ '--ikon-renk': renk }}

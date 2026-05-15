@@ -52,8 +52,8 @@ export default function SolMenuPencere({ acik, onKapat }) {
   const git = (yol) => { navigate(yol); onKapat(); };
 
   return (
-    <div className={`smp-overlay${acik ? ' acik' : ''}`}>
-      <div ref={panelRef} className={`smp-panel${acik ? ' acik' : ''}`}>
+    <div className={`smp-overlay${acik ? ' acik' : ''}`} onClick={onKapat}>
+      <div ref={panelRef} className={`smp-panel${acik ? ' acik' : ''}`} onClick={(e) => e.stopPropagation()}>
         <div className="smp-ust">
           <div className="smp-logo">
             <Pirlanta renk="mavi" boyut={16} />

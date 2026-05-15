@@ -1,6 +1,6 @@
 .ana-menu {
-  position: sticky;
-  top: 22px;
+  position: relative;
+  top: 0;
   left: 0; right: 0;
   background: transparent;
   display: flex;
@@ -15,7 +15,7 @@
   box-sizing: border-box;
 }
 @media (min-width: 768px) {
-  .ana-menu { top: 32px; padding: 12px 24px; }
+  .ana-menu { padding: 12px 24px; }
 }
 
 /* SCROLL DURUMU */
