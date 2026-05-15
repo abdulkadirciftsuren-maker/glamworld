@@ -75,19 +75,19 @@ export default function AnaMenu({ onMenuClick }) {
       </div>
 
       <div className="am-sag">
-        <Tooltip text="Ara" position="left">
+        <Tooltip text="Ara" position="bottom">
           <button className="am-btn am-extra"><AramaSvg s={22} /></button>
         </Tooltip>
-        <Tooltip text="Bildirimler" position="left">
+        <Tooltip text="Bildirimler" position="bottom">
           <button className="am-btn am-extra am-badge-wrap">
             <BildirimSvg s={22} />
             <span className="am-badge">0</span>
           </button>
         </Tooltip>
-        <Tooltip text="Dil Seçimi" position="left">
+        <Tooltip text="Dil Seçimi" position="bottom">
           <button className="am-btn am-extra"><DilSvg s={22} /></button>
         </Tooltip>
-        <Tooltip text={giris ? 'Profilim' : 'Giriş Yap'} position="left">
+        <Tooltip text={giris ? 'Profilim' : 'Giriş Yap'} position="bottom">
           <button className="am-btn"><ProfilSvg s={24} foto={foto} /></button>
         </Tooltip>
       </div>

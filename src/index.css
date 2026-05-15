@@ -67,8 +67,8 @@ input, textarea, select {
 @media (max-width: 480px) { .kapat-tooltip::after { font-size: 13px; } }
 
 @keyframes tooltipFadeIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 code {
