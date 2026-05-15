@@ -32,8 +32,10 @@ const ULKELER = {
 };
 
 const GRUPLAR = [
-  ['DE','TR','US','GB','CH','RU','UA','SA','AE','EG'],
-  ['ZA','NG','MA','BR','AR','MX','CO','JP','CN','HK'],
+  ['DE','TR','US','GB','CH'],
+  ['RU','UA','SA','AE','EG'],
+  ['ZA','NG','MA','BR','AR'],
+  ['MX','CO','JP','CN','HK'],
   ['MY','IN','PK','AU'],
 ];
 
