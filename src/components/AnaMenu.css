@@ -1,6 +1,6 @@
 .ana-menu {
   position: sticky;
-  top: 22px;
+  top: 0;
   left: 0;
   right: 0;
   height: 60px;
@@ -19,7 +19,7 @@
 }
 
 @media (min-width: 768px) {
-  .ana-menu { height: 70px; top: 26px; padding: 0 24px; }
+  .ana-menu { height: 70px; padding: 0 24px; }
 }
 
 .am-sol { display: flex; align-items: center; }
@@ -35,16 +35,33 @@
 }
 
 .am-logo {
-  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 2px;
   white-space: nowrap;
+  display: flex;
+}
+
+@keyframes harfParla {
+  0%, 55%, 100% {
+    color: #C9A84C;
+    text-shadow: 0 0 2px rgba(201,168,76,0.2);
+  }
+  28% {
+    color: #FFE066;
+    text-shadow:
+      0 0 4px rgba(255,215,0,1),
+      0 0 10px rgba(255,215,0,0.8),
+      0 0 20px rgba(255,165,0,0.5),
+      0 0 32px rgba(255,165,0,0.2);
+  }
+}
+
+.am-harf {
+  display: inline-block;
+  color: #C9A84C;
+  animation: harfParla 5s ease-in-out infinite;
 }
 
 @media (min-width: 768px) {

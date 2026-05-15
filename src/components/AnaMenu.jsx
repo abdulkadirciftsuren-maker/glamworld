@@ -62,7 +62,11 @@ export default function AnaMenu({ onMenuClick }) {
 
       <div className="am-orta">
         <Pirlanta renk="mavi" boyut={20} />
-        <span className="am-logo">GLAMWORLD</span>
+        <span className="am-logo">
+          {'GLAMWORLD'.split('').map((h, i) => (
+            <span key={i} className="am-harf" style={{ animationDelay: `${i * 0.35}s` }}>{h}</span>
+          ))}
+        </span>
         <Pirlanta renk="mavi" boyut={20} />
       </div>
 
