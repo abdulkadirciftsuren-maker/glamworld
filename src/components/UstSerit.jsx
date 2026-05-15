@@ -132,7 +132,7 @@ export default function UstSerit() {
       .catch(() => {});
   }, []);
 
-  if (pathname !== '/') return null;
+  if (pathname === '/giris' || pathname === '/uye-ol') return null;
 
   const kulKod  = konum?.code || 'DE';
   const kulUlke = ULKELER[kulKod] || ULKELER.DE;
