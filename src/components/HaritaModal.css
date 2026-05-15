@@ -57,11 +57,54 @@
 }
 .hm-kapat:hover { background: rgba(201,168,76,0.2); }
 
-.hm-iframe {
+.hm-harita-wrap {
   flex: 1;
-  width: 100%;
-  border: none;
+  position: relative;
   min-height: 0;
+}
+
+.hm-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.hm-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hm-foto {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid #C9A84C;
+  object-fit: cover;
+  box-shadow: 0 2px 12px rgba(201,168,76,0.6);
+}
+
+.hm-nokta {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #C9A84C;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.hm-pin {
+  width: 2px;
+  height: 12px;
+  background: #C9A84C;
+  margin-top: -1px;
 }
 
 .hm-alt {

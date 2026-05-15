@@ -61,19 +61,51 @@ export default function UstSerit() {
   }, []);
 
   useEffect(() => {
-    const cache = localStorage.getItem('glamworld_user_location');
-    if (cache) {
-      const { location, timestamp } = JSON.parse(cache);
-      if (Date.now() - timestamp < 86400000 && location.lat) { setKonum(location); return; }
+    let watchId = null;
+    let sonGeocode = null;
+
+    async function geocode(lat, lng) {
+      try {
+        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=tr`);
+        const d = await r.json();
+        const a = d.address || {};
+        return {
+          city: a.city || a.town || a.village || a.county || a.state || 'Bilinmiyor',
+          country: a.country || 'Bilinmiyor',
+          code: (a.country_code || 'de').toUpperCase(),
+          lat, lng
+        };
+      } catch { return null; }
     }
-    fetch('https://ipapi.co/json/')
-      .then(r => r.json())
-      .then(d => {
-        const loc = { city: d.city, country: d.country_name, code: (d.country_code || 'DE').toUpperCase(), lat: d.latitude, lng: d.longitude };
-        setKonum(loc);
-        localStorage.setItem('glamworld_user_location', JSON.stringify({ location: loc, timestamp: Date.now() }));
-      })
-      .catch(() => setKonum({ city:'Berlin', country:'Almanya', code:'DE' }));
+
+    function ipFallback() {
+      fetch('https://ipapi.co/json/')
+        .then(r => r.json())
+        .then(d => {
+          const loc = { city: d.city, country: d.country_name, code: (d.country_code||'DE').toUpperCase(), lat: d.latitude, lng: d.longitude };
+          setKonum(loc);
+        })
+        .catch(() => setKonum({ city:'Berlin', country:'Almanya', code:'DE', lat:52.52, lng:13.405 }));
+    }
+
+    if (!navigator.geolocation) { ipFallback(); return; }
+
+    watchId = navigator.geolocation.watchPosition(
+      async (pos) => {
+        const { latitude: lat, longitude: lng } = pos.coords;
+        setKonum(prev => prev ? { ...prev, lat, lng } : { lat, lng });
+        const dist = sonGeocode ? Math.abs(lat - sonGeocode.lat) + Math.abs(lng - sonGeocode.lng) : 999;
+        if (dist > 0.05 || !sonGeocode) {
+          sonGeocode = { lat, lng };
+          const loc = await geocode(lat, lng);
+          if (loc) setKonum(loc);
+        }
+      },
+      () => ipFallback(),
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+    );
+
+    return () => { if (watchId !== null) navigator.geolocation.clearWatch(watchId); };
   }, []);
 
   useEffect(() => {
