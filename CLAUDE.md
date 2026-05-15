@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.17 — Son)
+# GLAMWORLD — Proje Anayasası (V5.18 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1096,8 +1096,9 @@ Avrupa: Almanya, İngiltere, İsviçre, Rusya, Ukrayna | Orta Doğu/Afrika: Tür
 6. ALTIN + GÜMÜŞ (statik fiyat)
 7. BTC (turuncu) + ETH (mavi)
 
-**İçerik yapısı (B21 - 5'er gruplar):**
-Saat → BURADASIN → [5 ülke blok] → [USD/EUR/ALTIN/GÜMÜŞ/BTC/ETH] → [5 ülke blok] → ... (5 grup × 5 ülke = 24 ülke, aralarında döviz)
+**Güncel yapı (B42 - 10'ar gruplar, renkli döviz):**
+[BURADASIN (tıklanabilir→harita) + saat + USD + EUR + GBP + ALTIN + GÜMÜŞ + BTC] → [10 ülke] → tekrar...
+Her 10 ülkede bir BURADASIN+döviz tekrar. USD yeşil | EUR mavi | GBP mor | ALTIN sarı | GÜMÜŞ gri | BTC turuncu.
 
 **Modal (Login/SignUp) açıkken:** `return null` — şerit tamamen gizlenir
 
@@ -1141,11 +1142,13 @@ Saat → BURADASIN → [5 ülke blok] → [USD/EUR/ALTIN/GÜMÜŞ/BTC/ETH] → [
 
 ## 79. ALTIN ÇERÇEVE (Sayfa Dekorasyonu)
 
-- `body { border: 1.5px solid rgba(255,215,0,0.55); box-shadow: inset 0 0 14px rgba(255,215,0,0.1); }`
-- PC: `border-width: 2px`
-- `box-sizing: border-box; min-height: 100vh`
-- Tüm sayfalarda görünür, modal/popup ile uyumlu
-- Marka kimliği detayı — lüks his verir
+- Component: `src/components/AltinCerceve.jsx` + `AltinCerceve.css`
+- 4 ayrı `position: fixed` çubuk (üst, alt, sol, sağ) — 2px kalınlık, #C9A84C renk
+- Visual Viewport API ile zoom'da sabit kalır (titremez)
+- `pointer-events: none` — tıklamayı engellemez
+- `z-index: 9990` — her zaman üstte
+- `will-change: transform` — GPU hızlandırması
+- App.js'te `<BrowserRouter>` içinde kullanılır, her sayfada görünür
 
 ---
 
@@ -1166,6 +1169,44 @@ Saat → BURADASIN → [5 ülke blok] → [USD/EUR/ALTIN/GÜMÜŞ/BTC/ETH] → [
 - Hook: `src/hooks/useKartDisiTiklama.js` — yeni modal yapan herkes kullanmak ZORUNDA
 - Kullanım: `useKartDisiTiklama(ref, onKapat, aktif)`
 - İstisna: Kullanıcı form alanına yazıyorken dış tıklama kapatmaz
+
+---
+
+## 81. BURADASIN HARITA BUTONU
+
+- Üst şeritteki BURADASIN rozeti **tıklanabilir**
+- Tıklayınca `HaritaModal` açılır (bottom-sheet, PC'de ortalı)
+- Harita: OpenStreetMap iframe (ücretsiz, API key gereksiz)
+- Endpoint: `https://www.openstreetmap.org/export/embed.html?bbox=...&marker=lat,lng`
+- "Google Maps'te Aç" linki de modal içinde
+- Konum (lat/lng): ipapi.co API → localStorage cache 24 saat (`glamworld_user_location`)
+- Varsayılan konum: Berlin, Almanya (Abdulkadir bulunduğu yer)
+- Component: `src/components/HaritaModal.jsx` + `HaritaModal.css`
+
+---
+
+## 82. TELEFON REHBERİ / İZİN AKIŞI
+
+**KURAL: İzinler kayıt sırasında istenmez. Bağlamsal istenir.**
+
+İzin ne zaman istenir:
+- Kullanıcı BURADASIN → Harita açtığında: "Arkadaşlarını haritada görmek ister misin?"
+- Kullanıcı Mesajlar sayfasına ilk girişte: "Rehberinden kişileri bulmak ister misin?"
+- Her özellik kendi izinini kendi zamanında ister
+
+İzin akışı (harita için):
+1. HaritaModal açılır → kullanıcının konumu gösterilir
+2. Alt kısımda: "Arkadaşlarını görmek ister misin? [İzin Ver] [Şimdi Değil]"
+3. İzin verirse: Web Contact Picker API → GLAMWORLD kayıtlı numaralar Firestore'dan sorgulanır → haritada gösterilir
+4. Reddederse: zorlanmaz (Madde 11 ruhu — şeffaf site)
+
+Teknik:
+- `navigator.contacts.select(['name', 'tel'], { multiple: true })` — Web Contact Picker API
+- HTTPS zorunlu, kullanıcı seçer (sistem picker açılır)
+- Seçilen numaralar → Firestore `kullanicilar` koleksiyonunda sorgulanır
+- Arkadaş konumları sadece açık paylaşım izniyse gösterilir
+
+GDPR: Telefon numaraları sunucuya GÖNDERILMEZ — sadece hash karşılaştırması yapılır.
 
 ---
 
@@ -1191,7 +1232,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 14 Mayıs 2026 — V5.17 (M.74: 24 ülke 5'er gruplar arası döviz/ALTIN/BTC yapısı; M.79: body border 2px)*
+*Son güncelleme: 15 Mayıs 2026 — V5.18 (M.74 güncellendi: 10'ar grup+renkli döviz; M.79 güncellendi: AltinCerceve.jsx; M.81: BURADASIN harita; M.82: Telefon rehberi izin akışı)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*

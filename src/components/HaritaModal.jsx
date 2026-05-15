@@ -2,9 +2,12 @@ import Pirlanta from './Pirlanta';
 import './HaritaModal.css';
 
 export default function HaritaModal({ konum, onKapat }) {
-  if (!konum?.lat) return null;
+  if (!konum) return null;
 
-  const { lat, lng, city, country } = konum;
+  const lat  = konum.lat  || 52.52;
+  const lng  = konum.lng  || 13.405;
+  const city    = konum.city    || 'Berlin';
+  const country = konum.country || 'Almanya';
   const d = 0.04;
   const src = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-d},${lat-d},${lng+d},${lat+d}&layer=mapnik&marker=${lat},${lng}`;
 

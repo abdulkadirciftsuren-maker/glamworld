@@ -64,7 +64,7 @@ export default function UstSerit() {
     const cache = localStorage.getItem('glamworld_user_location');
     if (cache) {
       const { location, timestamp } = JSON.parse(cache);
-      if (Date.now() - timestamp < 86400000) { setKonum(location); return; }
+      if (Date.now() - timestamp < 86400000 && location.lat) { setKonum(location); return; }
     }
     fetch('https://ipapi.co/json/')
       .then(r => r.json())
