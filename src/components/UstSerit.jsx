@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
+import HaritaModal from './HaritaModal';
 import './UstSerit.css';
 
 const ULKELER = {
@@ -50,6 +51,7 @@ export default function UstSerit() {
   const [kurlar, setKurlar] = useState(null);
   const [btc, setBtc]       = useState(null);
   const [dur, setDur]       = useState(false);
+  const [haritaAcik, setHaritaAcik] = useState(false);
   const altin = 2580;
   const gumus = 29;
 
@@ -67,7 +69,7 @@ export default function UstSerit() {
     fetch('https://ipapi.co/json/')
       .then(r => r.json())
       .then(d => {
-        const loc = { city: d.city, country: d.country_name, code: (d.country_code || 'DE').toUpperCase() };
+        const loc = { city: d.city, country: d.country_name, code: (d.country_code || 'DE').toUpperCase(), lat: d.latitude, lng: d.longitude };
         setKonum(loc);
         localStorage.setItem('glamworld_user_location', JSON.stringify({ location: loc, timestamp: Date.now() }));
       })
@@ -110,7 +112,7 @@ export default function UstSerit() {
 
   function dovizBlok(p) {
     return [
-      <span key={`${p}bd`} className="t-item t-kullanici">
+      <span key={`${p}bd`} className="t-item t-kullanici t-tikla" onClick={() => setHaritaAcik(true)}>
         <Pirlanta renk="mavi" boyut={12} />
         {flag(kulUlke.cc)}
         <span className="t-altin">{konum?.city || kulUlke.sehir}</span>
@@ -120,12 +122,12 @@ export default function UstSerit() {
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <span className="t-altin">{fmt(saat)}</span>
       </span>,
-      <span key={`${p}us`} className="t-item"><span className="t-label">USD</span><span className="t-usd">{kur('USD')}</span></span>,
-      <span key={`${p}eu`} className="t-item"><span className="t-label">EUR</span><span className="t-eur">{kur('EUR')}</span></span>,
-      <span key={`${p}gb`} className="t-item"><span className="t-label">GBP</span><span className="t-gbp">{kur('GBP')}</span></span>,
-      <span key={`${p}al`} className="t-item"><span className="t-label">ALTIN</span><span className="t-gold">${altin}</span></span>,
-      <span key={`${p}gm`} className="t-item"><span className="t-label">GÜMÜŞ</span><span className="t-silver">${gumus}</span></span>,
-      btc ? <span key={`${p}bt`} className="t-item"><span className="t-label">BTC</span><span className="t-btc">${Math.round(btc/1000)}K</span></span> : null,
+      <span key={`${p}us`} className="t-item"><span className="t-usd-l">USD</span><span className="t-usd">{kur('USD')}</span></span>,
+      <span key={`${p}eu`} className="t-item"><span className="t-eur-l">EUR</span><span className="t-eur">{kur('EUR')}</span></span>,
+      <span key={`${p}gb`} className="t-item"><span className="t-gbp-l">GBP</span><span className="t-gbp">{kur('GBP')}</span></span>,
+      <span key={`${p}al`} className="t-item"><span className="t-gold-l">ALTIN</span><span className="t-gold">${altin}</span></span>,
+      <span key={`${p}gm`} className="t-item"><span className="t-silver-l">GÜMÜŞ</span><span className="t-silver">${gumus}</span></span>,
+      btc ? <span key={`${p}bt`} className="t-item"><span className="t-btc-l">BTC</span><span className="t-btc">${Math.round(btc/1000)}K</span></span> : null,
     ].filter(Boolean);
   }
 
@@ -145,6 +147,8 @@ export default function UstSerit() {
   ]);
 
   return (
+    <>
+    {haritaAcik && <HaritaModal konum={konum} onKapat={() => setHaritaAcik(false)} />}
     <div className="ust-serit"
       onMouseEnter={() => setDur(true)}
       onMouseLeave={() => setDur(false)}
@@ -153,5 +157,6 @@ export default function UstSerit() {
     >
       <div className={`t-icerik${dur ? ' dur' : ''}`}>{items}{items}</div>
     </div>
+    </>
   );
 }

@@ -53,6 +53,16 @@
 .t-silver { color: #C8C8C8; font-weight: 700; }
 .t-btc    { color: #F7931A; font-weight: 700; }
 
+.t-usd-l    { color: rgba(76,175,80,0.7);   font-size: 10px; font-weight: 600; }
+.t-eur-l    { color: rgba(91,155,213,0.7);  font-size: 10px; font-weight: 600; }
+.t-gbp-l    { color: rgba(177,156,217,0.7); font-size: 10px; font-weight: 600; }
+.t-gold-l   { color: rgba(255,215,0,0.7);   font-size: 10px; font-weight: 600; }
+.t-silver-l { color: rgba(200,200,200,0.7); font-size: 10px; font-weight: 600; }
+.t-btc-l    { color: rgba(247,147,26,0.7);  font-size: 10px; font-weight: 600; }
+
+.t-tikla { cursor: pointer; }
+.t-tikla:active { opacity: 0.75; }
+
 .t-saat .t-altin { font-size: 13px; }
 
 .t-kullanici {

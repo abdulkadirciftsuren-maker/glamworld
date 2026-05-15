@@ -1,0 +1,88 @@
+.hm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 9500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hm-panel {
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 640px;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.7);
+}
+
+.hm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  flex-shrink: 0;
+}
+
+.hm-baslik {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hm-sehir {
+  color: #C9A84C;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.hm-kapat {
+  width: 32px;
+  height: 32px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 50%;
+  color: #C9A84C;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hm-kapat:hover { background: rgba(201,168,76,0.2); }
+
+.hm-iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  min-height: 0;
+}
+
+.hm-alt {
+  padding: 12px 18px;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  flex-shrink: 0;
+}
+
+.hm-gm-btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: linear-gradient(135deg, #C9A84C, #E8C86A);
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .hm-overlay { align-items: center; }
+  .hm-panel { border-radius: 16px; height: 70vh; }
+}
