@@ -48,7 +48,7 @@ function Icerik() {
         <Route path="/giris" element={<Login />} />
         <Route path="/uye-ol" element={<SignUp />} />
       </Routes>
-      {!anasayfada && <GeriButon />}
+      <GeriButon />
     </>
   );
 }

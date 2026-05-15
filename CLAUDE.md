@@ -575,7 +575,8 @@ Tüm ödemeler anlık işlenir. Başarısız işlem kullanıcıya bildirilir.
 - Boyut: telefon dikey 48px | telefon yatay 44px | tablet 52px | PC 56px
 - `window.history.back()` ile çalışır
 - Tooltip: "Geri Dön" — butonun tam üstünde 8px
-- **Anasayfada gizlenir**
+- **Her sayfada ve her modalde görünür** (anasayfa dahil)
+- Modal açıkken: pushState yapılır → geri butonu modal kapatır
 - **z-index: 9999** her zaman üstte
 
 ---
@@ -1158,6 +1159,27 @@ Her 10 ülkede bir BURADASIN+döviz tekrar. USD yeşil | EUR mavi | GBP mor | AL
 - `useLocation` ile URL bazlı kontrol (UstSerit.jsx içinde)
 - Modal kapanınca şerit otomatik geri görünür
 - Login/SignUp X butonu (position:fixed, top:16px) artık görünür
+
+---
+
+## 83. MODAL ANDROID GERİ BUTONU KURALI
+
+Her modal/popup açıldığında:
+1. `window.history.pushState({ modal: 'modalAdi' }, '')` çağrılır
+2. `window.addEventListener('popstate', onKapat)` eklenir
+3. Modal kapanınca listener kaldırılır
+4. Bu sayede Android geri butonu → modal kapatır, sayfa kapanmaz
+
+```js
+useEffect(() => {
+  window.history.pushState({ modal: 'xxx' }, '');
+  const onPop = () => onKapat();
+  window.addEventListener('popstate', onPop);
+  return () => window.removeEventListener('popstate', onPop);
+}, [onKapat]);
+```
+
+**Her yeni modal/overlay bileşenine bu pattern ZORUNLU eklenir.**
 
 ---
 
