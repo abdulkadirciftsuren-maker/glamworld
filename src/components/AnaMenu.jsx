@@ -36,13 +36,13 @@ export default function AnaMenu({ onMenuClick }) {
   const giris   = !!auth.currentUser;
   const [scrolled, setScrolled] = useState(false);
 
-  if (pathname === '/giris' || pathname === '/uye-ol') return null;
-
   useEffect(() => {
     const handle = () => setScrolled(window.scrollY > 25);
     window.addEventListener('scroll', handle, { passive: true });
     return () => window.removeEventListener('scroll', handle);
   }, []);
+
+  if (pathname === '/giris' || pathname === '/uye-ol') return null;
 
   return (
     <header className={`ana-menu${scrolled ? ' scrolled' : ''}`}>
