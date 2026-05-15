@@ -1,0 +1,40 @@
+.ikon-seridi {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 45px;
+  background: transparent;
+  padding: 0 8px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (min-width: 768px) {
+  .ikon-seridi { height: 50px; padding: 0 24px; }
+}
+
+.is-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 12px;
+  transition: filter 0.25s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.is-btn:hover .is-ikon,
+.is-btn:active .is-ikon {
+  filter: drop-shadow(0 0 8px var(--ikon-renk));
+}
+
+.is-btn:active { transform: scale(0.88); }
+
+.is-ikon { display: block; }
+
+@media (min-width: 768px) {
+  .is-btn .is-ikon { width: 32px !important; height: 32px !important; }
+}

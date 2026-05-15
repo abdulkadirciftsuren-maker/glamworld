@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import Pirlanta from './components/Pirlanta';
 import UstSerit from './components/UstSerit';
 import AnaMenu from './components/AnaMenu';
+import IkonSeridi from './components/IkonSeridi';
+import SolMenuPencere from './components/SolMenuPencere';
 import AltinCerceve from './components/AltinCerceve';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
@@ -40,8 +42,6 @@ function Anasayfa() {
 }
 
 function Icerik() {
-  const konum = useLocation();
-  const anasayfada = konum.pathname === '/';
   return (
     <>
       <Routes>
@@ -55,6 +55,8 @@ function Icerik() {
 }
 
 function App() {
+  const [menuAcik, setMenuAcik] = useState(false);
+
   useEffect(() => {
     const noMenu = (e) => {
       const t = e.target.tagName;
@@ -83,7 +85,9 @@ function App() {
     <BrowserRouter basename="/glamworld">
       <AltinCerceve />
       <UstSerit />
-      <AnaMenu />
+      <AnaMenu onMenuClick={() => setMenuAcik(true)} />
+      <IkonSeridi onMenuAc={() => setMenuAcik(true)} />
+      <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
     </BrowserRouter>
   );

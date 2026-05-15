@@ -1,3 +1,4 @@
+export { default as AnasayfaIcon }      from './AnasayfaIcon';
 export { default as PirlantaPazariIcon } from './PirlantaPazariIcon';
 export { default as TanismaIcon }        from './TanismaIcon';
 export { default as CanliYayinIcon }     from './CanliYayinIcon';
