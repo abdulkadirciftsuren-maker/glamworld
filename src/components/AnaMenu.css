@@ -114,7 +114,24 @@
   align-items: center;
   animation: pirlantaFirlat 4s ease-in-out infinite;
 }
-.am-pirlanta-wrap:first-child { animation-delay: 2s; }
+
+.am-deko {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.am-deko-cizgi {
+  width: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(74,144,226,0.6), transparent);
+}
+@keyframes elmasParla {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.3); filter: drop-shadow(0 0 4px rgba(74,144,226,0.9)); }
+}
+.am-deko-elmas { animation: elmasParla 3s ease-in-out infinite; }
+.am-deko-sag .am-deko-elmas:first-child { animation-delay: 1.5s; }
+.am-deko-sol .am-deko-elmas:last-child  { animation-delay: 1.5s; }
 
 .am-btn {
   background: transparent;
