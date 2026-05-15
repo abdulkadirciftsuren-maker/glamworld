@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
 import Tooltip from './Tooltip';
 import { auth } from '../firebase';
@@ -30,9 +31,12 @@ function ProfilSvg({ s, foto }) {
 const LOGO_HARFLER = ['G','L','A','M','W','O','R','L','D'];
 
 export default function AnaMenu({ onMenuClick }) {
+  const { pathname } = useLocation();
   const foto    = auth.currentUser?.photoURL || null;
   const giris   = !!auth.currentUser;
   const [scrolled, setScrolled] = useState(false);
+
+  if (pathname === '/giris' || pathname === '/uye-ol') return null;
 
   useEffect(() => {
     const handle = () => setScrolled(window.scrollY > 25);

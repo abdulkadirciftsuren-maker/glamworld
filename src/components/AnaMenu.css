@@ -19,11 +19,12 @@
 }
 
 /* SCROLL DURUMU */
+.ana-menu .am-orta { transition: opacity 0.4s ease; }
 .ana-menu.scrolled .am-orta { opacity: 0; pointer-events: none; }
-.ana-menu.scrolled .am-sol,
-.ana-menu.scrolled .am-sag {
-  background: rgba(0,0,0,0.55);
-}
+.ana-menu .am-sol, .ana-menu .am-sag { transition: opacity 0.4s ease; }
+.ana-menu.scrolled .am-sol  { opacity: 0.6; }
+.ana-menu.scrolled .am-sag  { opacity: 0.6; }
+.ana-menu.scrolled .am-extra { display: flex !important; }
 .ana-menu .am-orta, .ana-menu .am-sol { transition: opacity 0.4s ease; }
 .ana-menu.scrolled .am-orta { opacity: 0; pointer-events: none; }
 .ana-menu.scrolled .am-sol  { opacity: 0.55; }
@@ -46,18 +47,11 @@
 .am-sol {
   display: flex;
   align-items: center;
-  background: rgba(0,0,0,0.82);
-  border-radius: 50%;
-  backdrop-filter: blur(6px);
 }
 .am-sag {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(0,0,0,0.82);
-  border-radius: 20px;
-  padding: 3px 8px;
-  backdrop-filter: blur(6px);
 }
 
 .am-orta {
@@ -67,10 +61,6 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0,0,0,0.82);
-  border-radius: 20px;
-  padding: 4px 12px;
-  backdrop-filter: blur(6px);
 }
 
 /* GLAMWORLD LOGO */
