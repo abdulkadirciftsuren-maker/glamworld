@@ -1,8 +1,7 @@
 .ana-menu {
   position: sticky;
   top: 22px;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   height: 60px;
   background: rgba(0,0,0,0.95);
   border-bottom: 1px solid rgba(255,215,0,0.4);
@@ -11,16 +10,27 @@
   justify-content: space-between;
   padding: 0 14px;
   z-index: 999;
+  transition: background 0.5s ease, border-color 0.5s ease;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
-
 @media (min-width: 768px) {
   .ana-menu { height: 70px; top: 32px; padding: 0 24px; }
 }
+
+/* SCROLL DURUMU */
+.ana-menu.scrolled {
+  background: rgba(0,0,0,0.15);
+  border-bottom-color: transparent;
+  backdrop-filter: blur(2px);
+}
+.ana-menu .am-orta { transition: opacity 0.4s ease; }
+.ana-menu.scrolled .am-orta { opacity: 0; pointer-events: none; }
+.ana-menu .am-btn { transition: opacity 0.4s ease; }
+.ana-menu.scrolled .am-btn { opacity: 0.35; }
+.ana-menu.scrolled .am-extra { display: flex !important; }
 
 .am-sol { display: flex; align-items: center; }
 .am-sag { display: flex; align-items: center; gap: 8px; }
@@ -34,6 +44,7 @@
   transform: translateX(-50%);
 }
 
+/* GLAMWORLD LOGO */
 .am-logo {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 20px;
@@ -42,32 +53,69 @@
   white-space: nowrap;
   display: flex;
 }
-
-@keyframes harfParla {
-  0%, 55%, 100% {
-    color: #C9A84C;
-    text-shadow: 0 0 2px rgba(201,168,76,0.2);
-  }
-  28% {
-    color: #FFE066;
-    text-shadow:
-      0 0 4px rgba(255,215,0,1),
-      0 0 10px rgba(255,215,0,0.8),
-      0 0 20px rgba(255,165,0,0.5),
-      0 0 32px rgba(255,165,0,0.2);
-  }
+@media (min-width: 768px) {
+  .am-logo { font-size: 26px; letter-spacing: 3px; }
+  .am-sag  { gap: 14px; }
 }
 
+/* İÇTEN DIŞARIYA PARLAMA — eş zamanlı */
+@keyframes icParla {
+  0%, 100% {
+    color: #C9A84C;
+    text-shadow: none;
+  }
+  50% {
+    color: #FFED80;
+    text-shadow:
+      0 0 2px rgba(255,230,80,1),
+      0 0 6px rgba(255,215,0,0.95),
+      0 0 14px rgba(255,180,0,0.75),
+      0 0 26px rgba(255,140,0,0.45),
+      0 0 40px rgba(255,100,0,0.2);
+  }
+}
 .am-harf {
   display: inline-block;
   color: #C9A84C;
-  animation: harfParla 5s ease-in-out infinite;
+  animation: icParla 4s ease-in-out infinite;
 }
 
-@media (min-width: 768px) {
-  .am-logo { font-size: 26px; letter-spacing: 3px; }
-  .am-sag { gap: 14px; }
+/* W HARFİ — biraz farklı */
+@keyframes icParlaW {
+  0%, 100% { color: #D4881A; text-shadow: none; }
+  50% {
+    color: #FFB84D;
+    text-shadow:
+      0 0 2px rgba(255,180,80,1),
+      0 0 8px rgba(255,165,0,1),
+      0 0 16px rgba(255,120,0,0.7),
+      0 0 30px rgba(255,80,0,0.4),
+      0 0 46px rgba(220,50,0,0.15);
+  }
 }
+.am-w {
+  color: #D4881A;
+  font-size: 1.15em;
+  font-style: italic;
+  animation: icParlaW 4s ease-in-out infinite;
+}
+
+/* PIRLANTA PARLAMA */
+@keyframes pirlantaFirlat {
+  0%, 100% { filter: drop-shadow(0 0 1px rgba(74,144,226,0.1)); }
+  50% {
+    filter:
+      drop-shadow(0 0 4px rgba(74,144,226,1))
+      drop-shadow(0 0 10px rgba(74,144,226,0.6))
+      drop-shadow(0 0 20px rgba(120,200,255,0.3));
+  }
+}
+.am-pirlanta-wrap {
+  display: flex;
+  align-items: center;
+  animation: pirlantaFirlat 4s ease-in-out infinite;
+}
+.am-pirlanta-wrap:first-child { animation-delay: 2s; }
 
 .am-btn {
   background: transparent;
@@ -81,17 +129,13 @@
   transition: background 0.2s, transform 0.2s;
   position: relative;
 }
-.am-btn:hover {
-  background: rgba(255,215,0,0.08);
-  transform: scale(1.1);
-}
+.am-btn:hover  { background: rgba(255,215,0,0.08); transform: scale(1.1); }
 .am-btn:active { transform: scale(0.95); }
 
 .am-badge-wrap { position: relative; }
 .am-badge {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 2px; right: 2px;
   background: #DC143C;
   color: #fff;
   font-size: 9px;
@@ -104,9 +148,10 @@
   justify-content: center;
   padding: 0 3px;
 }
-.am-badge:empty, .am-badge[data-count="0"] { display: none; }
 
+/* Mobil: Arama/Bildirim/Dil normalde gizli, scroll'da görünür */
 @media (max-width: 480px) {
-  .am-gizli-mobil { display: none; }
+  .am-extra { display: none; }
+  .ana-menu.scrolled .am-extra { display: flex !important; opacity: 0.4; }
   .am-logo { font-size: 18px; letter-spacing: 1.5px; }
 }
