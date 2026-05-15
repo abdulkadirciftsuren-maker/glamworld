@@ -46,14 +46,12 @@ export default function HaritaModal({ konum, onKapat }) {
 
         <div className="hm-alt">
           <a
-            href={`geo:${initLat},${initLng}?q=${initLat},${initLng}`}
+            href={`https://www.google.com/maps?q=${initLat},${initLng}`}
+            target="_blank"
+            rel="noreferrer"
             className="hm-gm-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = `https://maps.google.com/?q=${initLat},${initLng}`;
-            }}
           >
-            Google Maps'te Aç
+            Google Maps'te Aç (yeni sekme)
           </a>
         </div>
       </div>
