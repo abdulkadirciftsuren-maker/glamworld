@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.18 — Son)
+# GLAMWORLD — Proje Anayasası (V5.19 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1232,6 +1232,132 @@ GDPR: Telefon numaraları sunucuya GÖNDERILMEZ — sadece hash karşılaştırm
 
 ---
 
+## 84. ANASAYFA YAPISI (6 Bölüm)
+
+1. **Üst Şerit** (UstSerit.jsx — yapıldı B46)
+2. **Ana Menü Şeridi** (Header — Madde 85)
+3. **İkon Şeridi** (5 ikon — Madde 86)
+4. **Hoş Geldin** (Hero bölümü — Madde 66)
+5. **Akış** (Reels, Canlı, Profesyoneller)
+6. **Footer** (Hakkımızda, İletişim, Sosyal medya)
+
+---
+
+## 85. ANA MENÜ ŞERİDİ (Header)
+
+Soldan sağa düzen:
+- **Sol:** ☰ Hamburger (28px, altın)
+- **Orta:** 💠 GLAMWORLD logosu + iki yanında Pirlanta.jsx (mavi)
+- **Sağ:** Arama 🔍 | Bildirim 🔔 (kırmızı badge) | Dil 🌐 | Profil 👤
+
+Telefonda: Hamburger + Logo + Profil görünür; Arama/Bildirim/Dil hamburger içinde.
+
+---
+
+## 86. İKON ŞERİDİ (Ana Sayfa)
+
+5 başlangıç ikonu (yazı yok, hover/touch'da tooltip):
+1. **Pırlanta Pazarı** — altın ikon
+2. **Tanışma Düğmesi** — turkuaz ikon
+3. **Canlı Yayınlar** — mor ikon
+4. **Haritada Bul** — mavi ikon
+5. **Eğitimler** — fıstık yeşili ikon
+6. **"Yakında"** — gri yer tutucu
+
+İkon boyutu: 48x48px mobil, 56x56px PC.
+
+---
+
+## 87. BİZİM ÖZGÜN SVG İKONLARIMIZ
+
+- **Klasör:** `src/icons/` — her ikon ayrı `.jsx` dosyası
+- **Hazır kütüphane YASAK:** Lucide, Material, FontAwesome, Heroicons yasak
+- **7 renk paleti:**
+  - Altın `#FFD700` — premium
+  - Fıstık `#9ACD32` — bakım/doğallık
+  - Turkuaz `#40E0D0` — sosyal
+  - Mor `#9370DB` — estetik
+  - Bordo `#DC143C` — saç
+  - Mavi `#4A90E2` — bilgi/harita (pırlanta rengi)
+  - Turuncu `#FF8C00` — özel/kampanya
+- **Bir kere yapılır, bir daha değiştirilmez.** Marka ikonları sabit kalır.
+
+---
+
+## 88. BİZİM İSİMLERİMİZ (Marka Dili)
+
+Hiçbir rakip platform ismi kullanılamaz. Hep kendi ismimiz:
+
+| Platform Genel | GLAMWORLD İsmi |
+|---------------|----------------|
+| Marketplace | Pırlanta Pazarı |
+| Stories | Anlık Pırlantalar |
+| Reels/Shorts | Pırlanta Akışı / Mini Pırlanta |
+| Live | Canlı Yayınlar |
+| Map | Haritada Bul |
+| AI | GLAMI |
+| Wedding | Pırlanta Düğün |
+| Contest | Pırlanta Yarışmaları |
+
+---
+
+## 89. ANASAYFA RENK STANDARTLARI
+
+- Ana arka plan: `#0a0a0a` (derin siyah)
+- Vurgu altın: `#FFD700`
+- Pırlanta mavi: `#4A90E2`
+- Yazı beyaz: `#ffffff`
+- Alt yazı gri: `#888888`
+- Font başlık: **Playfair Display** (Google Fonts)
+- Font içerik: **Inter** veya **Poppins**
+
+---
+
+## 90. HER SAYFA KENDİ RENGİ
+
+| Sayfa | Renk Teması |
+|-------|-------------|
+| Anasayfa | Siyah / Altın |
+| Pırlanta Pazarı | Altın / Beyaz |
+| Tanışma | Turkuaz / Beyaz |
+| Canlı Yayınlar | Mor / Siyah |
+| Haritada Bul | Mavi / Yeşil |
+| Eğitimler | Fıstık Yeşili / Beyaz |
+
+Her sayfa farklı arka plan → "yer değişti" hissi. Marka renk paleti (Madde 87) korunur.
+
+---
+
+## 91. DİL TUTARLILIĞI ZORUNLULUĞU
+
+- Kullanıcı dil seçince TÜM sayfalarda değişir
+- Kütüphane: **react-i18next**
+- Klasör: `src/locales/` — her dil için `tr.json`, `en.json`, `de.json` vb.
+- Component'lerde hardcoded yazı YASAK → hep `t('anahtar')` kullan
+- Yeni component eklenince TÜM dillere çeviri eklenir
+- Yeni dil eklenince tüm sayfalar güncellenir
+
+---
+
+## 92. 11 DİL SİSTEMİ
+
+TR, EN, DE, ES, RU, AR (RTL!), UK, ZH, JA, FR, IT
+
+- **Arapça için CSS RTL desteği zorunlu** (`dir="rtl"`, `text-align: right`)
+- Her dil için flagcdn.com bayrağı (emoji değil)
+- Varsayılan: kullanıcı ülkesine göre otomatik (Almanya → DE, Türkiye → TR)
+
+---
+
+## 93. OTOMATİK ÇEVİRİ (Backup)
+
+- Manuel çeviri olmayan içerik → kullanıcı "Otomatik Çevir" butonu ile aktive eder
+- Çevrilen içerik localStorage'da cache'lenir
+- Başlangıç: **MyMemory API** (ücretsiz, 5000 kelime/gün)
+- Büyüyünce: DeepL Pro veya Google Cloud Translate
+
+---
+
 ## 72b. ŞEHİRE GÖRE İÇERİK
 
 Kullanıcı kayıt sırasında şehir seçtiğinde, anasayfa ve Keşfet sayfası o şehirdeki profesyonelleri ve hizmetleri öne çıkarır.
@@ -1254,7 +1380,7 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 15 Mayıs 2026 — V5.18 (M.74 güncellendi: 10'ar grup+renkli döviz; M.79 güncellendi: AltinCerceve.jsx; M.81: BURADASIN harita; M.82: Telefon rehberi izin akışı)*
+*Son güncelleme: 15 Mayıs 2026 — V5.19 (M.84-93: Anasayfa yapısı, Ana menü, İkon şeridi, Özgün SVG, Marka isimleri, Renk standartları, Sayfa renkleri, Dil tutarlılığı, 11 dil, Otomatik çeviri)*
 *Önceki: hairmirror (3000 satır App.js — terkedildi)*
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
