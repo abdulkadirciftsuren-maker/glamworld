@@ -27,7 +27,7 @@
 }
 .ana-menu .am-orta, .ana-menu .am-sol { transition: opacity 0.4s ease; }
 .ana-menu.scrolled .am-orta { opacity: 0; pointer-events: none; }
-.ana-menu.scrolled .am-sol  { opacity: 0; pointer-events: none; }
+.ana-menu.scrolled .am-sol  { opacity: 0.55; }
 .ana-menu .am-sag .am-btn   { transition: opacity 0.4s ease; }
 .ana-menu.scrolled .am-sag .am-btn { opacity: 0.55; }
 .ana-menu.scrolled .am-extra { display: flex !important; }
