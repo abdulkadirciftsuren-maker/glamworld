@@ -1,7 +1,7 @@
 .ust-serit {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 28px;
+  height: 22px;
   background: linear-gradient(90deg, #0a0a0a, #1a1500, #0a0a0a);
   border-bottom: 1px solid #C9A84C;
   overflow: hidden;
@@ -27,9 +27,9 @@
 .t-item {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 0 16px;
-  font-size: 12px;
+  gap: 4px;
+  padding: 0 12px;
+  font-size: 11px;
   position: relative;
 }
 .t-item:not(:last-child)::after {
