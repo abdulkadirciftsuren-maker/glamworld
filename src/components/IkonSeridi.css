@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 36px 6px 8px;
+  padding: 10px 6px;
   background: transparent;
   user-select: none;
   -webkit-user-select: none;
@@ -10,17 +10,17 @@
 
 .is-btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
   background: var(--zemin);
   border: 1px solid rgba(255,215,0,0.2);
   border-radius: 12px;
-  padding: 8px 10px;
+  padding: 10px;
   cursor: pointer;
   transition: filter 0.25s ease, transform 0.2s ease, border-color 0.2s;
   position: relative;
   min-width: 44px;
+  min-height: 44px;
   overflow: visible;
 }
 .is-btn:hover  { border-color: rgba(255,215,0,0.5); transform: translateY(-2px); }
@@ -45,16 +45,6 @@
   display: flex;
 }
 
-.is-yazi {
-  color: #C9A84C;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
-  display: none;
-}
-
 @media (min-width: 768px) {
-  .is-btn  { padding: 10px 14px; min-width: 54px; }
-  .is-yazi { display: block; font-size: 10px; }
+  .is-btn { padding: 12px 14px; }
 }
