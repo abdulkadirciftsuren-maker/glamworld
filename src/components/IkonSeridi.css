@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 6px;
+  padding: 10px 6px 24px;
   background: transparent;
   user-select: none;
   -webkit-user-select: none;

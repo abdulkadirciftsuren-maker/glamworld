@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
+import AltinImza from './AltinImza';
 import { AnasayfaIcon, PirlantaPazariIcon, TanismaIcon, CanliYayinIcon, HaritadaBulIcon, EgitimlerIcon } from '../icons';
 import './IkonSeridi.css';
 
@@ -33,6 +33,7 @@ export default function IkonSeridi() {
               <Icon size={22} color={renk} />
               <span className="is-pirlanta"><Pirlanta renk="mavi" boyut={8} /></span>
             </span>
+            {aktif && <AltinImza text={isim} />}
           </button>
         );
       })}

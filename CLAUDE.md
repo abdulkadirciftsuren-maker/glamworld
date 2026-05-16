@@ -1347,6 +1347,19 @@ Her sayfa farklı arka plan → "yer değişti" hissi. Marka renk paleti (Madde 
 ## 90-A. AKTİF SAYFA ETİKETİ — B101'DE KALDIRILDI
 
 - Patron yeni tasarım kararı verecek, o zaman güncellenecek
+
+---
+
+## 90-B. ALTIN İMZA (B103 itibariyle)
+
+- Aktif butonun ALTINDA ince italic altın yazı (sayfa adı)
+- Component: `src/components/AltinImza.jsx` + `AltinImza.css`
+- `position: absolute; top: calc(100% + 4px)` — buton altına yapışık
+- İki yanında küçük altın noktalar (3px, glow)
+- Altında soluk yansıma (cam/ayna efekti, opacity 0.2 + mask)
+- Yumuşak nefes animasyonu (3s döngü)
+- Sadece aktif butonda render edilir
+- Hoş Geldin Kartı açıkken görünmez (App.js B98 koruması)
 - Component: `src/components/AktifEtiket.jsx` + `AktifEtiket.css`
 - `position: absolute` — butonla beraber scroll'da hareket eder
 - Yavaş parıltı animasyonu (3s döngü)
