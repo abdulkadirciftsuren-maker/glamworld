@@ -3,35 +3,34 @@ import Pirlanta from './Pirlanta';
 import { altinTozBaslat } from '../animasyonlar/altinTozParcacik';
 import './AcilisAnimasyonu.css';
 
-function localGet(key) {
-  try { return localStorage.getItem(key); } catch { return null; }
-}
-function localSet(key, val) {
-  try { localStorage.setItem(key, val); } catch {}
-}
+function lsGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); } catch {} }
 
-const LS_KEY = 'glamworld_acilis_gosterildi';
-
-export default function AcilisAnimasyonu({ onBitti }) {
-  const onceki = localGet(LS_KEY);
-  const kisa = !!onceki;
-  const canvasRef = useRef(null);
+export default function AcilisAnimasyonu({ onBitti, onKartGoster }) {
+  const gosterildi = !!lsGet('glamworld_acilis_gosterildi');
+  const misafir    = lsGet('glamworld_misafir_secti') === 'true';
+  const kisa       = gosterildi && !misafir;
+  const canvasRef  = useRef(null);
+  const stopRef    = useRef(null);
   const [faze, setFaze] = useState(0);
-  const stopRef = useRef(null);
+  const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
   const bitir = () => {
     if (stopRef.current) stopRef.current();
-    localSet(LS_KEY, Date.now());
+    lsSet('glamworld_acilis_gosterildi', Date.now());
     onBitti();
   };
 
   useEffect(() => {
     const isMobil = window.innerWidth <= 480;
-    const sayi = isMobil ? 100 : 200;
+    const sayi    = isMobil ? 200 : 350;
+    const hiz     = prefersReduced ? 0.15 : 1;
+
+    if (gosterildi && misafir) { onBitti(); return; }
 
     if (kisa) {
       setFaze(4);
-      const t = setTimeout(bitir, 1000);
+      const t = setTimeout(bitir, 1500 * hiz);
       return () => clearTimeout(t);
     }
 
@@ -43,12 +42,17 @@ export default function AcilisAnimasyonu({ onBitti }) {
         c.height = window.innerHeight;
         stopRef.current = altinTozBaslat(c, sayi);
       }
-    }, 500);
+    }, 500 * hiz);
 
-    const s2 = setTimeout(() => setFaze(2), 1500);
-    const s3 = setTimeout(() => setFaze(3), 2500);
-    const s4 = setTimeout(() => setFaze(4), 3500);
-    const s5 = setTimeout(bitir, 4000);
+    const s2 = setTimeout(() => setFaze(2), 2500 * hiz);
+    const s3 = setTimeout(() => setFaze(3), 4000 * hiz);
+    const s4 = setTimeout(() => setFaze(4), 5500 * hiz);
+    const s5 = setTimeout(() => {
+      if (stopRef.current) stopRef.current();
+      lsSet('glamworld_acilis_gosterildi', Date.now());
+      onKartGoster();
+      onBitti();
+    }, 6000 * hiz);
 
     return () => {
       [s1, s2, s3, s4, s5].forEach(clearTimeout);
@@ -58,7 +62,7 @@ export default function AcilisAnimasyonu({ onBitti }) {
 
   if (kisa) {
     return (
-      <div className={`aa-overlay${faze >= 4 ? ' aa-ray' : ''}`}>
+      <div className="aa-overlay aa-ray-sadece">
         <div className="aa-glamray" />
       </div>
     );
@@ -71,12 +75,11 @@ export default function AcilisAnimasyonu({ onBitti }) {
       {faze >= 2 && (
         <div className={`aa-logo${faze >= 4 ? ' aa-logo-ucus' : ''}`}>
           <div className="aa-logo-icerik">
-            <div className="aa-pirlanta-sol"><Pirlanta renk="mavi" boyut={32} /></div>
+            <div className="aa-pirl-sol"><Pirlanta renk="altin" boyut={window.innerWidth <= 480 ? 40 : 60} /></div>
             <div className="aa-yazi">
               <span className="aa-glamworld">GLAMWORLD</span>
-              <span className="aa-slogan">Dünyanın Platformu</span>
             </div>
-            <div className="aa-pirlanta-sag"><Pirlanta renk="mavi" boyut={32} /></div>
+            <div className="aa-pirl-sag"><Pirlanta renk="mavi" boyut={window.innerWidth <= 480 ? 40 : 60} /></div>
           </div>
           {faze >= 3 && <div className="aa-glamray" />}
         </div>
