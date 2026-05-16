@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Tooltip from './Tooltip';
 import Pirlanta from './Pirlanta';
@@ -16,16 +17,29 @@ const IKONLAR = [
 export default function IkonSeridi() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const [tipKey, setTipKey] = useState(0);
+
+  useEffect(() => {
+    setTipKey(k => k + 1);
+    if (document.activeElement?.blur) document.activeElement.blur();
+  }, [pathname]);
+
+  const git = (yol, e) => {
+    if (e?.currentTarget?.blur) e.currentTarget.blur();
+    setTipKey(k => k + 1);
+    navigate(yol);
+  };
+
   return (
     <div className="is-serit">
       {IKONLAR.map(({ Icon, renk, zemin, isim, yol }) => {
         const aktif = pathname === yol;
         return (
-          <Tooltip key={yol} text={isim} position="bottom">
+          <Tooltip key={`${yol}-${tipKey}`} text={isim} position="top">
             <button
               className={`is-btn${aktif ? ' aktif' : ''}`}
               style={{ '--zemin': zemin, '--renk': renk }}
-              onClick={() => navigate(yol)}
+              onClick={(e) => git(yol, e)}
             >
               <span className="is-ikon-wrap">
                 <Icon size={22} color={renk} />
