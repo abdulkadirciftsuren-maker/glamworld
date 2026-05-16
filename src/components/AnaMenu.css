@@ -216,6 +216,28 @@
   .am-gizli { display: none; }
   .am-logo  { font-size: 18px; letter-spacing: 1.5px; }
 }
+
 @media (max-width: 480px) {
-  .am-logo { font-size: 17px; letter-spacing: 1px; }
+  .am-logo { font-size: 15px; letter-spacing: 0.8px; }
+
+  .am-pirlanta-wrap {
+    width: 14px;
+    height: 14px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .am-pirlanta-wrap svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .am-deko-elmas {
+    width: 7px !important;
+    height: 7px !important;
+    opacity: 0.65;
+  }
+  .am-deko-cizgi { width: 8px; }
+  .am-deko { gap: 2px; }
+  .am-logo-satir { gap: 4px; }
+  .am-slogan { font-size: 8px; letter-spacing: 0.8px; }
 }
