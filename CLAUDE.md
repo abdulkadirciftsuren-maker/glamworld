@@ -1344,9 +1344,9 @@ Her sayfa farklı arka plan → "yer değişti" hissi. Marka renk paleti (Madde 
 
 ---
 
-## 90-A. AKTİF SAYFA ETİKETİ
+## 90-A. AKTİF SAYFA ETİKETİ — B101'DE KALDIRILDI
 
-- Aktif sayfanın ikonu üzerinde sürekli görünen altın etiket
+- Patron yeni tasarım kararı verecek, o zaman güncellenecek
 - Component: `src/components/AktifEtiket.jsx` + `AktifEtiket.css`
 - `position: absolute` — butonla beraber scroll'da hareket eder
 - Yavaş parıltı animasyonu (3s döngü)
