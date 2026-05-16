@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
 import Tooltip from './Tooltip';
@@ -32,20 +32,13 @@ const LOGO_HARFLER = ['G','L','A','M','W','O','R','L','D'];
 
 export default function AnaMenu({ onMenuClick }) {
   const { pathname } = useLocation();
-  const foto    = auth.currentUser?.photoURL || null;
-  const giris   = !!auth.currentUser;
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handle = () => setScrolled(window.scrollY > 25);
-    window.addEventListener('scroll', handle, { passive: true });
-    return () => window.removeEventListener('scroll', handle);
-  }, []);
+  const foto  = auth.currentUser?.photoURL || null;
+  const giris = !!auth.currentUser;
 
   if (pathname === '/giris' || pathname === '/uye-ol') return null;
 
   return (
-    <header className={`ana-menu${scrolled ? ' scrolled' : ''}`}>
+    <header className="ana-menu">
       <div className="am-sol">
         <Tooltip text="Menü" position="right">
           <button className="am-btn" onClick={onMenuClick || (() => {})}>
@@ -87,16 +80,16 @@ export default function AnaMenu({ onMenuClick }) {
 
       <div className="am-sag">
         <Tooltip text="Ara" position="left">
-          <button className="am-btn am-extra"><AramaSvg s={22} /></button>
+          <button className="am-btn"><AramaSvg s={22} /></button>
         </Tooltip>
         <Tooltip text="Bildirimler" position="left">
-          <button className="am-btn am-extra am-badge-wrap">
+          <button className="am-btn am-gizli am-badge-wrap">
             <BildirimSvg s={22} />
             <span className="am-badge">0</span>
           </button>
         </Tooltip>
         <Tooltip text="Dil Seçimi" position="left">
-          <button className="am-btn am-extra"><DilSvg s={22} /></button>
+          <button className="am-btn am-gizli"><DilSvg s={22} /></button>
         </Tooltip>
         <button
           className="am-btn am-profil-btn"

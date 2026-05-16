@@ -1,19 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import UstSerit from './components/UstSerit';
 import AnaMenu from './components/AnaMenu';
-import IkonSeridi from './components/IkonSeridi';
-import SolMenuPencere from './components/SolMenuPencere';
 import AltinCerceve from './components/AltinCerceve';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
-import PirlantaPazari from './sayfalar/PirlantaPazari';
-import Tanisma from './sayfalar/Tanisma';
-import CanliYayinlar from './sayfalar/CanliYayinlar';
-import Harita from './sayfalar/Harita';
-import Egitimler from './sayfalar/Egitimler';
 import './App.css';
 
 function AnaSayfa() {
@@ -26,14 +19,9 @@ function Icerik() {
   return (
     <>
       <Routes>
-        <Route path="/"                element={<AnaSayfa />}       />
-        <Route path="/giris"           element={<Login />}          />
-        <Route path="/uye-ol"          element={<SignUp />}         />
-        <Route path="/pirlanta-pazari" element={<PirlantaPazari />} />
-        <Route path="/tanisma"         element={<Tanisma />}        />
-        <Route path="/canli-yayinlar"  element={<CanliYayinlar />}  />
-        <Route path="/harita"          element={<Harita />}         />
-        <Route path="/egitimler"       element={<Egitimler />}      />
+        <Route path="/"       element={<AnaSayfa />} />
+        <Route path="/giris"  element={<Login />}    />
+        <Route path="/uye-ol" element={<SignUp />}   />
       </Routes>
       <GeriButon />
       <DevWidget sayfa="Sayfa" />
@@ -42,8 +30,6 @@ function Icerik() {
 }
 
 function App() {
-  const [menuAcik, setMenuAcik] = useState(false);
-
   useEffect(() => {
     const noMenu = (e) => {
       const t = e.target.tagName;
@@ -70,9 +56,7 @@ function App() {
     <BrowserRouter basename="/glamworld">
       <AltinCerceve />
       <UstSerit />
-      <AnaMenu onMenuClick={() => setMenuAcik(true)} />
-      <IkonSeridi />
-      <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
+      <AnaMenu />
       <Icerik />
     </BrowserRouter>
   );

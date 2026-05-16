@@ -1380,7 +1380,6 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 15 Mayıs 2026 — V5.19 (M.84-93: Anasayfa yapısı, Ana menü, İkon şeridi, Özgün SVG, Marka isimleri, Renk standartları, Sayfa renkleri, Dil tutarlılığı, 11 dil, Otomatik çeviri)*
-*Önceki: hairmirror (3000 satır App.js — terkedildi)*
+*Son güncelleme: 15 Mayıs 2026 — V5.19 (M.84-93: Anasayfa yapısı, Ana menü, İkon şerida
 *Yeni: glamworld (modüler, profesyonel)*
 *Sayaç: B1'den başlar*
