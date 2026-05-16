@@ -1,6 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 import Pirlanta from './Pirlanta';
+import CikisIkonu from '../icons/CikisIkonu';
+import CikisOnayModal from './CikisOnayModal';
 import { useKartDisiTiklama } from '../hooks/useKartDisiTiklama';
 import './SolMenuPencere.css';
 
@@ -22,6 +26,20 @@ const MENU_MADDELERI = [
 export default function SolMenuPencere({ acik, onKapat }) {
   const navigate = useNavigate();
   const panelRef = useRef(null);
+  const [cikisAcik, setCikisAcik] = useState(false);
+
+  const girisYapildi = !!auth.currentUser;
+  const misafir = localStorage.getItem('glamworld_misafir_secti') === 'true';
+  const cikisGorunsun = girisYapildi || misafir;
+  const kullaniciAdi = auth.currentUser?.displayName || '';
+
+  const cikisYap = async () => {
+    try { await signOut(auth); } catch {}
+    localStorage.removeItem('glamworld_acilis_gosterildi');
+    localStorage.removeItem('glamworld_misafir_secti');
+    sessionStorage.clear();
+    window.location.reload();
+  };
 
   useKartDisiTiklama(panelRef, onKapat, acik);
 
@@ -74,8 +92,21 @@ export default function SolMenuPencere({ acik, onKapat }) {
             </button>
           ))}
         </nav>
+        {cikisGorunsun && (
+          <button className="smp-cikis" onClick={() => setCikisAcik(true)}>
+            <CikisIkonu color="#FF4444" size={16} />
+            <span>Çıkış Yap</span>
+          </button>
+        )}
         <div className="smp-alt">GLAMWORLD V2 · Dünyanın Platformu</div>
       </div>
+      {cikisAcik && (
+        <CikisOnayModal
+          kullaniciAdi={kullaniciAdi}
+          onVazgec={() => setCikisAcik(false)}
+          onCikis={cikisYap}
+        />
+      )}
     </div>
   );
 }
