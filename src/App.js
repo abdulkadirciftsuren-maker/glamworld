@@ -90,7 +90,7 @@ function App() {
       <AltinCerceve />
       <UstSerit />
       <AnaMenu onMenuClick={() => setMenuAcik(true)} />
-      <IkonSeridi />
+      {!kartGoster && <IkonSeridi />}
       <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
     </BrowserRouter>
