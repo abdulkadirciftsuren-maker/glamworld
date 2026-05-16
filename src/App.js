@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AcilisAnimasyonu from './components/AcilisAnimasyonu';
 import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import UstSerit from './components/UstSerit';
@@ -32,6 +33,7 @@ function Icerik() {
 
 function App() {
   const [menuAcik, setMenuAcik] = useState(false);
+  const [acilisGoster, setAcilisGoster] = useState(true);
 
   useEffect(() => {
     const noMenu = (e) => {
@@ -57,6 +59,7 @@ function App() {
 
   return (
     <BrowserRouter basename="/glamworld">
+      {acilisGoster && <AcilisAnimasyonu onBitti={() => setAcilisGoster(false)} />}
       <AltinCerceve />
       <UstSerit />
       <AnaMenu onMenuClick={() => setMenuAcik(true)} />
