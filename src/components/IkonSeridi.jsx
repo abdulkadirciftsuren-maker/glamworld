@@ -16,8 +16,6 @@ const IKONLAR = [
 export default function IkonSeridi() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  if (pathname !== '/') return null;
-
   return (
     <div className="is-serit">
       {IKONLAR.map(({ Icon, renk, zemin, isim, yol }) => {
