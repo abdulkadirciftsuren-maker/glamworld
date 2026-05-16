@@ -45,6 +45,13 @@
   display: flex;
 }
 
+.is-profilim {
+  background: linear-gradient(135deg, #9F1239, #4C0519) !important;
+}
+.is-profilim svg {
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.4));
+}
+
 @media (min-width: 768px) {
   .is-btn { padding: 12px 14px; }
 }

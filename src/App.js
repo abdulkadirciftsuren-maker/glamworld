@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+import { kullaniciProfilOku } from './utils/kullaniciProfili';
 import AcilisAnimasyonu from './components/AcilisAnimasyonu';
 import HosGeldinKarti from './components/HosGeldinKarti';
 import GeriButon from './components/GeriButon';
@@ -17,16 +18,20 @@ import Tanisma from './sayfalar/Tanisma';
 import CanliYayinlar from './sayfalar/CanliYayinlar';
 import Harita from './sayfalar/Harita';
 import Egitimler from './sayfalar/Egitimler';
+import ProfilMusteri from './sayfalar/ProfilMusteri';
+import ProfilErkek from './sayfalar/ProfilErkek';
+import ProfilKadin from './sayfalar/ProfilKadin';
+import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import './App.css';
 
 function AnaSayfa() {
   return <div style={{ background: '#0a0a0a', minHeight: '100vh' }} />;
 }
 
-function IkonSeridiKontrol({ kartGoster }) {
+function IkonSeridiKontrol({ kartGoster, kullaniciProfili }) {
   const { pathname } = useLocation();
   if (kartGoster || pathname === '/giris' || pathname === '/uye-ol') return null;
-  return <IkonSeridi />;
+  return <IkonSeridi kullaniciProfili={kullaniciProfili} />;
 }
 
 function Icerik() {
@@ -41,6 +46,10 @@ function Icerik() {
         <Route path="/canli-yayinlar"  element={<CanliYayinlar />}  />
         <Route path="/harita"          element={<Harita />}         />
         <Route path="/egitimler"       element={<Egitimler />}      />
+        <Route path="/profil/musteri"  element={<ProfilMusteri />}  />
+        <Route path="/profil/erkek"    element={<ProfilErkek />}    />
+        <Route path="/profil/kadin"    element={<ProfilKadin />}    />
+        <Route path="/profil/tarafsiz" element={<ProfilTarafsiz />} />
       </Routes>
       <GeriButon />
     </>
@@ -48,13 +57,22 @@ function Icerik() {
 }
 
 function App() {
-  const [menuAcik, setMenuAcik]         = useState(false);
-  const [acilisGoster, setAcilisGoster] = useState(true);
-  const [kartGoster, setKartGoster]     = useState(false);
-  const [kullanici, setKullanici]       = useState(undefined);
+  const [menuAcik, setMenuAcik]             = useState(false);
+  const [acilisGoster, setAcilisGoster]     = useState(true);
+  const [kartGoster, setKartGoster]         = useState(false);
+  const [kullanici, setKullanici]           = useState(undefined);
+  const [kullaniciProfili, setKullaniciProfili] = useState({ hesapTuru: 'musteri', cinsiyet: 'tarafsiz' });
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => setKullanici(u || null));
+    const unsub = onAuthStateChanged(auth, async (u) => {
+      setKullanici(u || null);
+      if (u) {
+        const profil = await kullaniciProfilOku(u.uid);
+        setKullaniciProfili(profil);
+      } else {
+        setKullaniciProfili({ hesapTuru: 'musteri', cinsiyet: 'tarafsiz' });
+      }
+    });
     return unsub;
   }, []);
 
@@ -94,7 +112,7 @@ function App() {
       <AltinCerceve />
       <UstSerit />
       <AnaMenu onMenuClick={() => setMenuAcik(true)} />
-      <IkonSeridiKontrol kartGoster={kartGoster} />
+      <IkonSeridiKontrol kartGoster={kartGoster} kullaniciProfili={kullaniciProfili} />
       <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
     </BrowserRouter>
