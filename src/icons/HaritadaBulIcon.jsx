@@ -1,10 +1,9 @@
-function HaritadaBulIcon({ size = 48, color = '#4A90E2', className = '' }) {
+function HaritadaBulIcon({ size = 24, color = '#FFD700' }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-      <circle cx="32" cy="24" r="14" stroke={color} strokeWidth="2" fill="rgba(74,144,226,0.12)" />
-      <path d="M18 30 Q20 42 32 56 Q44 42 46 30" stroke={color} strokeWidth="2" fill="rgba(74,144,226,0.1)" />
-      <polygon points="32,15 36,22 32,29 28,22" stroke="#4A90E2" strokeWidth="1.5" fill="rgba(74,144,226,0.4)" />
-      <path d="M6 60 Q14 55 22 60 Q30 65 38 60 Q46 55 54 60 Q60 64 62 61" stroke={color} strokeWidth="2" strokeLinecap="round" fill="none" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C8.686 2 6 4.686 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.314-2.686-6-6-6z" />
+      <path d="M10 7l1.5 1.5L14 6" />
+      <path d="M4 20c0 0 2-1 4-1s3 1 5 1 3-1 5-1" strokeOpacity="0.4" />
     </svg>
   );
 }

@@ -8,10 +8,16 @@ import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import UstSerit from './components/UstSerit';
 import AnaMenu from './components/AnaMenu';
+import IkonSeridi from './components/IkonSeridi';
 import SolMenuPencere from './components/SolMenuPencere';
 import AltinCerceve from './components/AltinCerceve';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
+import PirlantaPazari from './sayfalar/PirlantaPazari';
+import Tanisma from './sayfalar/Tanisma';
+import CanliYayinlar from './sayfalar/CanliYayinlar';
+import Harita from './sayfalar/Harita';
+import Egitimler from './sayfalar/Egitimler';
 import './App.css';
 
 function AnaSayfa() {
@@ -22,9 +28,14 @@ function Icerik() {
   return (
     <>
       <Routes>
-        <Route path="/"       element={<AnaSayfa />} />
-        <Route path="/giris"  element={<Login />}    />
-        <Route path="/uye-ol" element={<SignUp />}   />
+        <Route path="/"                element={<AnaSayfa />}       />
+        <Route path="/giris"           element={<Login />}          />
+        <Route path="/uye-ol"          element={<SignUp />}         />
+        <Route path="/pirlanta-pazari" element={<PirlantaPazari />} />
+        <Route path="/tanisma"         element={<Tanisma />}        />
+        <Route path="/canli-yayinlar"  element={<CanliYayinlar />}  />
+        <Route path="/harita"          element={<Harita />}         />
+        <Route path="/egitimler"       element={<Egitimler />}      />
       </Routes>
       <GeriButon />
       <DevWidget sayfa="Sayfa" />
@@ -33,10 +44,10 @@ function Icerik() {
 }
 
 function App() {
-  const [menuAcik, setMenuAcik]           = useState(false);
-  const [acilisGoster, setAcilisGoster]   = useState(true);
-  const [kartGoster, setKartGoster]       = useState(false);
-  const [kullanici, setKullanici]         = useState(undefined);
+  const [menuAcik, setMenuAcik]         = useState(false);
+  const [acilisGoster, setAcilisGoster] = useState(true);
+  const [kartGoster, setKartGoster]     = useState(false);
+  const [kullanici, setKullanici]       = useState(undefined);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setKullanici(u || null));
@@ -44,9 +55,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const noMenu = (e) => { const t = e.target.tagName; if (t !== 'INPUT' && t !== 'TEXTAREA' && t !== 'SELECT') e.preventDefault(); };
-    const noCopy = (e) => { const t = e.target.tagName; if (t !== 'INPUT' && t !== 'TEXTAREA') e.preventDefault(); };
-    const noDrag = (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); };
+    const noMenu = (e) => { const t=e.target.tagName; if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT') e.preventDefault(); };
+    const noCopy = (e) => { const t=e.target.tagName; if(t!=='INPUT'&&t!=='TEXTAREA') e.preventDefault(); };
+    const noDrag = (e) => { if(e.target.tagName==='IMG') e.preventDefault(); };
     document.addEventListener('contextmenu', noMenu);
     document.addEventListener('copy', noCopy);
     document.addEventListener('cut', noCopy);
@@ -62,22 +73,16 @@ function App() {
   if (kullanici === undefined) return null;
 
   const misafirSecti = localStorage.getItem('glamworld_misafir_secti') === 'true';
-
-  const animasyonuGizle = () => setAcilisGoster(false);
-
-  const kartAc = () => {
-    if (!kullanici && !misafirSecti) setKartGoster(true);
-  };
-
+  const kartAc = () => { if (!kullanici && !misafirSecti) setKartGoster(true); };
   const misafirSec = () => {
-    try { localStorage.setItem('glamworld_misafir_secti', 'true'); } catch {}
+    try { localStorage.setItem('glamworld_misafir_secti','true'); } catch {}
     setKartGoster(false);
   };
 
   return (
     <BrowserRouter basename="/glamworld">
-      {acilisGoster && (kullanici === null || kullanici === undefined) && !misafirSecti && (
-        <AcilisAnimasyonu onBitti={animasyonuGizle} onKartGoster={kartAc} />
+      {acilisGoster && !kullanici && !misafirSecti && (
+        <AcilisAnimasyonu onBitti={() => setAcilisGoster(false)} onKartGoster={kartAc} />
       )}
       {kartGoster && !kullanici && (
         <HosGeldinKarti onMisafir={misafirSec} />
@@ -85,6 +90,7 @@ function App() {
       <AltinCerceve />
       <UstSerit />
       <AnaMenu onMenuClick={() => setMenuAcik(true)} />
+      <IkonSeridi />
       <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
     </BrowserRouter>
