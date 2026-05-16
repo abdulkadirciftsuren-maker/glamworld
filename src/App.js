@@ -4,7 +4,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import AcilisAnimasyonu from './components/AcilisAnimasyonu';
 import HosGeldinKarti from './components/HosGeldinKarti';
-import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import UstSerit from './components/UstSerit';
 import AnaMenu from './components/AnaMenu';
@@ -44,7 +43,6 @@ function Icerik() {
         <Route path="/egitimler"       element={<Egitimler />}      />
       </Routes>
       <GeriButon />
-      <DevWidget sayfa="Sayfa" />
     </>
   );
 }
