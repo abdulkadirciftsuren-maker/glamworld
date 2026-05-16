@@ -3,8 +3,9 @@ import './Tooltip.css';
 
 export default function Tooltip({ text, position = 'top', children, style: extraStyle }) {
   const [gorunur, setGorunur] = useState(false);
-  const wrapperRef = useRef(null);
-  const timerRef = useRef(null);
+  const wrapperRef    = useRef(null);
+  const timerRef      = useRef(null);
+  const touchVarRef   = useRef(false);
 
   useEffect(() => {
     if (gorunur) {
@@ -28,14 +29,23 @@ export default function Tooltip({ text, position = 'top', children, style: extra
     };
   }, [gorunur]);
 
+  const touchBasla = () => {
+    touchVarRef.current = true;
+    setTimeout(() => { touchVarRef.current = false; }, 800);
+    setGorunur(true);
+  };
+
+  const mouseGir   = () => { if (!touchVarRef.current) setGorunur(true); };
+  const mouseCik   = () => { if (!touchVarRef.current) setGorunur(false); };
+
   return (
     <div
       ref={wrapperRef}
       className="tip-wrap"
       style={extraStyle}
-      onMouseEnter={() => setGorunur(true)}
-      onMouseLeave={() => setGorunur(false)}
-      onTouchStart={() => setGorunur(true)}
+      onMouseEnter={mouseGir}
+      onMouseLeave={mouseCik}
+      onTouchStart={touchBasla}
     >
       {children}
       {gorunur && (
