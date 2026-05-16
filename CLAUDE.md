@@ -454,6 +454,22 @@ Parmağın altında DEĞİL — parmağın üstünde, görünür olacak şekilde
 
 ---
 
+## 24-B. TOOLTIP YENİ DAVRANIŞ KURALI (B89 itibariyle)
+
+`src/components/Tooltip.jsx` yeniden yazıldı. Yeni davranış:
+
+- **Parmak çekildikten sonra yazı KALIR** (5 saniye) — kullanıcı okuyabilir
+- **5 saniye sonra otomatik kapanır**
+- **Boş yere dokunulursa kapanır** (document touchstart/mousedown)
+- **Sayfa değişiminde kapanır** (IkonSeridi useEffect ile)
+- **position: absolute** kullanılır — butonla beraber scroll'da hareket eder, ekranda asılı kalmaz
+- **PC:** mouseenter → görünür, mouseleave → kapanır (5 saniye beklemez)
+- **Mobil:** touchstart → görünür, dışarıya dokununca kapanır
+- **Animasyon:** yumuşak fade-in (0.15s)
+- **Stil:** siyah arka plan + altın çerçeve + altın yazı
+
+---
+
 ## 25. PİYASA ŞERİDİ — Canlı Veriler
 
 Sayfanın **en üstünde** ince bir şerit (şehir bandının üzerinde):
@@ -1044,7 +1060,7 @@ Aşağıdaki dosyalar B15 itibarıyla KORUMA ALTINA ALINDI. Code yeni iş yapark
 9. `src/components/Pirlanta.jsx`
 10. `src/components/Pirlanta.css`
 11. `src/components/GeriButon.jsx`
-12. `src/components/Tooltip.jsx`
+12. `src/components/Tooltip.jsx` — Madde 24-B'ye uygun olduğu sürece değiştirilebilir (davranış değişikliği için anayasa güncellemesi gerekir)
 13. `src/components/DevWidget.jsx` — sayaç sistemi
 14. `src/sayac.json`
 15. `scripts/increment-counter.js`
