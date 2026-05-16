@@ -1344,6 +1344,18 @@ Her sayfa farklı arka plan → "yer değişti" hissi. Marka renk paleti (Madde 
 
 ---
 
+## 90-A. AKTİF SAYFA ETİKETİ
+
+- Aktif sayfanın ikonu üzerinde sürekli görünen altın etiket
+- Component: `src/components/AktifEtiket.jsx` + `AktifEtiket.css`
+- `position: absolute` — butonla beraber scroll'da hareket eder
+- Yavaş parıltı animasyonu (3s döngü)
+- Sayfaya geçildiğinde fade-in + slide-up
+- Diğer butonlarda GÖRÜNMEZ — sadece aktif butonda
+- Tooltip ile çakışmaz (ayrı katmanda)
+
+---
+
 ## 91. DİL TUTARLILIĞI ZORUNLULUĞU
 
 - Kullanıcı dil seçince TÜM sayfalarda değişir

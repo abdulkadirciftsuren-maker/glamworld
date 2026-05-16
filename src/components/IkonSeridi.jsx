@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Tooltip from './Tooltip';
 import Pirlanta from './Pirlanta';
+import AktifEtiket from './AktifEtiket';
 import { AnasayfaIcon, PirlantaPazariIcon, TanismaIcon, CanliYayinIcon, HaritadaBulIcon, EgitimlerIcon } from '../icons';
 import './IkonSeridi.css';
 
@@ -41,6 +42,7 @@ export default function IkonSeridi() {
               style={{ '--zemin': zemin, '--renk': renk }}
               onClick={(e) => git(yol, e)}
             >
+              {aktif && <AktifEtiket text={isim} />}
               <span className="is-ikon-wrap">
                 <Icon size={22} color={renk} />
                 <span className="is-pirlanta"><Pirlanta renk="mavi" boyut={8} /></span>

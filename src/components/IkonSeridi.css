@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 8px 6px;
+  padding: 36px 6px 8px;
   background: transparent;
   user-select: none;
   -webkit-user-select: none;
@@ -21,6 +21,7 @@
   transition: filter 0.25s ease, transform 0.2s ease, border-color 0.2s;
   position: relative;
   min-width: 44px;
+  overflow: visible;
 }
 .is-btn:hover  { border-color: rgba(255,215,0,0.5); transform: translateY(-2px); }
 .is-btn:active { transform: scale(0.9); }
