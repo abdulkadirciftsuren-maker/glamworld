@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import AcilisAnimasyonu from './components/AcilisAnimasyonu';
@@ -22,6 +22,12 @@ import './App.css';
 
 function AnaSayfa() {
   return <div style={{ background: '#0a0a0a', minHeight: '100vh' }} />;
+}
+
+function IkonSeridiKontrol({ kartGoster }) {
+  const { pathname } = useLocation();
+  if (kartGoster || pathname === '/giris' || pathname === '/uye-ol') return null;
+  return <IkonSeridi />;
 }
 
 function Icerik() {
@@ -90,7 +96,7 @@ function App() {
       <AltinCerceve />
       <UstSerit />
       <AnaMenu onMenuClick={() => setMenuAcik(true)} />
-      {!kartGoster && <IkonSeridi />}
+      <IkonSeridiKontrol kartGoster={kartGoster} />
       <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
     </BrowserRouter>
