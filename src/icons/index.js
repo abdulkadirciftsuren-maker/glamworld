@@ -6,3 +6,7 @@ export { default as HaritadaBulIcon }    from './HaritadaBulIcon';
 export { default as EgitimlerIcon }      from './EgitimlerIcon';
 export { default as YakindaIcon }        from './YakindaIcon';
 export { default as CikisIkonu }         from './CikisIkonu';
+export { default as PrlErkekIkon }      from './PrlErkekIkon';
+export { default as PrlKadinIkon }      from './PrlKadinIkon';
+export { default as PrlTarafsizIkon }   from './PrlTarafsizIkon';
+export { default as PrlMusteriIkon }    from './PrlMusteriIkon';
