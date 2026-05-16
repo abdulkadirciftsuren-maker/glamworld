@@ -213,8 +213,10 @@
 }
 
 @media (max-width: 820px) {
+  .am-logo { font-size: 18px; letter-spacing: 1.5px; }
+}
+@media (max-width: 480px) and (orientation: portrait) {
   .am-gizli { display: none; }
-  .am-logo  { font-size: 18px; letter-spacing: 1.5px; }
 }
 
 @media (max-width: 480px) {

@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DevWidget from './components/DevWidget';
 import GeriButon from './components/GeriButon';
 import UstSerit from './components/UstSerit';
 import AnaMenu from './components/AnaMenu';
+import SolMenuPencere from './components/SolMenuPencere';
 import AltinCerceve from './components/AltinCerceve';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
@@ -30,6 +31,8 @@ function Icerik() {
 }
 
 function App() {
+  const [menuAcik, setMenuAcik] = useState(false);
+
   useEffect(() => {
     const noMenu = (e) => {
       const t = e.target.tagName;
@@ -56,7 +59,8 @@ function App() {
     <BrowserRouter basename="/glamworld">
       <AltinCerceve />
       <UstSerit />
-      <AnaMenu />
+      <AnaMenu onMenuClick={() => setMenuAcik(true)} />
+      <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
     </BrowserRouter>
   );
