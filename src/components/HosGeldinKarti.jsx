@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
+import AltinTozAtmosfer from './AltinTozAtmosfer';
 import './HosGeldinKarti.css';
 
 export default function HosGeldinKarti({ onKapat }) {
@@ -10,6 +11,7 @@ export default function HosGeldinKarti({ onKapat }) {
 
   return (
     <div className="hgk-overlay">
+      <AltinTozAtmosfer />
       <div className="hgk-kart">
         <div className="hgk-logo">
           <Pirlanta renk="altin" boyut={26} />

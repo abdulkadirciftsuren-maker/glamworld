@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
+import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import './Login.css';
 
 const shimmerCSS = `@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}`;
@@ -69,10 +70,11 @@ export default function Login() {
 
   return (
     <div className="login-sayfa">
+      <AltinTozAtmosfer />
       <style>{shimmerCSS}</style>
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
-      <div className="login-kart" ref={kartRef}>
+      <div className="login-kart" ref={kartRef} style={{ position: 'relative', zIndex: 2 }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:12 }}>
           <Pirlanta renk="altin" boyut={22} />
           <h1 className="login-logo">GLAMWORLD</h1>

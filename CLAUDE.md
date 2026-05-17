@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.21 — Son)
+# GLAMWORLD — Proje Anayasası (V5.22 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1455,6 +1455,21 @@ Açılış animasyonu sırasında lüks ses çalar.
 
 ---
 
+## 97. LÜKS ATMOSFER — ALTIN TOZ SİSTEMİ (B112)
+
+Üye olmamış kullanıcıların gördüğü 3 kartta arka plan altın tozu animasyonu çalışır. Hermès butik atmosferi yaratır.
+
+1. AltinTozAtmosfer SADECE 3 kartta: Hoş Geldin, Üye Ol, Giriş Yap
+2. Anasayfa ve diğer sayfalarda altın toz YOK
+3. 35 altın parçacık (1-4px boyut), yukarı süzülür (8-14s döngü)
+4. `position: absolute; z-index: 1` — kart (z-index: 2) altında kalır
+5. Parent div `overflow: hidden` zorunlu — toz dışarı taşmaz
+6. `pointer-events: none` — tıklamayı engellemez
+7. `prefers-reduced-motion` ile durdurulur
+8. Component: `src/components/AltinTozAtmosfer.jsx` + `AltinTozAtmosfer.css`
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -1465,5 +1480,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.21 (M.94-96: X mantığı, misafir yasağı, ses sistemi; B111: Şaheser açılış akışı)*
-*Sayaç: B111*
+*Son güncelleme: 17 Mayıs 2026 — V5.22 (M.97: Altın Toz Atmosfer sistemi; B112)*
+*Sayaç: B112*

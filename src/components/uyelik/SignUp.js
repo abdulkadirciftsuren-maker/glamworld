@@ -7,6 +7,7 @@ import { auth, db } from '../../firebase';
 import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
+import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import Tooltip from '../Tooltip';
 import { TelefonInput, UzmanlikSecici, SehirOnericisi, DeneyimSecici } from './ProfesyonelAlanlar';
 import './SignUp.css';
@@ -119,9 +120,10 @@ export default function SignUp() {
 
   return (
     <div className="signup-sayfa" onContextMenu={(e) => e.preventDefault()}>
+      <AltinTozAtmosfer />
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
-      <div className="signup-kart" ref={kartRef}>
+      <div className="signup-kart" ref={kartRef} style={{ zIndex: 2 }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:12 }}>
           <Pirlanta renk="gumus" boyut={22} />
           <h1 className="signup-logo">GLAMWORLD</h1>

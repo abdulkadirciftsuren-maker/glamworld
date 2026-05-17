@@ -1,0 +1,27 @@
+.ata-kap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ata-parca {
+  position: absolute;
+  border-radius: 50%;
+  background: #FFD700;
+  box-shadow: 0 0 4px rgba(255,215,0,0.8), 0 0 8px rgba(255,215,0,0.4);
+  animation: ata-yukseliyor linear infinite;
+}
+
+@keyframes ata-yukseliyor {
+  0%   { transform: translateY(0) translateX(0) scale(1);     opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translateY(-50vh) translateX(18px) scale(1.2); }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(-14px) scale(0.5); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ata-parca { animation: none; opacity: 0.25; }
+}
