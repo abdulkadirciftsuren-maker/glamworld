@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { calAcilisSesi } from '../utils/acilisSesi';
+import { calAcilisSesi, sesiBitir } from '../utils/acilisSesi';
 import './AcilisAnimasyonu.css';
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -65,12 +65,11 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
     const sesCal = () => {
       if (caldi.v) return;
       caldi.v = true;
-      try { ctxRef.current = calAcilisSesi(); } catch {}
+      calAcilisSesi();
     };
+    const sesOlaylar = ['touchstart', 'click', 'keydown', 'mousedown'];
     sesCal();
-    document.addEventListener('touchstart', sesCal, { once: true });
-    document.addEventListener('click',      sesCal, { once: true });
-    document.addEventListener('keydown',    sesCal, { once: true });
+    sesOlaylar.forEach(o => document.addEventListener(o, sesCal, { once: true, passive: true }));
 
     const t2 = setTimeout(() => setSahne(2), 2000 * h);
     const t3 = setTimeout(() => setSahne(3), 4000 * h);
@@ -86,10 +85,8 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
 
     return () => {
       [t2, t3, t4, t5].forEach(clearTimeout);
-      document.removeEventListener('touchstart', sesCal);
-      document.removeEventListener('click',      sesCal);
-      document.removeEventListener('keydown',    sesCal);
-      if (ctxRef.current) { try { ctxRef.current.close(); } catch {} }
+      sesOlaylar.forEach(o => document.removeEventListener(o, sesCal));
+      sesiBitir();
     };
   }, []);
 
