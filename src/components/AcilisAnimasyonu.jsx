@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { sesBaslat, sesBitir } from '../utils/sesSistemi';
+import { sesBaslat, sesBitir, sesDurumu } from '../utils/sesSistemi';
 import './AcilisAnimasyonu.css';
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -61,22 +61,6 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
       return () => clearTimeout(t);
     }
 
-    let baslatildi = false;
-    const baslat = async () => {
-      if (baslatildi) return;
-      baslatildi = true;
-      console.log('GlamSes tetiklendi');
-      await sesBaslat();
-    };
-    const sesOlaylar = ['touchstart', 'touchend', 'click', 'mousedown', 'keydown'];
-    baslat();
-    const dinleyici = (e) => {
-      console.log('GlamSes event:', e.type);
-      baslat();
-      sesOlaylar.forEach(o => document.removeEventListener(o, dinleyici));
-    };
-    sesOlaylar.forEach(o => document.addEventListener(o, dinleyici, { passive: true }));
-
     const t2 = setTimeout(() => setSahne(2), 2000 * h);
     const t3 = setTimeout(() => setSahne(3), 4000 * h);
     const t4 = setTimeout(() => {
@@ -91,10 +75,15 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
 
     return () => {
       [t2, t3, t4, t5].forEach(clearTimeout);
-      sesOlaylar.forEach(o => document.removeEventListener(o, dinleyici));
-      sesBitir();
     };
   }, []);
+
+  useEffect(() => {
+    if (kisa) { console.log('[GLAMSES] Kısa path, ses atlanıyor'); return; }
+    console.log('[GLAMSES] AcilisAnimasyonu mount - durum:', sesDurumu());
+    sesBaslat();
+    return () => { sesBitir(); };
+  }, [kisa]);
 
   const atla = () => { bitir(); onKartGoster(); };
 
@@ -105,6 +94,9 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
   return (
     <div className="aa-overlay">
       <button className="aa-gec" onClick={atla} aria-label="Animasyonu atla">Geç →</button>
+      <div style={{position:'fixed',top:10,right:70,background:'rgba(0,0,0,0.7)',color:'#FFD700',padding:'4px 8px',fontSize:'10px',borderRadius:'4px',zIndex:99999,fontFamily:'monospace',pointerEvents:'none'}}>
+        SES: {sesDurumu().etkilesimYakalandi ? '✓' : 'BEKLİYOR'}
+      </div>
       <div className="aa-parcaciklar">
         {parcaciklar.map(p => (
           <div key={p.id} className="aa-pirlilti" style={{
