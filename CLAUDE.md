@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.19 — Son)
+# GLAMWORLD — Proje Anayasası (V5.20 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1044,9 +1044,9 @@ Code her görev bittikten sonra şu raporu verir:
 
 ---
 
-## 72. DOKUNULMAZ DOSYALAR LİSTESİ (B15 itibariyle KORUMA ALTINDA)
+## 72. DOKUNULMAZ DOSYALAR LİSTESİ (B110 itibariyle GÜNCELLENDİ)
 
-Aşağıdaki dosyalar B15 itibarıyla KORUMA ALTINA ALINDI. Code yeni iş yaparken bu dosyalara **DOKUNAMAZ**.
+Aşağıdaki dosyalar KORUMA ALTINDA. Code yeni iş yaparken bu dosyalara **DOKUNAMAZ**.
 
 **KORUNAN DOSYALAR:**
 1. `src/components/uyelik/Login.js` — Giriş Yap kartı
@@ -1060,10 +1060,18 @@ Aşağıdaki dosyalar B15 itibarıyla KORUMA ALTINA ALINDI. Code yeni iş yapark
 9. `src/components/Pirlanta.jsx`
 10. `src/components/Pirlanta.css`
 11. `src/components/GeriButon.jsx`
-12. `src/components/Tooltip.jsx` — Madde 24-B'ye uygun olduğu sürece değiştirilebilir (davranış değişikliği için anayasa güncellemesi gerekir)
+12. `src/components/Tooltip.jsx` — Madde 24-B'ye uygun olduğu sürece değiştirilebilir
 13. `src/components/DevWidget.jsx` — sayaç sistemi
 14. `src/sayac.json`
 15. `scripts/increment-counter.js`
+16. `src/components/CikisOnayModal.jsx` + `CikisOnayModal.css` — B85
+17. `src/icons/` klasörü (tüm 13 ikon jsx dosyası) — B86/B104
+18. `src/components/AltinImza.jsx` + `AltinImza.css` — B103
+19. `src/utils/kullaniciProfili.js` — B105
+20. `src/components/SwipeNavigator.jsx` — B106
+21. `src/components/IkonSeridi.jsx` + `IkonSeridi.css` — B107
+22. `src/components/AnaMenu.jsx` + `AnaMenu.css` — B63
+23. `src/components/HosGeldinKarti.jsx` + `HosGeldinKarti.css`
 
 **KURAL:**
 - Yeni iş yaparken bu dosyalar DEĞİŞTİRİLEMEZ
@@ -1421,6 +1429,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 15 Mayıs 2026 — V5.19 (M.84-93: Anasayfa yapısı, Ana menü, İkon şerida
-*Yeni: glamworld (modüler, profesyonel)*
-*Sayaç: B1'den başlar*
+*Son güncelleme: 17 Mayıs 2026 — V5.20 (M.72 genişletildi: 23 dokunulmaz dosya, B110: DevWidget sadece AnaSayfa)*
+*Sayaç: B110*

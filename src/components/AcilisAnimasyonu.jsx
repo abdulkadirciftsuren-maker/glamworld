@@ -30,7 +30,7 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster }) {
 
     if (kisa) {
       setFaze(4);
-      const t = setTimeout(bitir, 1500 * hiz);
+      const t = setTimeout(() => { bitir(); onKartGoster(); }, 1500 * hiz);
       return () => clearTimeout(t);
     }
 

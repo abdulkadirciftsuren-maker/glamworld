@@ -23,10 +23,13 @@ import ProfilMusteri from './sayfalar/ProfilMusteri';
 import ProfilErkek from './sayfalar/ProfilErkek';
 import ProfilKadin from './sayfalar/ProfilKadin';
 import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
+import AnaSayfa from './sayfalar/AnaSayfa';
 import './App.css';
 
-function AnaSayfa() {
-  return <div style={{ background: '#0a0a0a', minHeight: '100vh' }} />;
+function DevWidgetRouteGuard() {
+  const { pathname } = useLocation();
+  if (pathname === '/' ) return null;
+  return <style>{'.dev-widget,.dev-widget-mini{display:none!important}'}</style>;
 }
 
 function IkonSeridiKontrol({ kartGoster, kullaniciProfili }) {
@@ -111,6 +114,7 @@ function App() {
       {kartGoster && !kullanici && (
         <HosGeldinKarti onMisafir={misafirSec} />
       )}
+      <DevWidgetRouteGuard />
       <AltinCerceve />
       <UstSerit />
       <AnaMenu onMenuClick={() => setMenuAcik(true)} />
