@@ -8,6 +8,7 @@ import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
+import { useAndroidGeri } from '../../utils/androidGeriYonetimi';
 import Tooltip from '../Tooltip';
 import { TelefonInput, UzmanlikSecici, SehirOnericisi, DeneyimSecici } from './ProfesyonelAlanlar';
 import './SignUp.css';
@@ -59,6 +60,7 @@ function hataMesaji(kod) {
 const BOŞ_FORM = { isim:'', soyisim:'', email:'', sifre:'', sifreTekrar:'', telefon:'', cinsiyet:'', uzmanlik:'', sehir:'', deneyim:'', durum:'', sartlar:false };
 
 export default function SignUp() {
+  useAndroidGeri();
   const [hesapTuru, setHesapTuru] = useState(null);
   const [form, setForm] = useState(BOŞ_FORM);
   const [hata, setHata] = useState('');

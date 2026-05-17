@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.22 — Son)
+# GLAMWORLD — Proje Anayasası (V5.23 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1165,6 +1165,21 @@ Her 10 ülkede bir BURADASIN+döviz tekrar. USD yeşil | EUR mavi | GBP mor | AL
 
 ---
 
+## 78. ANDROID GERİ TUŞU YÖNETİMİ (B113)
+
+Mobil cihazlarda Android Geri tuşu davranışı:
+
+1. Üye Ol sayfasında Android Geri → Hoş Geldin Kartı'na döner (sayfa YENİLENMEZ)
+2. Giriş Yap sayfasında Android Geri → Hoş Geldin Kartı'na döner (sayfa YENİLENMEZ)
+3. Hoş Geldin Kartı'nda Android Geri → Browser varsayılan (sekme kapanır)
+4. Anasayfada Android Geri → Browser varsayılan
+5. `popstate` event ile yönetilir, `history.pushState` ile yakalanır
+6. `src/utils/androidGeriYonetimi.js` → `useAndroidGeri` hook
+7. Sadece `/uye-ol` ve `/giris` route'larında aktif
+8. Sağ alt sarı GeriButon ile AYNI sonucu verir
+
+---
+
 ## 79. ALTIN ÇERÇEVE (Sayfa Dekorasyonu)
 
 - Component: `src/components/AltinCerceve.jsx` + `AltinCerceve.css`
@@ -1480,5 +1495,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.22 (M.97: Altın Toz Atmosfer sistemi; B112)*
-*Sayaç: B112*
+*Son güncelleme: 17 Mayıs 2026 — V5.23 (M.78: Android Geri tuşu yönetimi; B113)*
+*Sayaç: B113*
