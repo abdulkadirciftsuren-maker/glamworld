@@ -11,6 +11,7 @@ import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import { useAndroidGeri } from '../../utils/androidGeriYonetimi';
 import Tooltip from '../Tooltip';
 import { TelefonInput, UzmanlikSecici, SehirOnericisi, DeneyimSecici } from './ProfesyonelAlanlar';
+import DigerBranslarModal from './DigerBranslarModal';
 import './SignUp.css';
 
 function SilverStar() {
@@ -74,6 +75,8 @@ export default function SignUp() {
   const [form, setForm] = useState(formYukle);
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
+  const [digerModalAcik, setDigerModalAcik] = useState(false);
+  const [secilenDigerBrans, setSecilenDigerBrans] = useState('');
   const navigate = useNavigate();
   const kartRef = useRef(null);
   useKartDisiTiklama(kartRef, () => navigate('/'));
@@ -95,14 +98,25 @@ export default function SignUp() {
     try { localStorage.setItem(FORM_KEY, JSON.stringify(guvenli)); } catch {}
   }, [form]);
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  useEffect(() => {
+    if (form.uzmanlik === 'Diğer') setDigerModalAcik(true);
+  }, [form.uzmanlik]);
+
   const g = (alan) => (e) => setForm(f => ({ ...f, [alan]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
 
   const dogrula = () => {
-    if (!hesapTuru) return 'Lütfen hesap türü seçin.';
-    if (!form.isim || !form.soyisim || !form.email || !form.sifre || !form.sifreTekrar) return 'Tüm alanları doldurun.';
-    if (form.sifre.length < 6) return 'Şifre en az 6 karakter.';
-    if (form.sifre !== form.sifreTekrar) return 'Şifreler eşleşmiyor.';
-    if (!form.sartlar) return 'Kullanım şartlarını kabul edin.';
+    if (!hesapTuru) return 'Hesap türü seç.';
+    if (!form.isim || form.isim.trim().length < 2 || /\d/.test(form.isim)) return 'İsim girin.';
+    if (!form.soyisim || form.soyisim.trim().length < 2 || /\d/.test(form.soyisim)) return 'Soyisim girin.';
+    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return 'Geçerli e-posta girin.';
+    if (!form.sifre || form.sifre.length < 6) return 'Şifre en az 6 karakter.';
+    if (form.sifre !== form.sifreTekrar) return 'Şifreler aynı olmalı.';
+    if (!form.sartlar) return 'Kullanım şartlarını kabul et.';
     return null;
   };
 
@@ -136,7 +150,8 @@ export default function SignUp() {
   const yakinda = () => setHata('Bu yöntem yakında aktif olacak.');
 
   return (
-    <div className="signup-sayfa" onContextMenu={(e) => e.preventDefault()}>
+    <div className="signup-sayfa" onContextMenu={(e) => e.preventDefault()} style={{ position:'fixed', inset:0, overflowY:'auto', overflowX:'hidden', WebkitOverflowScrolling:'touch' }}>
+      <style>{`.pa-uzm-grid{gap:6px!important}.pa-uzm-kart{min-height:70px!important;padding:8px 4px!important}.pa-uzm-ikon svg{width:18px!important;height:18px!important}.pa-uzm-nm{font-size:11px!important}`}</style>
       <AltinTozAtmosfer />
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
@@ -173,13 +188,8 @@ export default function SignUp() {
 
         <div className="sosyal-grid">
           <div className="sosyal-ust">
-            <SosyalButon tip="google" mod="uye" onClick={googleKayit} />
-            <SosyalButon tip="apple"  mod="uye" onClick={yakinda} />
-          </div>
-          <div className="sosyal-alt">
-            <SosyalButon tip="facebook"  mod="uye" onClick={yakinda} />
-            <SosyalButon tip="instagram" mod="uye" onClick={yakinda} />
-            <SosyalButon tip="telefon"   mod="uye" onClick={yakinda} />
+            <SosyalButon tip="google"  mod="uye" onClick={googleKayit} />
+            <SosyalButon tip="telefon" mod="uye" onClick={yakinda} />
           </div>
         </div>
 
@@ -246,6 +256,14 @@ export default function SignUp() {
       </div>
 
       <DevWidget sayfa="Üye Ol" />
+      <DigerBranslarModal
+        acik={digerModalAcik}
+        onKapat={() => setDigerModalAcik(false)}
+        onSec={(brans) => {
+          setSecilenDigerBrans(brans);
+          setForm(f => ({ ...f, uzmanlik: brans }));
+        }}
+      />
     </div>
   );
 }
