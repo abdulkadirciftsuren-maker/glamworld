@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.24 — Son)
+# GLAMWORLD — Proje Anayasası (V5.25 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1458,7 +1458,7 @@ GLAMWORLD yalnızca üye veya giriş yapan kullanıcılara açıktır. Misafir m
 
 ---
 
-## 96. AÇILIŞ SES SİSTEMİ (B111)
+## 96. AÇILIŞ SES SİSTEMİ (B111, B115)
 
 Açılış animasyonu sırasında lüks ses çalar.
 1. Web Audio API kullanılır (mp3 dosyası yok)
@@ -1467,6 +1467,8 @@ Açılış animasyonu sırasında lüks ses çalar.
 4. Volume 0.15 (rahatsız etmez)
 5. Kısa path'te ses çalmaz (sayfa yenileme / çıkış sonrası)
 6. Geç butonu sesi keser + animasyonu atlar
+7. Mobil tarayıcı kısıtlaması: AudioContext kullanıcı etkileşimi sonrası başlar
+8. İlk touchstart veya click eventinde ses tetiklenir (once: true)
 
 ---
 
@@ -1489,7 +1491,7 @@ Açılış animasyonu sırasında lüks ses çalar.
 
 Kullanıcı arka plana geçip döndüğünde kaldığı sayfada açılır.
 
-1. Pull-to-refresh KAPALI (`overscroll-behavior: none` — index.css)
+1. Pull-to-refresh AÇIK (varsayılan tarayıcı davranışı — B115'te geri açıldı)
 2. `/uye-ol` ve `/giris` route'ları localStorage'da saklanır (`glamworld_son_rota`)
 3. Sayfa yeniden açılınca son route'a otomatik yönlendirilir (giriş yapmamışsa)
 4. SignUp form verileri localStorage'da saklanır — `glamworld_form_data` (şifre HARİÇ)
@@ -1512,5 +1514,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.24 (M.98: Sayfa durumu hatırlama; B114)*
-*Sayaç: B114*
+*Son güncelleme: 17 Mayıs 2026 — V5.25 (M.96/98 güncellendi: ses mobil fix + pull-to-refresh geri açıldı; B115)*
+*Sayaç: B115*

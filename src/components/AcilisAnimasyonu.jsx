@@ -61,7 +61,15 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
       return () => clearTimeout(t);
     }
 
-    try { ctxRef.current = calAcilisSesi(); } catch {}
+    const caldi = { v: false };
+    const sesCal = () => {
+      if (caldi.v) return;
+      caldi.v = true;
+      try { ctxRef.current = calAcilisSesi(); } catch {}
+    };
+    sesCal();
+    document.addEventListener('touchstart', sesCal, { once: true });
+    document.addEventListener('click', sesCal, { once: true });
 
     const t2 = setTimeout(() => setSahne(2), 2000 * h);
     const t3 = setTimeout(() => setSahne(3), 4000 * h);
@@ -77,6 +85,8 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
 
     return () => {
       [t2, t3, t4, t5].forEach(clearTimeout);
+      document.removeEventListener('touchstart', sesCal);
+      document.removeEventListener('click', sesCal);
       if (ctxRef.current) { try { ctxRef.current.close(); } catch {} }
     };
   }, []);
