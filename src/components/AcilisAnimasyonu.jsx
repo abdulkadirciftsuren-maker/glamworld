@@ -111,7 +111,7 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
   return (
     <div className="aa-overlay">
       <button className="aa-gec" onClick={atla} aria-label="Animasyonu atla">Geç →</button>
-      <div style={{position:'fixed',top:10,right:10,background:'rgba(0,0,0,0.85)',color:'#FFD700',padding:'6px 10px',fontSize:'11px',borderRadius:'4px',zIndex:99999,fontFamily:'monospace',border:'1px solid #FFD700',pointerEvents:'none'}}>
+      <div style={{position:'fixed',top:10,left:10,background:'rgba(0,0,0,0.85)',color:'#FFD700',padding:'6px 10px',fontSize:'11px',borderRadius:'4px',zIndex:99999,fontFamily:'monospace',border:'1px solid #FFD700',pointerEvents:'none'}}>
         SES: {sesAdim.toUpperCase()}
       </div>
       {!sesAdim.includes('CALIYOR') && (
