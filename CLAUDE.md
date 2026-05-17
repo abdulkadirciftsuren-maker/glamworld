@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.29 — Son)
+# GLAMWORLD — Proje Anayasası (V5.30 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1165,17 +1165,17 @@ Her 10 ülkede bir BURADASIN+döviz tekrar. USD yeşil | EUR mavi | GBP mor | AL
 
 ---
 
-## 78. ANDROID GERİ TUŞU — TARAYICI VARSAYILANI (B127)
+## 78. ANDROID GERİ TUŞU — KOŞULLU YAKALAMA (B129)
 
-GLAMWORLD Android Geri tuşunu BİZİM KOD ile yönetmez.
+GLAMWORLD Android Geri tuşunu KOŞULLU yakalar:
 
-1. `popstate` event listener YASAK (bizim kodumuzda)
-2. `window.history.pushState` müdahalesi YASAK (bizim kodumuzda)
-3. Android Geri → tarayıcı doğal davranışı (önceki sayfa / sekme kapanır)
-4. Bizim Geri butonu (sağ alt sarı daire) BAĞIMSIZ çalışır
-5. İki sistem AYRI, birbirine karışmaz
+1. MODAL YOKSA → Tarayıcı doğal davranışı (Facebook, Instagram gibi)
+2. MODAL VARSA → Sadece o modal için popstate yakalanır → modal kapanır
+3. `modalIcinAndroidYakala(kapatFn)` → modal açılınca çağrılır, cleanup döndürür
+4. Bizim Geri butonu (sağ alt sarı) BAĞIMSIZ çalışmaya devam eder
+5. Modal kapandığında dinleyici temizlenir → tarayıcı tekrar serbest
 
-SEBEP: React Router + browser history çakışınca pushState ile ileri gidiyor gibi davranır. Sade çözüm: tarayıcıya bırak.
+NEDEN BÖYLE: Sürekli popstate yakalamak history'yi karıştırıyor (B125-B128 dersleri). Sadece modal açıkken yakalamak hem modal'ı kapatır hem doğal davranışı korur.
 
 ---
 
@@ -1573,5 +1573,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 18 Mayıs 2026 — V5.29 (M.78/102: Android Geri tarayıcıya bırakıldı, bizim Geri bağımsız; B127)*
-*Sayaç: B127*
+*Son güncelleme: 18 Mayıs 2026 — V5.30 (M.78: Android Geri koşullu yakalama - modal açıkken; B129)*
+*Sayaç: B129*

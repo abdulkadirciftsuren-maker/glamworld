@@ -31,6 +31,40 @@ export function modalVarMi() {
   return acikModaller.length > 0;
 }
 
+let modalPopstateAktif = false;
+let modalPopstateHandler = null;
+
+export function modalIcinAndroidYakala(kapatFn) {
+  if (modalPopstateAktif && modalPopstateHandler) {
+    console.log('[GERI] Modal popstate zaten aktif, eskisi kaldırılıyor');
+    window.removeEventListener('popstate', modalPopstateHandler);
+  }
+
+  window.history.pushState({ glamModal: true }, '');
+  console.log('[GERI] Modal için Android dinleyici kuruldu');
+
+  modalPopstateAktif = true;
+
+  modalPopstateHandler = () => {
+    console.log('[GERI] Modal popstate yakalandı - modal kapatılıyor');
+    try { if (typeof kapatFn === 'function') kapatFn(); } catch (e) { console.error('[GERI] Hata:', e); }
+    modalPopstateAktif = false;
+    window.removeEventListener('popstate', modalPopstateHandler);
+    modalPopstateHandler = null;
+  };
+
+  window.addEventListener('popstate', modalPopstateHandler);
+
+  return () => {
+    if (modalPopstateHandler) {
+      console.log('[GERI] Modal kapandı - dinleyici temizleniyor');
+      window.removeEventListener('popstate', modalPopstateHandler);
+      modalPopstateHandler = null;
+      modalPopstateAktif = false;
+    }
+  };
+}
+
 export function useGeriYap() {
   const navigate = useNavigate();
   const location = useLocation();
