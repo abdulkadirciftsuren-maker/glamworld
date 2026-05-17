@@ -32,6 +32,7 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
   const showKart   = !kullanici;
   const [sahne, setSahne]         = useState(1);
   const [harfSayisi, setHarfSayisi] = useState(0);
+  const [sesAdim, setSesAdim]     = useState('mount');
   const ctxRef  = useRef(null);
   const isMobil = window.innerWidth <= 480;
   const hiz     = useRef(window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0.2 : 1);
@@ -79,10 +80,26 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
   }, []);
 
   useEffect(() => {
-    if (kisa) { console.log('[GLAMSES] Kısa path, ses atlanıyor'); return; }
-    console.log('[GLAMSES] AcilisAnimasyonu mount - durum:', sesDurumu());
-    sesBaslat();
-    return () => { sesBitir(); };
+    if (kisa) return;
+
+    setSesAdim('basliyor');
+    sesBaslat().then(() => setSesAdim('cagildi'));
+
+    const interval = setInterval(() => {
+      const d = sesDurumu();
+      if (d.contextState === 'running') {
+        setSesAdim('CALIYOR');
+      } else if (d.etkilesimYakalandi) {
+        setSesAdim('etkilesim-var');
+      } else {
+        setSesAdim('bekliyor');
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(interval);
+      sesBitir();
+    };
   }, [kisa]);
 
   const atla = () => { bitir(); onKartGoster(); };
@@ -94,9 +111,17 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
   return (
     <div className="aa-overlay">
       <button className="aa-gec" onClick={atla} aria-label="Animasyonu atla">Geç →</button>
-      <div style={{position:'fixed',top:10,right:70,background:'rgba(0,0,0,0.7)',color:'#FFD700',padding:'4px 8px',fontSize:'10px',borderRadius:'4px',zIndex:99999,fontFamily:'monospace',pointerEvents:'none'}}>
-        SES: {sesDurumu().etkilesimYakalandi ? '✓' : 'BEKLİYOR'}
+      <div style={{position:'fixed',top:10,right:10,background:'rgba(0,0,0,0.85)',color:'#FFD700',padding:'6px 10px',fontSize:'11px',borderRadius:'4px',zIndex:99999,fontFamily:'monospace',border:'1px solid #FFD700',pointerEvents:'none'}}>
+        SES: {sesAdim.toUpperCase()}
       </div>
+      {!sesAdim.includes('CALIYOR') && (
+        <>
+          <style>{`@keyframes pulseGold{0%,100%{opacity:.4}50%{opacity:1}}`}</style>
+          <div style={{position:'fixed',bottom:80,left:0,right:0,textAlign:'center',color:'#FFD700',fontSize:'14px',letterSpacing:'2px',zIndex:99998,animation:'pulseGold 1.5s ease-in-out infinite',pointerEvents:'none'}}>
+            EKRANA DOKUN
+          </div>
+        </>
+      )}
       <div className="aa-parcaciklar">
         {parcaciklar.map(p => (
           <div key={p.id} className="aa-pirlilti" style={{
