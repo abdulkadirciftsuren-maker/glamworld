@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.26 — Son)
+# GLAMWORLD — Proje Anayasası (V5.27 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1506,18 +1506,45 @@ Kullanıcı arka plana geçip döndüğünde kaldığı sayfada açılır.
 
 ---
 
-## 99. MODERN REFRESH STANDARDI (B116)
+## 99. MODERN REFRESH STANDARDI (B117)
 
-GLAMWORLD görünmez, sessiz, modern yenileme yapar.
+Pull-to-refresh tarayıcının varsayılan davranışı kullanılır.
 
-1. Pull-to-refresh karanlık ekran YASAK
-2. Yukardan aşağı çizgi (progress bar) YASAK
-3. `overscroll-behavior-y: contain` — karanlık efekt kapalı, scroll çalışıyor
-4. Yumuşak JS yenileme: `src/utils/yumusakYenileme.js` → `useYumusakYenileme`
-5. 80px aşağı çekince onYenile() tetiklenir
-6. Kullanıcı nerede kaldıysa orada kalır
-7. Sadece mobile (touchstart/touchmove/touchend)
-8. App.js içinde global çalışır
+1. JS müdahalesi YOK
+2. overscroll-behavior CSS index.css'te KULLANILMAZ
+3. Tarayıcı kendi refresh progress bar'ını gösterir — NORMAL
+4. Sayfa yenilenince animasyon ATLANIR (Madde 100)
+5. ProfesyonelAlanlar.css'teki overscroll: dropdown için gerekli, korunur
+
+---
+
+## 100. SAYFA YENİLEMEDE ANİMASYON ATLA (B117)
+
+GLAMWORLD sayfa yenileme ve tekrar açılışlarda animasyon OYNAMAZ.
+
+1. İlk ziyaret (localStorage temiz) → 6 saniye tam animasyon
+2. Animasyon biter → `glamworld_acilis_gosterildi` = true yazılır
+3. Sayfa yenileme (F5, pull-to-refresh) → animasyon ATLANIR
+4. Sıfır bekleme — direkt son durum açılır
+5. App.js'te lazy useState: `useState(() => !localStorage.getItem('glamworld_acilis_gosterildi'))`
+6. Çıkış yapınca animasyon yine atlanır (flag silinmiyor)
+7. Gerçek ilk ziyaret için flag'i temizle: localStorage → Application → sil
+
+---
+
+## 101. ESKİ KOD TEMİZLİĞİ KURALI (B117)
+
+Madde 71'in özel uygulaması — her görev sonrası deep clean zorunlu.
+
+1. Kullanılmayan import'lar ANINDA silinir
+2. Yorum satırına alınmış kod silinir
+3. .backup, _old, _eski uzantılı dosya YASAK
+4. Aynı işi yapan 2 component YASAK
+5. Test sonrası kaldırılan özellikler iz bırakmaz
+6. Görev sonunda grep audit ZORUNLU:
+   - `grep -rn "eskiAnahtar" src/` → boş olmalı
+   - Silinmesi planlanan dosya gerçekten silindi mi?
+7. Raporda deep clean maddesi zorunlu
 
 ---
 
@@ -1531,5 +1558,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.26 (M.96/98/99: ses tamiri + modern refresh; B116)*
-*Sayaç: B116*
+*Son güncelleme: 17 Mayıs 2026 — V5.27 (M.99/100/101: refresh sadeleştirme + animasyon atlama; B117)*
+*Sayaç: B117*

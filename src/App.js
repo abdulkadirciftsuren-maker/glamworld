@@ -25,7 +25,6 @@ import ProfilKadin from './sayfalar/ProfilKadin';
 import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import AnaSayfa from './sayfalar/AnaSayfa';
 import { useRotaHafiza } from './utils/rotaHafiza';
-import { useYumusakYenileme } from './utils/yumusakYenileme';
 import './App.css';
 
 function DevWidgetRouteGuard() {
@@ -83,9 +82,10 @@ function Icerik() {
 }
 
 function App() {
-  useYumusakYenileme(() => { console.log('Yumuşak yenileme'); });
-  const [menuAcik, setMenuAcik]       = useState(false);
-  const [acilisGoster, setAcilisGoster] = useState(true);
+  const [menuAcik, setMenuAcik]         = useState(false);
+  const [acilisGoster, setAcilisGoster] = useState(
+    () => !localStorage.getItem('glamworld_acilis_gosterildi')
+  );
   const [kartGoster, setKartGoster]   = useState(false);
   const [kullanici, setKullanici]     = useState(undefined);
   const [kullaniciProfili, setKullaniciProfili] = useState({ hesapTuru: 'musteri', cinsiyet: 'tarafsiz' });
