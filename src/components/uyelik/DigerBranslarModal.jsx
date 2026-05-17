@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { modalAc, modalKapat, modalIcinAndroidYakala } from '../../utils/geriYonetimi';
+import { modalAc, modalKapat } from '../../utils/geriYonetimi';
 
 const KATEGORILER = [
   { baslik:'Güzellik & Bakım', branslar:['Saç Tasarımı','Renklendirme','Saç Bakımı','Saç Kaynak','Sakal Tasarımı','Tıraş','Yüz Bakımı','Anti-Aging','Lazer Epilasyon','Ağda','Cilt Temizliği','Akne Tedavisi'] },
@@ -16,11 +16,7 @@ export default function DigerBranslarModal({ acik, onKapat, onSec }) {
   useEffect(() => {
     if (acik) {
       modalAc('diger-branslar-modal', onKapat);
-      const temizle = modalIcinAndroidYakala(onKapat);
-      return () => {
-        modalKapat('diger-branslar-modal');
-        temizle();
-      };
+      return () => modalKapat('diger-branslar-modal');
     }
   }, [acik, onKapat]);
   const [arama, setArama] = useState('');

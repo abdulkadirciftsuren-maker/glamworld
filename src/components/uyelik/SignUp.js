@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useKartDisiTiklama } from '../../hooks/useKartDisiTiklama';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
@@ -77,9 +77,10 @@ export default function SignUp() {
   const [form, setForm] = useState(formYukle);
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
-  const [digerModalAcik, setDigerModalAcik] = useState(false);
   const [secilenDigerBrans, setSecilenDigerBrans] = useState('');
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const digerModalAcik = searchParams.get('modal') === 'branslar';
   const kartRef = useRef(null);
   useKartDisiTiklama(kartRef, () => navigate('/'));
 
@@ -102,7 +103,7 @@ export default function SignUp() {
   }, []);
 
   useEffect(() => {
-    if (form.uzmanlik === 'Diğer') setDigerModalAcik(true);
+    if (form.uzmanlik === 'Diğer') setSearchParams({ modal: 'branslar' });
   }, [form.uzmanlik]);
 
   const g = (alan) => (e) => setForm(f => ({ ...f, [alan]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
@@ -256,9 +257,10 @@ export default function SignUp() {
       <DevWidget sayfa="Üye Ol" />
       <DigerBranslarModal
         acik={digerModalAcik}
-        onKapat={() => setDigerModalAcik(false)}
+        onKapat={() => setSearchParams({})}
         onSec={(brans) => {
           setSecilenDigerBrans(brans);
+          setSearchParams({});
           setForm(f => ({ ...f, uzmanlik: brans }));
         }}
       />

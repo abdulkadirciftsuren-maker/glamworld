@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.30 — Son)
+# GLAMWORLD — Proje Anayasası (V5.31 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1165,17 +1165,18 @@ Her 10 ülkede bir BURADASIN+döviz tekrar. USD yeşil | EUR mavi | GBP mor | AL
 
 ---
 
-## 78. ANDROID GERİ TUŞU — KOŞULLU YAKALAMA (B129)
+## 78. ANDROID GERİ — REACT ROUTER URL BAĞLAMA (B130)
 
-GLAMWORLD Android Geri tuşunu KOŞULLU yakalar:
+GLAMWORLD modalleri URL search params ile yönetir. Android Geri React Router doğal navigasyonla çalışır.
 
-1. MODAL YOKSA → Tarayıcı doğal davranışı (Facebook, Instagram gibi)
-2. MODAL VARSA → Sadece o modal için popstate yakalanır → modal kapanır
-3. `modalIcinAndroidYakala(kapatFn)` → modal açılınca çağrılır, cleanup döndürür
-4. Bizim Geri butonu (sağ alt sarı) BAĞIMSIZ çalışmaya devam eder
-5. Modal kapandığında dinleyici temizlenir → tarayıcı tekrar serbest
-
-NEDEN BÖYLE: Sürekli popstate yakalamak history'yi karıştırıyor (B125-B128 dersleri). Sadece modal açıkken yakalamak hem modal'ı kapatır hem doğal davranışı korur.
+1. Bizim kod popstate event YAKALAMAZ
+2. Bizim kod window.history.pushState ÇAĞIRMAZ
+3. Modaller URL search params: `?modal=branslar`
+4. Modal açma: `setSearchParams({ modal: 'branslar' })`
+5. Modal kapama: `setSearchParams({})`
+6. Android Geri → React Router URL'i geri sarar → modal otomatik kapanır
+7. Bizim Geri butonu (sağ alt sarı) AYRI çalışır
+8. Standart modern web uygulaması davranışı
 
 ---
 
@@ -1573,5 +1574,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 18 Mayıs 2026 — V5.30 (M.78: Android Geri koşullu yakalama - modal açıkken; B129)*
-*Sayaç: B129*
+*Son güncelleme: 18 Mayıs 2026 — V5.31 (M.78: Modal URL search params ile React Router doğal; B130)*
+*Sayaç: B130*
