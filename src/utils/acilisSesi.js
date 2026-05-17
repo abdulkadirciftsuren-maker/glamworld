@@ -1,51 +1,58 @@
 export function calAcilisSesi() {
-  const ctx = new (window.AudioContext || window.webkitAudioContext)();
-  const ana = ctx.destination;
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return null;
 
-  const gain = ctx.createGain();
-  gain.gain.value = 0.15;
-  gain.connect(ana);
+    const ctx = new AudioContext();
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
 
-  [523.25, 659.25, 783.99].forEach((freq, i) => {
-    const osc = ctx.createOscillator();
-    const og  = ctx.createGain();
-    osc.frequency.value = freq;
-    osc.type = 'sine';
-    og.gain.setValueAtTime(0, ctx.currentTime + i * 0.5);
-    og.gain.linearRampToValueAtTime(0.3, ctx.currentTime + i * 0.5 + 0.05);
-    og.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.5 + 1.5);
-    osc.connect(og);
-    og.connect(gain);
-    osc.start(ctx.currentTime + i * 0.5);
-    osc.stop(ctx.currentTime + i * 0.5 + 1.5);
-  });
+    const ana = ctx.createGain();
+    ana.gain.value = 0.4;
+    ana.connect(ctx.destination);
 
-  for (let i = 0; i < 15; i++) {
-    const osc = ctx.createOscillator();
-    const og  = ctx.createGain();
-    osc.frequency.value = 2000 + Math.random() * 4000;
-    osc.type = 'sine';
-    const t = ctx.currentTime + 2 + i * 0.13;
-    og.gain.setValueAtTime(0, t);
-    og.gain.linearRampToValueAtTime(0.1, t + 0.02);
-    og.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
-    osc.connect(og);
-    og.connect(gain);
-    osc.start(t);
-    osc.stop(t + 0.2);
+    const t0 = ctx.currentTime;
+
+    [523.25, 659.25, 783.99].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const og  = ctx.createGain();
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      const t = t0 + i * 0.5;
+      og.gain.setValueAtTime(0, t);
+      og.gain.linearRampToValueAtTime(0.6, t + 0.05);
+      og.gain.exponentialRampToValueAtTime(0.001, t + 1.5);
+      osc.connect(og); og.connect(ana);
+      osc.start(t); osc.stop(t + 1.5);
+    });
+
+    for (let i = 0; i < 20; i++) {
+      const osc = ctx.createOscillator();
+      const og  = ctx.createGain();
+      osc.frequency.value = 2000 + Math.random() * 4000;
+      osc.type = 'sine';
+      const t = t0 + 2 + i * 0.1;
+      og.gain.setValueAtTime(0, t);
+      og.gain.linearRampToValueAtTime(0.25, t + 0.02);
+      og.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+      osc.connect(og); og.connect(ana);
+      osc.start(t); osc.stop(t + 0.2);
+    }
+
+    const gong  = ctx.createOscillator();
+    const gg    = ctx.createGain();
+    gong.frequency.value = 110;
+    gong.type = 'triangle';
+    const gT = t0 + 4;
+    gg.gain.setValueAtTime(0, gT);
+    gg.gain.linearRampToValueAtTime(0.7, gT + 0.1);
+    gg.gain.exponentialRampToValueAtTime(0.001, gT + 2);
+    gong.connect(gg); gg.connect(ana);
+    gong.start(gT); gong.stop(gT + 2);
+
+    return ctx;
+  } catch (e) {
+    return null;
   }
-
-  const gong = ctx.createOscillator();
-  const gg   = ctx.createGain();
-  gong.frequency.value = 110;
-  gong.type = 'triangle';
-  gg.gain.setValueAtTime(0, ctx.currentTime + 4);
-  gg.gain.linearRampToValueAtTime(0.4, ctx.currentTime + 4.1);
-  gg.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 6);
-  gong.connect(gg);
-  gg.connect(gain);
-  gong.start(ctx.currentTime + 4);
-  gong.stop(ctx.currentTime + 6);
-
-  return ctx;
 }
