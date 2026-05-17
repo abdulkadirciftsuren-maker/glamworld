@@ -15,13 +15,13 @@ export default function SwipeNavigator({ kullaniciProfili, children }) {
   );
 
   const SAYFALAR = [
-    profilRota,
     '/',
     '/pirlanta-pazari',
     '/tanisma',
     '/canli-yayinlar',
     '/harita',
     '/egitimler',
+    profilRota,
   ];
 
   const mevcutIndex = SAYFALAR.findIndex(yol =>

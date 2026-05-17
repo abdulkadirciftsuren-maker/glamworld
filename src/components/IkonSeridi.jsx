@@ -38,7 +38,7 @@ export default function IkonSeridi({ kullaniciProfili }) {
     yol: profilRota,
   };
 
-  const ikonlar = [profilIkon, ...IKONLAR_SABIT];
+  const ikonlar = [...IKONLAR_SABIT, profilIkon];
 
   return (
     <div className="is-serit">
