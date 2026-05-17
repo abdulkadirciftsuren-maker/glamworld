@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.28 — Son)
+# GLAMWORLD — Proje Anayasası (V5.29 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1165,18 +1165,17 @@ Her 10 ülkede bir BURADASIN+döviz tekrar. USD yeşil | EUR mavi | GBP mor | AL
 
 ---
 
-## 78. ANDROID GERİ TUŞU YÖNETİMİ (B113)
+## 78. ANDROID GERİ TUŞU — TARAYICI VARSAYILANI (B127)
 
-Mobil cihazlarda Android Geri tuşu davranışı:
+GLAMWORLD Android Geri tuşunu BİZİM KOD ile yönetmez.
 
-1. Üye Ol sayfasında Android Geri → Hoş Geldin Kartı'na döner (sayfa YENİLENMEZ)
-2. Giriş Yap sayfasında Android Geri → Hoş Geldin Kartı'na döner (sayfa YENİLENMEZ)
-3. Hoş Geldin Kartı'nda Android Geri → Browser varsayılan (sekme kapanır)
-4. Anasayfada Android Geri → Browser varsayılan
-5. `popstate` event ile yönetilir, `history.pushState` ile yakalanır
-6. `src/utils/androidGeriYonetimi.js` → `useAndroidGeri` hook
-7. Sadece `/uye-ol` ve `/giris` route'larında aktif
-8. Sağ alt sarı GeriButon ile AYNI sonucu verir
+1. `popstate` event listener YASAK (bizim kodumuzda)
+2. `window.history.pushState` müdahalesi YASAK (bizim kodumuzda)
+3. Android Geri → tarayıcı doğal davranışı (önceki sayfa / sekme kapanır)
+4. Bizim Geri butonu (sağ alt sarı daire) BAĞIMSIZ çalışır
+5. İki sistem AYRI, birbirine karışmaz
+
+SEBEP: React Router + browser history çakışınca pushState ile ileri gidiyor gibi davranır. Sade çözüm: tarayıcıya bırak.
 
 ---
 
@@ -1548,19 +1547,18 @@ Madde 71'in özel uygulaması — her görev sonrası deep clean zorunlu.
 
 ---
 
-## 102. AKILLI GERİ NAVİGASYONU — PENCERE YIĞINI (B125)
+## 102. AKILLI GERİ NAVİGASYONU — SADECE BİZİM BUTON (B127)
 
-Geri butonu (bizim + Android) pencere yığını mantığıyla çalışır.
+Bizim Geri butonu (sağ alt sarı daire) modül-scope global liste kullanır.
 
-1. Tüm modaller `PencereYigini` Context'ine kaydolur (`useModalKaydet`)
-2. Geri basıldığında:
-   a) Yığında modal varsa → en üstteki kapanır
-   b) Yığın boş + /uye-ol veya /giris → Hoş Geldin'e git
-   c) Yığın boş + üye giriş yapmış → HİÇBİR ŞEY YAPMA
-   d) Yığın boş + Hoş Geldin → browser varsayılan
-3. `useAndroidGeri` AppIcerik'te GLOBAL çağrılır (Login/SignUp'ta bireysel çağrı YASAK)
-4. Context: `src/context/PencereYigini.jsx`
-5. Modal entegrasyon: `useModalKaydet('id', acik, onKapat)`
+1. Modaller `modalAc(id, kapatFn)` ile listeye kaydolur
+2. Kapanınca `modalKapat(id)` ile çıkarılır
+3. Bizim Geri butonu basılınca:
+   a) Listede modal varsa → en üstteki kapanır
+   b) Modal yok + /uye-ol veya /giris → Hoş Geldin'e git
+   c) Modal yok + başka path → Anasayfaya git
+4. Android Geri tuşu BU SİSTEMLE İLGİSİZ (Madde 78)
+5. `src/utils/geriYonetimi.js` → `useGeriYap`, `modalAc`, `modalKapat`
 6. `[YIGIN]` ve `[ANDROID-GERI]` console logları debug için
 
 ---
@@ -1575,5 +1573,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.28 (M.102: Akıllı geri navigasyonu - pencere yığını; B125)*
-*Sayaç: B125*
+*Son güncelleme: 18 Mayıs 2026 — V5.29 (M.78/102: Android Geri tarayıcıya bırakıldı, bizim Geri bağımsız; B127)*
+*Sayaç: B127*

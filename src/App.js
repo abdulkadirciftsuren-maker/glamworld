@@ -25,7 +25,6 @@ import ProfilKadin from './sayfalar/ProfilKadin';
 import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import AnaSayfa from './sayfalar/AnaSayfa';
 import { useRotaHafiza } from './utils/rotaHafiza';
-import { useAndroidGeri } from './utils/geriYonetimi';
 import './utils/sesTani';
 import './App.css';
 
@@ -40,10 +39,6 @@ function RotaHafizaKontrol() {
   return null;
 }
 
-function AndroidGeriKontrol() {
-  useAndroidGeri();
-  return null;
-}
 
 function GirisKontrol({ kullanici, acilisGoster, kartGoster, setKartGoster }) {
   const { pathname } = useLocation();
@@ -143,7 +138,6 @@ function App() {
           />
         )}
         <RotaHafizaKontrol />
-        <AndroidGeriKontrol />
         <GirisKontrol
           kullanici={kullanici}
           acilisGoster={acilisGoster}

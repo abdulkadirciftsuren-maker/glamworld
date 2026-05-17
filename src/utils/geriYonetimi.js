@@ -1,10 +1,11 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { auth } from '../firebase';
 
 const acikModaller = [];
 
 export function modalAc(id, kapatFn) {
+  const idx = acikModaller.findIndex(m => m.id === id);
+  if (idx >= 0) acikModaller.splice(idx, 1);
   acikModaller.push({ id, kapat: kapatFn });
   console.log('[GERI] Modal açıldı:', id, 'toplam:', acikModaller.length);
 }
@@ -35,7 +36,7 @@ export function useGeriYap() {
   const location = useLocation();
 
   return useCallback(() => {
-    console.log('[GERI] geriYap, modal:', acikModaller.length, 'path:', location.pathname);
+    console.log('[GERI] Bizim Geri, modal var:', acikModaller.length, 'path:', location.pathname);
 
     if (acikModaller.length > 0) {
       enUstModalKapat();
@@ -49,37 +50,6 @@ export function useGeriYap() {
       return;
     }
 
-    if (auth.currentUser && path === '/') {
-      console.log('[GERI] Anasayfada DUR');
-      return;
-    }
-
-    if (!auth.currentUser && path === '/') {
-      console.log('[GERI] Hoş Geldin\'de DUR');
-      return;
-    }
-
     navigate('/', { replace: true });
   }, [navigate, location.pathname]);
-}
-
-export function useAndroidGeri() {
-  const geriYap = useGeriYap();
-  const geriYapRef = useRef(geriYap);
-
-  useEffect(() => { geriYapRef.current = geriYap; }, [geriYap]);
-
-  useEffect(() => {
-    window.history.pushState({ glam: 1 }, '');
-    console.log('[GERI] Android dinleyici kuruldu');
-
-    const handler = () => {
-      console.log('[GERI] Android popstate yakalandı');
-      geriYapRef.current();
-      window.history.pushState({ glam: 1 }, '');
-    };
-
-    window.addEventListener('popstate', handler);
-    return () => window.removeEventListener('popstate', handler);
-  }, []);
 }
