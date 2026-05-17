@@ -2,36 +2,27 @@ import { useNavigate } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
 import './HosGeldinKarti.css';
 
-export default function HosGeldinKarti({ onMisafir }) {
+export default function HosGeldinKarti({ onKapat }) {
   const navigate = useNavigate();
 
-  const girisSayfasi = () => navigate('/giris');
-  const uyeSayfasi  = () => navigate('/uye-ol');
+  const gitGiris = () => { onKapat(); navigate('/giris'); };
+  const gitUyeOl = () => { onKapat(); navigate('/uye-ol'); };
 
   return (
     <div className="hgk-overlay">
       <div className="hgk-kart">
         <div className="hgk-logo">
-          <Pirlanta renk="altin" boyut={24} />
-          <span className="hgk-logo-yazi">GLAMWORLD</span>
-          <Pirlanta renk="mavi" boyut={24} />
+          <Pirlanta renk="altin" boyut={26} />
+          <h1 className="hgk-logo-yazi">GLAMWORLD</h1>
+          <Pirlanta renk="mavi" boyut={26} />
         </div>
-
-        <h1 className="hgk-baslik">Hoş Geldin</h1>
+        <h2 className="hgk-baslik">Hoş Geldin</h2>
         <p className="hgk-alt">Dünyanın en lüks güzellik platformu</p>
-
-        <button className="hgk-uye" onClick={uyeSayfasi} aria-label="Üye Ol">
+        <button className="hgk-btn hgk-uye-ol" onClick={gitUyeOl}>
           Üye Ol
         </button>
-
-        <button className="hgk-giris" onClick={girisSayfasi} aria-label="Giriş Yap">
+        <button className="hgk-btn hgk-giris" onClick={gitGiris}>
           Giriş Yap
-        </button>
-
-        <div className="hgk-ayrac" />
-
-        <button className="hgk-misafir" onClick={onMisafir} aria-label="Misafir olarak keşfet">
-          Misafir Olarak Keşfet
         </button>
       </div>
     </div>

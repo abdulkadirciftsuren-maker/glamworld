@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.20 — Son)
+# GLAMWORLD — Proje Anayasası (V5.21 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1419,6 +1419,42 @@ Kullanıcı kayıt sırasında şehir seçtiğinde, anasayfa ve Keşfet sayfası
 
 ---
 
+## 94. X (ÇARPI) İŞARETİ MANTIKI
+
+1. X her zaman bir önceki ekrana götürür
+2. Üst kart açıkken X → o kartı kapatır, alttaki kart görünür
+3. Hoş Geldin Kartı'nda X YOKTUR (kapatılamaz)
+4. Kullanıcı üye olmadıkça hiçbir kart anasayfaya açılmaz
+5. X ve Geri butonu aynı işi yapıyorsa SADECE Geri kullan
+
+---
+
+## 95. ÜYE OLMADAN ERİŞİM YASAĞI (B111 itibariyle)
+
+GLAMWORLD yalnızca üye veya giriş yapan kullanıcılara açıktır. Misafir mod KALDIRILDI.
+
+1. Açılış animasyonu sonrası Hoş Geldin Kartı ZORUNLUDUR
+2. Kart kapatılamaz (X yok, dışına tıklama yok, Geri yok)
+3. Sadece Üye Ol veya Giriş Yap sonrası anasayfa açılır
+4. `glamworld_misafir_secti` localStorage anahtarı KULLANILMADI
+5. "Misafir Olarak Keşfet" linki KALDIRILDI
+6. Kullanıcı çıkış yaparsa Hoş Geldin Kartı tekrar açılır
+7. App.js `GirisKontrol` component'i bu akışı yönetir
+
+---
+
+## 96. AÇILIŞ SES SİSTEMİ (B111)
+
+Açılış animasyonu sırasında lüks ses çalar.
+1. Web Audio API kullanılır (mp3 dosyası yok)
+2. `src/utils/acilisSesi.js` dosyasında tutulur
+3. 3 katman: kristal çıngırak (0-2s) + shimmer (2-4s) + gong (4-6s)
+4. Volume 0.15 (rahatsız etmez)
+5. Kısa path'te ses çalmaz (sayfa yenileme / çıkış sonrası)
+6. Geç butonu sesi keser + animasyonu atlar
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -1429,5 +1465,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.20 (M.72 genişletildi: 23 dokunulmaz dosya, B110: DevWidget sadece AnaSayfa)*
-*Sayaç: B110*
+*Son güncelleme: 17 Mayıs 2026 — V5.21 (M.94-96: X mantığı, misafir yasağı, ses sistemi; B111: Şaheser açılış akışı)*
+*Sayaç: B111*

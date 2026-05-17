@@ -1,87 +1,118 @@
-import { useState, useEffect, useRef } from 'react';
-import Pirlanta from './Pirlanta';
-import { altinTozBaslat } from '../animasyonlar/altinTozParcacik';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import { calAcilisSesi } from '../utils/acilisSesi';
 import './AcilisAnimasyonu.css';
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
 function lsSet(k, v) { try { localStorage.setItem(k, v); } catch {} }
 
-export default function AcilisAnimasyonu({ onBitti, onKartGoster }) {
+const HARFLER = 'GLAMWORLD'.split('');
+
+function PirlantaSVG({ s }) {
+  return (
+    <svg width={s} height={s} viewBox="0 0 100 100" className="aa-pirlanta">
+      <defs>
+        <linearGradient id="aapg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor="#87CEEB" />
+          <stop offset="40%"  stopColor="#FFD700" />
+          <stop offset="100%" stopColor="#4A90E2" />
+        </linearGradient>
+      </defs>
+      <polygon points="25,35 75,35 65,18 35,18" fill="#B0E0E6" opacity="0.9" />
+      <polygon points="25,35 50,85 12,42"        fill="#4682B4" />
+      <polygon points="75,35 50,85 88,42"        fill="#4682B4" />
+      <polygon points="25,35 75,35 50,85"        fill="url(#aapg)" />
+      <line x1="36" y1="22" x2="48" y2="30" stroke="#fff" strokeWidth="2.5" opacity="0.9" />
+    </svg>
+  );
+}
+
+export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
   const gosterildi = !!lsGet('glamworld_acilis_gosterildi');
-  const misafir    = lsGet('glamworld_misafir_secti') === 'true';
-  const kisa       = gosterildi && !misafir;
-  const canvasRef  = useRef(null);
-  const stopRef    = useRef(null);
-  const [faze, setFaze] = useState(0);
-  const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const kisa       = gosterildi;
+  const showKart   = !kullanici;
+  const [sahne, setSahne]         = useState(1);
+  const [harfSayisi, setHarfSayisi] = useState(0);
+  const ctxRef  = useRef(null);
+  const isMobil = window.innerWidth <= 480;
+  const hiz     = useRef(window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0.2 : 1);
+
+  const parcaciklar = useMemo(() =>
+    Array.from({ length: 80 }, (_, i) => ({
+      id: i,
+      x:   2 + Math.random() * 96,
+      y:   2 + Math.random() * 96,
+      s:   2 + Math.random() * 3,
+      d:   Math.random() * 2,
+      dur: 1 + Math.random(),
+    })), []
+  );
 
   const bitir = () => {
-    if (stopRef.current) stopRef.current();
     lsSet('glamworld_acilis_gosterildi', Date.now());
+    if (ctxRef.current) { try { ctxRef.current.close(); } catch {} }
     onBitti();
   };
 
   useEffect(() => {
-    const isMobil = window.innerWidth <= 480;
-    const sayi    = isMobil ? 200 : 350;
-    const hiz     = prefersReduced ? 0.15 : 1;
-
-    if (gosterildi && misafir) { onBitti(); return; }
+    const h = hiz.current;
 
     if (kisa) {
-      setFaze(4);
-      const t = setTimeout(() => { bitir(); onKartGoster(); }, 1500 * hiz);
+      const t = setTimeout(() => { bitir(); if (showKart) onKartGoster(); }, 1200 * h);
       return () => clearTimeout(t);
     }
 
-    const s1 = setTimeout(() => {
-      setFaze(1);
-      if (canvasRef.current) {
-        const c = canvasRef.current;
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-        stopRef.current = altinTozBaslat(c, sayi);
-      }
-    }, 500 * hiz);
+    try { ctxRef.current = calAcilisSesi(); } catch {}
 
-    const s2 = setTimeout(() => setFaze(2), 2500 * hiz);
-    const s3 = setTimeout(() => setFaze(3), 4000 * hiz);
-    const s4 = setTimeout(() => setFaze(4), 5500 * hiz);
-    const s5 = setTimeout(() => {
-      if (stopRef.current) stopRef.current();
-      lsSet('glamworld_acilis_gosterildi', Date.now());
-      onKartGoster();
-      onBitti();
-    }, 6000 * hiz);
+    const t2 = setTimeout(() => setSahne(2), 2000 * h);
+    const t3 = setTimeout(() => setSahne(3), 4000 * h);
+    const t4 = setTimeout(() => {
+      let i = 0;
+      const iv = setInterval(() => {
+        i++;
+        setHarfSayisi(i);
+        if (i >= HARFLER.length) clearInterval(iv);
+      }, 150 * h);
+    }, 4300 * h);
+    const t5 = setTimeout(() => { bitir(); onKartGoster(); }, 6300 * h);
 
     return () => {
-      [s1, s2, s3, s4, s5].forEach(clearTimeout);
-      if (stopRef.current) stopRef.current();
+      [t2, t3, t4, t5].forEach(clearTimeout);
+      if (ctxRef.current) { try { ctxRef.current.close(); } catch {} }
     };
   }, []);
 
+  const atla = () => { bitir(); onKartGoster(); };
+
   if (kisa) {
-    return (
-      <div className="aa-overlay aa-ray-sadece">
-        <div className="aa-glamray" />
-      </div>
-    );
+    return <div className="aa-overlay aa-kisa"><div className="aa-glamray" /></div>;
   }
 
   return (
-    <div className={`aa-overlay aa-faze-${faze}`}>
-      <button className="aa-gec" onClick={bitir} aria-label="Animasyonu atla">Geç →</button>
-      <canvas ref={canvasRef} className="aa-canvas" />
-      {faze >= 2 && (
-        <div className={`aa-logo${faze >= 4 ? ' aa-logo-ucus' : ''}`}>
-          <div className="aa-logo-icerik">
-            <div className="aa-pirl-sol"><Pirlanta renk="altin" boyut={window.innerWidth <= 480 ? 40 : 60} /></div>
-            <div className="aa-yazi">
-              <span className="aa-glamworld">GLAMWORLD</span>
-            </div>
-            <div className="aa-pirl-sag"><Pirlanta renk="mavi" boyut={window.innerWidth <= 480 ? 40 : 60} /></div>
+    <div className="aa-overlay">
+      <button className="aa-gec" onClick={atla} aria-label="Animasyonu atla">Geç →</button>
+      <div className="aa-parcaciklar">
+        {parcaciklar.map(p => (
+          <div key={p.id} className="aa-pirlilti" style={{
+            left: `${p.x}%`, top: `${p.y}%`,
+            width: `${p.s}px`, height: `${p.s}px`,
+            animationDelay: `${p.d}s`,
+            animationDuration: `${p.dur}s`,
+          }} />
+        ))}
+      </div>
+      {sahne >= 2 && (
+        <div className={`aa-p-wrap${sahne >= 3 ? ' aa-patlama' : ''}`}>
+          <div className="aa-halka" />
+          <PirlantaSVG s={isMobil ? 120 : 180} />
+        </div>
+      )}
+      {sahne >= 3 && (
+        <div className="aa-yazi-wrap">
+          <div className="aa-yazi">
+            {HARFLER.map((h, i) => (
+              <span key={i} className={i < harfSayisi ? 'aa-h-a' : 'aa-h-g'}>{h}</span>
+            ))}
           </div>
-          {faze >= 3 && <div className="aa-glamray" />}
         </div>
       )}
     </div>

@@ -1,97 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap');
+
 .aa-overlay {
   position: fixed;
   inset: 0;
   background: #000;
-  z-index: 99999;
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.5s ease, opacity 0.5s ease;
+  overflow: hidden;
 }
-.aa-faze-4 { background: rgba(0,0,0,0.45); }
-
-.aa-ray-sadece { background: transparent; pointer-events: none; }
 
 .aa-gec {
   position: absolute;
-  top: 24px; right: 24px;
-  background: transparent; border: none;
-  color: #FFD700; font-size: 14px; cursor: pointer;
-  opacity: 0.5; z-index: 1; user-select: none;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,215,0,0.12);
+  border: 1px solid rgba(255,215,0,0.35);
+  color: #FFD700;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  z-index: 10;
+  transition: background 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.aa-gec:hover { opacity: 1; }
+.aa-gec:hover { background: rgba(255,215,0,0.25); }
 
-.aa-canvas {
-  position: absolute; inset: 0;
-  pointer-events: none; will-change: transform;
-}
-
-.aa-logo {
-  position: relative; z-index: 2;
-  display: flex; align-items: center; justify-content: center;
-  animation: aaLogoGoster 0.6s ease forwards;
-  overflow: hidden; will-change: transform, opacity;
-}
-.aa-logo-ucus { animation: aaLogoUcus 0.5s ease forwards; }
-
-@keyframes aaLogoGoster {
-  from { opacity: 0; transform: scale(0.85); }
-  to   { opacity: 1; transform: scale(1); }
-}
-@keyframes aaLogoUcus {
-  from { opacity: 1; transform: scale(1) translateY(0); }
-  to   { opacity: 0.6; transform: scale(0.35) translateY(-30vh); }
+.aa-parcaciklar {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.aa-logo-icerik {
-  display: flex; align-items: center; gap: 20px;
-  padding: 28px 40px; border-radius: 20px;
-  background: rgba(255,215,0,0.04);
-  box-shadow: 0 0 60px rgba(255,215,0,0.3), 0 0 30px rgba(74,144,226,0.15);
+.aa-pirlilti {
+  position: absolute;
+  border-radius: 50%;
+  background: #FFD700;
+  box-shadow: 0 0 4px #FFD700, 0 0 8px rgba(255,215,0,0.5);
+  animation: aa-pirlilti-anim 1.5s ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes aa-pirlilti-anim {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50%      { opacity: 1; transform: scale(1.3); }
 }
 
-.aa-pirl-sol { animation: aaPirlSol 0.4s 0.1s ease both; }
-.aa-pirl-sag { animation: aaPirlSag 0.4s 0.9s ease both; }
+.aa-p-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: aa-p-in 0.8s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 2;
+}
+@keyframes aa-p-in {
+  from { opacity: 0; transform: scale(0.2) rotate(-20deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
 
-@keyframes aaPirlSol { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
-@keyframes aaPirlSag { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:translateX(0); } }
+.aa-pirlanta {
+  animation: aa-don 4s linear infinite;
+  filter:
+    drop-shadow(0 0 20px rgba(74,144,226,0.9))
+    drop-shadow(0 0 40px rgba(255,215,0,0.5))
+    drop-shadow(0 0 80px rgba(74,144,226,0.3));
+}
+@keyframes aa-don { to { transform: rotate(360deg); } }
 
-.aa-yazi { display: flex; flex-direction: column; align-items: center; gap: 8px; overflow: hidden; }
+.aa-halka {
+  position: absolute;
+  width: 155%;
+  height: 155%;
+  border: 2px solid rgba(255,215,0,0.55);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255,215,0,0.3), inset 0 0 15px rgba(255,215,0,0.1);
+  animation: aa-halka-don 3s linear infinite;
+}
+@keyframes aa-halka-don { to { transform: rotate(-360deg); } }
 
-.aa-glamworld {
-  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(36px, 10vw, 64px);
+.aa-patlama { animation: aa-patlama-anim 0.6s ease-out forwards; }
+@keyframes aa-patlama-anim {
+  0%   { transform: scale(1);   opacity: 1; }
+  60%  { transform: scale(2.5); opacity: 0.7; }
+  100% { transform: scale(0.1); opacity: 0; }
+}
+
+.aa-yazi-wrap {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.aa-yazi {
+  display: flex;
+  gap: 2px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 8vw, 72px);
   font-weight: 700;
-  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
-  background-size: 200% auto;
+  letter-spacing: 6px;
+}
+
+.aa-h-g { opacity: 0; }
+.aa-h-a {
+  background: linear-gradient(135deg, #FFD700, #fff, #FFD700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: 5px;
-  animation: aaYaziGel 0.7s 0.4s ease both;
-  white-space: nowrap;
+  filter: drop-shadow(0 0 12px rgba(255,215,0,0.8));
+  animation: aa-harf-gir 0.3s ease-out;
+}
+@keyframes aa-harf-gir {
+  from { opacity: 0; transform: translateY(16px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes aaYaziGel {
-  from { clip-path: inset(0 100% 0 0); opacity: 0; }
-  to   { clip-path: inset(0 0% 0 0);   opacity: 1; }
-}
-
+.aa-kisa { background: rgba(0,0,0,0.85); }
 .aa-glamray {
-  position: absolute; top: 0; bottom: 0;
-  width: clamp(150px, 20vw, 350px);
-  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.6), rgba(255,240,180,0.8), rgba(255,215,0,0.6), transparent);
-  animation: aaRay 1.5s ease-out forwards;
-  pointer-events: none; will-change: left, opacity;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%, #FFD700 25%, #4A90E2 50%, #FFD700 75%, transparent 100%);
+  animation: aa-ray 1.2s ease-in-out;
 }
-
-@keyframes aaRay {
-  0%   { left: 100%; opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { left: -350px; opacity: 0; }
-}
-
-@media (max-width: 480px) {
-  .aa-logo-icerik { gap: 10px; padding: 18px 22px; }
+@keyframes aa-ray {
+  0%   { opacity: 0; transform: scaleX(0.2) translateY(-250px); }
+  40%  { opacity: 1; transform: scaleX(1)   translateY(0); }
+  100% { opacity: 0; transform: scaleX(0.2) translateY(250px); }
 }

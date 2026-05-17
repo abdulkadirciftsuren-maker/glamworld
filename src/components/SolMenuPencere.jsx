@@ -29,13 +29,11 @@ export default function SolMenuPencere({ acik, onKapat }) {
   const [cikisAcik, setCikisAcik] = useState(false);
 
   const girisYapildi = !!auth.currentUser;
-  const misafir = localStorage.getItem('glamworld_misafir_secti') === 'true';
-  const cikisGorunsun = girisYapildi || misafir;
+  const cikisGorunsun = girisYapildi;
   const kullaniciAdi = auth.currentUser?.displayName || '';
 
   const cikisYap = async () => {
     try { await signOut(auth); } catch {}
-    localStorage.removeItem('glamworld_misafir_secti');
     sessionStorage.clear();
     window.location.href = '/glamworld/';
   };

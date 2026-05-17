@@ -28,8 +28,23 @@ import './App.css';
 
 function DevWidgetRouteGuard() {
   const { pathname } = useLocation();
-  if (pathname === '/' ) return null;
+  if (pathname === '/') return null;
   return <style>{'.dev-widget,.dev-widget-mini{display:none!important}'}</style>;
+}
+
+function GirisKontrol({ kullanici, acilisGoster, kartGoster, setKartGoster }) {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (!kullanici && !acilisGoster && pathname === '/') {
+      setKartGoster(true);
+    } else if (pathname !== '/') {
+      setKartGoster(false);
+    }
+  }, [pathname, kullanici, acilisGoster, setKartGoster]);
+
+  if (!kartGoster || !!kullanici) return null;
+  return <HosGeldinKarti onKapat={() => setKartGoster(false)} />;
 }
 
 function IkonSeridiKontrol({ kartGoster, kullaniciProfili }) {
@@ -61,10 +76,10 @@ function Icerik() {
 }
 
 function App() {
-  const [menuAcik, setMenuAcik]             = useState(false);
-  const [acilisGoster, setAcilisGoster]     = useState(true);
-  const [kartGoster, setKartGoster]         = useState(false);
-  const [kullanici, setKullanici]           = useState(undefined);
+  const [menuAcik, setMenuAcik]       = useState(false);
+  const [acilisGoster, setAcilisGoster] = useState(true);
+  const [kartGoster, setKartGoster]   = useState(false);
+  const [kullanici, setKullanici]     = useState(undefined);
   const [kullaniciProfili, setKullaniciProfili] = useState({ hesapTuru: 'musteri', cinsiyet: 'tarafsiz' });
 
   useEffect(() => {
@@ -98,29 +113,29 @@ function App() {
 
   if (kullanici === undefined) return null;
 
-  const misafirSecti = localStorage.getItem('glamworld_misafir_secti') === 'true';
-  const kartAc = () => { if (!kullanici && !misafirSecti) setKartGoster(true); };
-  const misafirSec = () => {
-    try { localStorage.setItem('glamworld_misafir_secti','true'); } catch {}
-    setKartGoster(false);
-  };
-
   return (
     <BrowserRouter basename="/glamworld">
       <SwipeNavigator kullaniciProfili={kullaniciProfili}>
-      {acilisGoster && !kullanici && !misafirSecti && (
-        <AcilisAnimasyonu onBitti={() => setAcilisGoster(false)} onKartGoster={kartAc} />
-      )}
-      {kartGoster && !kullanici && (
-        <HosGeldinKarti onMisafir={misafirSec} />
-      )}
-      <DevWidgetRouteGuard />
-      <AltinCerceve />
-      <UstSerit />
-      <AnaMenu onMenuClick={() => setMenuAcik(true)} />
-      <IkonSeridiKontrol kartGoster={kartGoster} kullaniciProfili={kullaniciProfili} />
-      <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
-      <Icerik />
+        {acilisGoster && (
+          <AcilisAnimasyonu
+            onBitti={() => setAcilisGoster(false)}
+            onKartGoster={() => setKartGoster(true)}
+            kullanici={kullanici}
+          />
+        )}
+        <GirisKontrol
+          kullanici={kullanici}
+          acilisGoster={acilisGoster}
+          kartGoster={kartGoster}
+          setKartGoster={setKartGoster}
+        />
+        <DevWidgetRouteGuard />
+        <AltinCerceve />
+        <UstSerit />
+        <AnaMenu onMenuClick={() => setMenuAcik(true)} />
+        <IkonSeridiKontrol kartGoster={kartGoster} kullaniciProfili={kullaniciProfili} />
+        <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
+        <Icerik />
       </SwipeNavigator>
     </BrowserRouter>
   );
