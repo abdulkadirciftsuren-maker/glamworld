@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 
 const PencereYiginiContext = createContext(null);
 
@@ -42,10 +42,18 @@ export function usePencereYigini() {
 
 export function useModalKaydet(modalId, acik, onKapat) {
   const { acModal, kapatModal } = usePencereYigini();
+  const onKapatRef = useRef(onKapat);
+
+  useEffect(() => { onKapatRef.current = onKapat; }, [onKapat]);
 
   useEffect(() => {
-    if (!acik) return;
-    acModal(modalId, onKapat);
+    if (acik) {
+      acModal(modalId, () => {
+        if (typeof onKapatRef.current === 'function') onKapatRef.current();
+      });
+    } else {
+      kapatModal(modalId);
+    }
     return () => kapatModal(modalId);
-  }, [acik, modalId, onKapat, acModal, kapatModal]);
+  }, [acik, modalId, acModal, kapatModal]);
 }

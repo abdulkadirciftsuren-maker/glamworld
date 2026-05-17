@@ -25,7 +25,7 @@ import ProfilKadin from './sayfalar/ProfilKadin';
 import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import AnaSayfa from './sayfalar/AnaSayfa';
 import { useRotaHafiza } from './utils/rotaHafiza';
-import { useAndroidGeri } from './utils/androidGeriYonetimi';
+import { useGeriYonetimi } from './utils/geriYonetimi';
 import { PencereYiginiSaglayici } from './context/PencereYigini';
 import './utils/sesTani';
 import './App.css';
@@ -42,7 +42,7 @@ function RotaHafizaKontrol() {
 }
 
 function AndroidGeriKontrol() {
-  useAndroidGeri();
+  useGeriYonetimi();
   return null;
 }
 
