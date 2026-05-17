@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.27 — Son)
+# GLAMWORLD — Proje Anayasası (V5.28 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1548,6 +1548,23 @@ Madde 71'in özel uygulaması — her görev sonrası deep clean zorunlu.
 
 ---
 
+## 102. AKILLI GERİ NAVİGASYONU — PENCERE YIĞINI (B125)
+
+Geri butonu (bizim + Android) pencere yığını mantığıyla çalışır.
+
+1. Tüm modaller `PencereYigini` Context'ine kaydolur (`useModalKaydet`)
+2. Geri basıldığında:
+   a) Yığında modal varsa → en üstteki kapanır
+   b) Yığın boş + /uye-ol veya /giris → Hoş Geldin'e git
+   c) Yığın boş + üye giriş yapmış → HİÇBİR ŞEY YAPMA
+   d) Yığın boş + Hoş Geldin → browser varsayılan
+3. `useAndroidGeri` AppIcerik'te GLOBAL çağrılır (Login/SignUp'ta bireysel çağrı YASAK)
+4. Context: `src/context/PencereYigini.jsx`
+5. Modal entegrasyon: `useModalKaydet('id', acik, onKapat)`
+6. `[YIGIN]` ve `[ANDROID-GERI]` console logları debug için
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -1558,5 +1575,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.27 (M.99/100/101: refresh sadeleştirme + animasyon atlama; B117)*
-*Sayaç: B117*
+*Son güncelleme: 17 Mayıs 2026 — V5.28 (M.102: Akıllı geri navigasyonu - pencere yığını; B125)*
+*Sayaç: B125*

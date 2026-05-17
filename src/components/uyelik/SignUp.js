@@ -8,7 +8,6 @@ import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
-import { useAndroidGeri } from '../../utils/androidGeriYonetimi';
 import Tooltip from '../Tooltip';
 import { TelefonInput, UzmanlikSecici, SehirOnericisi, DeneyimSecici } from './ProfesyonelAlanlar';
 import DigerBranslarModal from './DigerBranslarModal';
@@ -70,7 +69,6 @@ function formYukle() {
 }
 
 export default function SignUp() {
-  useAndroidGeri();
   const [hesapTuru, setHesapTuru] = useState(null);
   const [form, setForm] = useState(formYukle);
   const [hata, setHata] = useState('');

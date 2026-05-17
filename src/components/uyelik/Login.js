@@ -7,7 +7,6 @@ import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
-import { useAndroidGeri } from '../../utils/androidGeriYonetimi';
 import './Login.css';
 
 const shimmerCSS = `@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}`;
@@ -24,7 +23,6 @@ function hataMesaji(kod) {
 }
 
 export default function Login() {
-  useAndroidGeri();
   const [email, setEmail] = useState('');
   const [sifre, setSifre] = useState('');
   const [beniHatirla, setBeniHatirla] = useState(false);

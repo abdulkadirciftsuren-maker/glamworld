@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useModalKaydet } from '../../context/PencereYigini';
 
 const KATEGORILER = [
   { baslik:'Güzellik & Bakım', branslar:['Saç Tasarımı','Renklendirme','Saç Bakımı','Saç Kaynak','Sakal Tasarımı','Tıraş','Yüz Bakımı','Anti-Aging','Lazer Epilasyon','Ağda','Cilt Temizliği','Akne Tedavisi'] },
@@ -12,6 +13,7 @@ const KATEGORILER = [
 ];
 
 export default function DigerBranslarModal({ acik, onKapat, onSec }) {
+  useModalKaydet('diger-branslar-modal', acik, onKapat);
   const [arama, setArama] = useState('');
 
   if (!acik) return null;
