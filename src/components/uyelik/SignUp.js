@@ -58,11 +58,20 @@ function hataMesaji(kod) {
 }
 
 const BOŞ_FORM = { isim:'', soyisim:'', email:'', sifre:'', sifreTekrar:'', telefon:'', cinsiyet:'', uzmanlik:'', sehir:'', deneyim:'', durum:'', sartlar:false };
+const FORM_KEY = 'glamworld_form_data';
+
+function formYukle() {
+  try {
+    const s = localStorage.getItem(FORM_KEY);
+    if (s) return { ...BOŞ_FORM, ...JSON.parse(s), sifre: '', sifreTekrar: '' };
+  } catch {}
+  return BOŞ_FORM;
+}
 
 export default function SignUp() {
   useAndroidGeri();
   const [hesapTuru, setHesapTuru] = useState(null);
-  const [form, setForm] = useState(BOŞ_FORM);
+  const [form, setForm] = useState(formYukle);
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
   const navigate = useNavigate();
@@ -80,6 +89,11 @@ export default function SignUp() {
       window.removeEventListener('popstate', popstate);
     };
   }, [navigate]);
+
+  useEffect(() => {
+    const { sifre, sifreTekrar, ...guvenli } = form;
+    try { localStorage.setItem(FORM_KEY, JSON.stringify(guvenli)); } catch {}
+  }, [form]);
 
   const g = (alan) => (e) => setForm(f => ({ ...f, [alan]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
 
@@ -106,6 +120,7 @@ export default function SignUp() {
         ...(hesapTuru === 'profesyonel' ? { uzmanlik: form.uzmanlik, sehir: form.sehir, deneyim: form.deneyim, durum: form.durum } : {}),
         olusturuldu: new Date().toISOString(),
       });
+      try { localStorage.removeItem(FORM_KEY); } catch {}
       window.location.href = '/glamworld/';
     } catch (err) { setHata(hataMesaji(err.code)); }
     finally { setYukleniyor(false); }
@@ -113,7 +128,7 @@ export default function SignUp() {
 
   const googleKayit = async () => {
     setYukleniyor(true); setHata('');
-    try { await signInWithPopup(auth, new GoogleAuthProvider()); window.location.href = '/glamworld/'; }
+    try { await signInWithPopup(auth, new GoogleAuthProvider()); try { localStorage.removeItem(FORM_KEY); } catch {} window.location.href = '/glamworld/'; }
     catch (err) { if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code)); }
     finally { setYukleniyor(false); }
   };

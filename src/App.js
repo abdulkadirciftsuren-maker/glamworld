@@ -24,12 +24,18 @@ import ProfilErkek from './sayfalar/ProfilErkek';
 import ProfilKadin from './sayfalar/ProfilKadin';
 import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import AnaSayfa from './sayfalar/AnaSayfa';
+import { useRotaHafiza } from './utils/rotaHafiza';
 import './App.css';
 
 function DevWidgetRouteGuard() {
   const { pathname } = useLocation();
   if (pathname === '/') return null;
   return <style>{'.dev-widget,.dev-widget-mini{display:none!important}'}</style>;
+}
+
+function RotaHafizaKontrol() {
+  useRotaHafiza();
+  return null;
 }
 
 function GirisKontrol({ kullanici, acilisGoster, kartGoster, setKartGoster }) {
@@ -43,7 +49,7 @@ function GirisKontrol({ kullanici, acilisGoster, kartGoster, setKartGoster }) {
     }
   }, [pathname, kullanici, acilisGoster, setKartGoster]);
 
-  if (!kartGoster || !!kullanici) return null;
+  if (!kartGoster || !!kullanici || pathname !== '/') return null;
   return <HosGeldinKarti onKapat={() => setKartGoster(false)} />;
 }
 
@@ -123,6 +129,7 @@ function App() {
             kullanici={kullanici}
           />
         )}
+        <RotaHafizaKontrol />
         <GirisKontrol
           kullanici={kullanici}
           acilisGoster={acilisGoster}

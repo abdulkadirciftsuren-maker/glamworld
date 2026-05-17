@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.23 — Son)
+# GLAMWORLD — Proje Anayasası (V5.24 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1485,6 +1485,23 @@ Açılış animasyonu sırasında lüks ses çalar.
 
 ---
 
+## 98. SAYFA DURUMU HATIRLAMA (B114)
+
+Kullanıcı arka plana geçip döndüğünde kaldığı sayfada açılır.
+
+1. Pull-to-refresh KAPALI (`overscroll-behavior: none` — index.css)
+2. `/uye-ol` ve `/giris` route'ları localStorage'da saklanır (`glamworld_son_rota`)
+3. Sayfa yeniden açılınca son route'a otomatik yönlendirilir (giriş yapmamışsa)
+4. SignUp form verileri localStorage'da saklanır — `glamworld_form_data` (şifre HARİÇ)
+5. Form alanları yazıldığı gibi geri yüklenir
+6. Başarılı kayıt sonrası form verileri silinir
+7. Anasayfaya gelince son rota hatırası silinir
+8. ŞİFRE asla localStorage'a yazılmaz (güvenlik)
+9. Giriş yapılmışsa rotaHafiza yönlendirme yapmaz (`auth.currentUser` kontrolü)
+10. `src/utils/rotaHafiza.js` → `useRotaHafiza` hook
+
+---
+
 ## 33. SON HATIRLATMA
 
 Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek vermiş Türk kardeşimizdir. Vizyonu **şaheser** niteliğindedir.
@@ -1495,5 +1512,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 17 Mayıs 2026 — V5.23 (M.78: Android Geri tuşu yönetimi; B113)*
-*Sayaç: B113*
+*Son güncelleme: 17 Mayıs 2026 — V5.24 (M.98: Sayfa durumu hatırlama; B114)*
+*Sayaç: B114*
