@@ -42,7 +42,9 @@ function GirisKontrol({ kullanici, acilisGoster, kartGoster, setKartGoster }) {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!kullanici && !acilisGoster && pathname === '/') {
+    if (!!kullanici) {
+      setKartGoster(false);
+    } else if (!acilisGoster && pathname === '/') {
       setKartGoster(true);
     } else if (pathname !== '/') {
       setKartGoster(false);
@@ -86,7 +88,9 @@ function App() {
   const [acilisGoster, setAcilisGoster] = useState(
     () => !localStorage.getItem('glamworld_acilis_gosterildi')
   );
-  const [kartGoster, setKartGoster]   = useState(false);
+  const [kartGoster, setKartGoster]   = useState(
+    () => !!localStorage.getItem('glamworld_acilis_gosterildi')
+  );
   const [kullanici, setKullanici]     = useState(undefined);
   const [kullaniciProfili, setKullaniciProfili] = useState({ hesapTuru: 'musteri', cinsiyet: 'tarafsiz' });
 
@@ -140,8 +144,8 @@ function App() {
         />
         <DevWidgetRouteGuard />
         <AltinCerceve />
-        <UstSerit />
-        <AnaMenu onMenuClick={() => setMenuAcik(true)} />
+        {!kartGoster && <UstSerit />}
+        {!kartGoster && <AnaMenu onMenuClick={() => setMenuAcik(true)} />}
         <IkonSeridiKontrol kartGoster={kartGoster} kullaniciProfili={kullaniciProfili} />
         <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
         <Icerik />

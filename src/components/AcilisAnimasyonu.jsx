@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { calAcilisSesi, sesiBitir } from '../utils/acilisSesi';
+import { sesBaslat, sesBitir } from '../utils/sesSistemi';
 import './AcilisAnimasyonu.css';
 
 function lsGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -61,15 +61,21 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
       return () => clearTimeout(t);
     }
 
-    const caldi = { v: false };
-    const sesCal = () => {
-      if (caldi.v) return;
-      caldi.v = true;
-      calAcilisSesi();
+    let baslatildi = false;
+    const baslat = async () => {
+      if (baslatildi) return;
+      baslatildi = true;
+      console.log('GlamSes tetiklendi');
+      await sesBaslat();
     };
-    const sesOlaylar = ['touchstart', 'click', 'keydown', 'mousedown'];
-    sesCal();
-    sesOlaylar.forEach(o => document.addEventListener(o, sesCal, { once: true, passive: true }));
+    const sesOlaylar = ['touchstart', 'touchend', 'click', 'mousedown', 'keydown'];
+    baslat();
+    const dinleyici = (e) => {
+      console.log('GlamSes event:', e.type);
+      baslat();
+      sesOlaylar.forEach(o => document.removeEventListener(o, dinleyici));
+    };
+    sesOlaylar.forEach(o => document.addEventListener(o, dinleyici, { passive: true }));
 
     const t2 = setTimeout(() => setSahne(2), 2000 * h);
     const t3 = setTimeout(() => setSahne(3), 4000 * h);
@@ -85,8 +91,8 @@ export default function AcilisAnimasyonu({ onBitti, onKartGoster, kullanici }) {
 
     return () => {
       [t2, t3, t4, t5].forEach(clearTimeout);
-      sesOlaylar.forEach(o => document.removeEventListener(o, sesCal));
-      sesiBitir();
+      sesOlaylar.forEach(o => document.removeEventListener(o, dinleyici));
+      sesBitir();
     };
   }, []);
 
