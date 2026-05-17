@@ -103,14 +103,14 @@ export default function SignUp() {
         ...(hesapTuru === 'profesyonel' ? { uzmanlik: form.uzmanlik, sehir: form.sehir, deneyim: form.deneyim, durum: form.durum } : {}),
         olusturuldu: new Date().toISOString(),
       });
-      navigate('/');
+      window.location.href = '/glamworld/';
     } catch (err) { setHata(hataMesaji(err.code)); }
     finally { setYukleniyor(false); }
   };
 
   const googleKayit = async () => {
     setYukleniyor(true); setHata('');
-    try { await signInWithPopup(auth, new GoogleAuthProvider()); navigate('/'); }
+    try { await signInWithPopup(auth, new GoogleAuthProvider()); window.location.href = '/glamworld/'; }
     catch (err) { if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code)); }
     finally { setYukleniyor(false); }
   };

@@ -35,10 +35,9 @@ export default function SolMenuPencere({ acik, onKapat }) {
 
   const cikisYap = async () => {
     try { await signOut(auth); } catch {}
-    localStorage.removeItem('glamworld_acilis_gosterildi');
     localStorage.removeItem('glamworld_misafir_secti');
     sessionStorage.clear();
-    window.location.reload();
+    window.location.href = '/glamworld/';
   };
 
   useKartDisiTiklama(panelRef, onKapat, acik);

@@ -49,7 +49,7 @@ export default function Login() {
     setYukleniyor(true); setHata('');
     try {
       await signInWithEmailAndPassword(auth, email, sifre);
-      navigate('/');
+      window.location.href = '/glamworld/';
     } catch (err) { setHata(hataMesaji(err.code)); }
     finally { setYukleniyor(false); }
   };
@@ -58,7 +58,7 @@ export default function Login() {
     setYukleniyor(true); setHata('');
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
-      navigate('/');
+      window.location.href = '/glamworld/';
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code));
     }

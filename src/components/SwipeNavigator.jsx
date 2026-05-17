@@ -40,10 +40,14 @@ export default function SwipeNavigator({ kullaniciProfili, children }) {
         hedef.tagName === 'INPUT'    ||
         hedef.tagName === 'TEXTAREA' ||
         hedef.tagName === 'SELECT'   ||
-        hedef.closest('button')      ||
-        hedef.closest('form')        ||
-        hedef.closest('.hgk-kart')   ||
-        hedef.closest('.aa-overlay')
+        hedef.closest('button')           ||
+        hedef.closest('a')                ||
+        hedef.closest('form')             ||
+        hedef.closest('.hgk-overlay')     ||
+        hedef.closest('.hgk-kart')        ||
+        hedef.closest('.aa-overlay')      ||
+        hedef.closest('.modal')           ||
+        hedef.closest('.cikis-onay-modal')
       ) {
         baslangicX.current = null;
         return;
