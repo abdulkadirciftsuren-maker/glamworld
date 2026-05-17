@@ -63,7 +63,11 @@ const FORM_KEY = 'glamworld_form_data';
 function formYukle() {
   try {
     const s = localStorage.getItem(FORM_KEY);
-    if (s) return { ...BOŞ_FORM, ...JSON.parse(s), sifre: '', sifreTekrar: '' };
+    if (s) {
+      const p = JSON.parse(s);
+      if (p.uzmanlik === 'Diğer') p.uzmanlik = '';
+      return { ...BOŞ_FORM, ...p, sifre: '', sifreTekrar: '' };
+    }
   } catch {}
   return BOŞ_FORM;
 }
