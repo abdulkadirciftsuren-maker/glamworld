@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { usePencereYigini } from '../context/PencereYigini';
-import { useGeriFonksiyonu } from '../utils/geriYonetimi';
+import { useGeriYap } from '../utils/geriYonetimi';
 
 function sagAlt() {
   return {
@@ -19,8 +18,7 @@ function sinirIcinde(x, y) {
 
 export default function GeriButon() {
   const location = useLocation();
-  const { yiginVar } = usePencereYigini();
-  const geriYap = useGeriFonksiyonu();
+  const geriYap = useGeriYap();
   const [konum, setKonum] = useState(sagAlt);
   const [suruklendi, setSuruklendi] = useState(false);
   const [tooltip, setTooltip] = useState(false);
@@ -87,7 +85,7 @@ export default function GeriButon() {
     };
   }, []);
 
-  if (location.pathname === '/' && !yiginVar) return null;
+  if (location.pathname === '/') return null;
 
   const geriGit = () => { if (!suruklendi) geriYap(); };
   const w = window.innerWidth;

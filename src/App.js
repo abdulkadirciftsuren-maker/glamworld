@@ -25,8 +25,7 @@ import ProfilKadin from './sayfalar/ProfilKadin';
 import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import AnaSayfa from './sayfalar/AnaSayfa';
 import { useRotaHafiza } from './utils/rotaHafiza';
-import { useGeriYonetimi } from './utils/geriYonetimi';
-import { PencereYiginiSaglayici } from './context/PencereYigini';
+import { useAndroidGeri } from './utils/geriYonetimi';
 import './utils/sesTani';
 import './App.css';
 
@@ -42,7 +41,7 @@ function RotaHafizaKontrol() {
 }
 
 function AndroidGeriKontrol() {
-  useGeriYonetimi();
+  useAndroidGeri();
   return null;
 }
 
@@ -135,7 +134,6 @@ function App() {
 
   return (
     <BrowserRouter basename="/glamworld">
-      <PencereYiginiSaglayici>
       <SwipeNavigator kullaniciProfili={kullaniciProfili}>
         {acilisGoster && (
           <AcilisAnimasyonu
@@ -160,7 +158,6 @@ function App() {
         <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
         <Icerik />
       </SwipeNavigator>
-      </PencereYiginiSaglayici>
     </BrowserRouter>
   );
 }

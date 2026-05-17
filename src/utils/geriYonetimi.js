@@ -1,78 +1,85 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { usePencereYigini } from '../context/PencereYigini';
 import { auth } from '../firebase';
 
-function calistirGeri(y, e, p, n) {
-  console.log('[GERI] geriYap, yığın:', y.current, 'path:', p.current);
+const acikModaller = [];
 
-  if (y.current) {
-    console.log('[GERI] Modal kapatılıyor');
-    try { e.current(); } catch (err) { console.error('[GERI] Hata:', err); }
-    return;
-  }
-
-  const path = p.current;
-  if (path === '/uye-ol' || path === '/giris') {
-    console.log('[GERI] Hoş Geldin\'e git');
-    n.current('/', { replace: true });
-    return;
-  }
-
-  if (auth.currentUser || path === '/') {
-    console.log('[GERI] Sayfada kal');
-    return;
-  }
-
-  console.log('[GERI] Anasayfaya dön');
-  n.current('/', { replace: true });
+export function modalAc(id, kapatFn) {
+  acikModaller.push({ id, kapat: kapatFn });
+  console.log('[GERI] Modal açıldı:', id, 'toplam:', acikModaller.length);
 }
 
-export function useGeriYonetimi() {
+export function modalKapat(id) {
+  const idx = acikModaller.findIndex(m => m.id === id);
+  if (idx >= 0) {
+    acikModaller.splice(idx, 1);
+    console.log('[GERI] Modal kapandı:', id, 'kalan:', acikModaller.length);
+  }
+}
+
+export function enUstModalKapat() {
+  if (acikModaller.length === 0) return false;
+  const son = acikModaller[acikModaller.length - 1];
+  console.log('[GERI] En üst modal kapatılıyor:', son.id);
+  try { son.kapat(); } catch (e) { console.error('[GERI] Hata:', e); }
+  acikModaller.pop();
+  return true;
+}
+
+export function modalVarMi() {
+  return acikModaller.length > 0;
+}
+
+export function useGeriYap() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { enUsttekiKapat, yiginVar } = usePencereYigini();
 
-  const yRef = useRef(yiginVar);
-  const eRef = useRef(enUsttekiKapat);
-  const pRef = useRef(location.pathname);
-  const nRef = useRef(navigate);
+  return useCallback(() => {
+    console.log('[GERI] geriYap, modal:', acikModaller.length, 'path:', location.pathname);
 
-  useEffect(() => { yRef.current = yiginVar; },            [yiginVar]);
-  useEffect(() => { eRef.current = enUsttekiKapat; },      [enUsttekiKapat]);
-  useEffect(() => { pRef.current = location.pathname; },   [location.pathname]);
-  useEffect(() => { nRef.current = navigate; },            [navigate]);
+    if (acikModaller.length > 0) {
+      enUstModalKapat();
+      return;
+    }
+
+    const path = location.pathname;
+
+    if (path === '/uye-ol' || path === '/giris') {
+      navigate('/', { replace: true });
+      return;
+    }
+
+    if (auth.currentUser && path === '/') {
+      console.log('[GERI] Anasayfada DUR');
+      return;
+    }
+
+    if (!auth.currentUser && path === '/') {
+      console.log('[GERI] Hoş Geldin\'de DUR');
+      return;
+    }
+
+    navigate('/', { replace: true });
+  }, [navigate, location.pathname]);
+}
+
+export function useAndroidGeri() {
+  const geriYap = useGeriYap();
+  const geriYapRef = useRef(geriYap);
+
+  useEffect(() => { geriYapRef.current = geriYap; }, [geriYap]);
 
   useEffect(() => {
-    window.history.pushState({ glamworld: true }, '');
-    console.log('[GERI] Dinleyici kuruldu');
+    window.history.pushState({ glam: 1 }, '');
+    console.log('[GERI] Android dinleyici kuruldu');
 
     const handler = () => {
-      calistirGeri(yRef, eRef, pRef, nRef);
-      window.history.pushState({ glamworld: true }, '');
+      console.log('[GERI] Android popstate yakalandı');
+      geriYapRef.current();
+      window.history.pushState({ glam: 1 }, '');
     };
 
     window.addEventListener('popstate', handler);
     return () => window.removeEventListener('popstate', handler);
   }, []);
-
-  return useCallback(() => calistirGeri(yRef, eRef, pRef, nRef), []);
-}
-
-export function useGeriFonksiyonu() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { enUsttekiKapat, yiginVar } = usePencereYigini();
-
-  const yRef = useRef(yiginVar);
-  const eRef = useRef(enUsttekiKapat);
-  const pRef = useRef(location.pathname);
-  const nRef = useRef(navigate);
-
-  useEffect(() => { yRef.current = yiginVar; },            [yiginVar]);
-  useEffect(() => { eRef.current = enUsttekiKapat; },      [enUsttekiKapat]);
-  useEffect(() => { pRef.current = location.pathname; },   [location.pathname]);
-  useEffect(() => { nRef.current = navigate; },            [navigate]);
-
-  return useCallback(() => calistirGeri(yRef, eRef, pRef, nRef), []);
 }

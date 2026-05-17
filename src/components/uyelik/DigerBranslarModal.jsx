@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useModalKaydet } from '../../context/PencereYigini';
+import { useState, useEffect } from 'react';
+import { modalAc, modalKapat } from '../../utils/geriYonetimi';
 
 const KATEGORILER = [
   { baslik:'Güzellik & Bakım', branslar:['Saç Tasarımı','Renklendirme','Saç Bakımı','Saç Kaynak','Sakal Tasarımı','Tıraş','Yüz Bakımı','Anti-Aging','Lazer Epilasyon','Ağda','Cilt Temizliği','Akne Tedavisi'] },
@@ -13,7 +13,11 @@ const KATEGORILER = [
 ];
 
 export default function DigerBranslarModal({ acik, onKapat, onSec }) {
-  useModalKaydet('diger-branslar-modal', acik, onKapat);
+  useEffect(() => {
+    if (!acik) return;
+    modalAc('diger-branslar-modal', onKapat);
+    return () => modalKapat('diger-branslar-modal');
+  }, [acik, onKapat]);
   const [arama, setArama] = useState('');
 
   if (!acik) return null;
