@@ -10,6 +10,7 @@ import UstSerit from './components/UstSerit';
 import AnaMenu from './components/AnaMenu';
 import IkonSeridi from './components/IkonSeridi';
 import SolMenuPencere from './components/SolMenuPencere';
+import SwipeNavigator from './components/SwipeNavigator';
 import AltinCerceve from './components/AltinCerceve';
 import Login from './components/uyelik/Login';
 import SignUp from './components/uyelik/SignUp';
@@ -103,6 +104,7 @@ function App() {
 
   return (
     <BrowserRouter basename="/glamworld">
+      <SwipeNavigator kullaniciProfili={kullaniciProfili}>
       {acilisGoster && !kullanici && !misafirSecti && (
         <AcilisAnimasyonu onBitti={() => setAcilisGoster(false)} onKartGoster={kartAc} />
       )}
@@ -115,6 +117,7 @@ function App() {
       <IkonSeridiKontrol kartGoster={kartGoster} kullaniciProfili={kullaniciProfili} />
       <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
       <Icerik />
+      </SwipeNavigator>
     </BrowserRouter>
   );
 }
