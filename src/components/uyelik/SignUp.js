@@ -9,9 +9,15 @@ import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import Tooltip from '../Tooltip';
-import { TelefonInput, UzmanlikSecici, SehirOnericisi, DeneyimSecici } from './ProfesyonelAlanlar';
+import { TelefonInput, SehirOnericisi } from './ProfesyonelAlanlar';
 import DigerBranslarModal from './DigerBranslarModal';
 import './SignUp.css';
+
+const UZM = [{id:'berber',ad:'Berber'},{id:'kuafor',ad:'Kuaför'},{id:'makyaj',ad:'Makyaj'},{id:'manikur',ad:'Manikür'},{id:'estetisyen',ad:'Estetisyen'},{id:'masoz',ad:'Masöz'},{id:'doktor',ad:'Doktor'},{id:'muhendis',ad:'Mühendis'},{id:'avukat',ad:'Avukat'},{id:'ogretmen',ad:'Öğretmen'},{id:'galerici',ad:'Galerici'},{id:'diger',ad:'Diğer'}];
+const DNY = [{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];
+const secS = {background:'rgba(255,215,0,0.15)',border:'2px solid #FFD700',boxShadow:'0 0 10px rgba(255,215,0,0.4)'};
+const normS = {background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)'};
+const btnBase = {borderRadius:10,padding:'7px 4px',display:'flex',flexDirection:'column',alignItems:'center',gap:3,cursor:'pointer',minHeight:56,transition:'all .2s'};
 
 function SilverStar() {
   return (
@@ -78,6 +84,8 @@ export default function SignUp() {
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
   const [secilenDigerBrans, setSecilenDigerBrans] = useState('');
+  const [secUzm, setSecUzm] = useState('');
+  const [secDny, setSecDny] = useState('');
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const digerModalAcik = searchParams.get('modal') === 'branslar';
@@ -221,7 +229,12 @@ export default function SignUp() {
             <div className="prof-alanlar">
               <div className="signup-alan">
                 <label>Uzmanlık Alanı</label>
-                <UzmanlikSecici value={form.uzmanlik} onChange={g('uzmanlik')} />
+                <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:5}}>
+                  {UZM.map(u => {
+                    const sel = secUzm===u.id||(u.id==='diger'&&!!secilenDigerBrans);
+                    return <button key={u.id} type="button" onClick={() => u.id==='diger'?setSearchParams({modal:'branslar'}):(setSecUzm(u.id),setForm(f=>({...f,uzmanlik:u.ad})))} style={{...btnBase,...(sel?secS:normS)}}><span style={{fontSize:13,color:'#FFD700'}}>{u.id==='diger'&&secilenDigerBrans?secilenDigerBrans.slice(0,8):u.ad}</span></button>;
+                  })}
+                </div>
               </div>
               <div className="signup-alan">
                 <label>Şehir</label>
@@ -229,7 +242,12 @@ export default function SignUp() {
               </div>
               <div className="signup-alan">
                 <label>Deneyim</label>
-                <DeneyimSecici value={form.deneyim} onChange={g('deneyim')} />
+                <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:6}}>
+                  {DNY.map(d => {
+                    const sel = secDny===d.id;
+                    return <button key={d.id} type="button" onClick={() => {setSecDny(d.id);setForm(f=>({...f,deneyim:d.ad}));}} style={{...btnBase,...(sel?secS:normS),minHeight:54}}><span style={{fontSize:12,color:'#FFD700',fontWeight:600}}>{d.ad}</span><span style={{fontSize:10,color:'rgba(255,215,0,0.7)'}}>{d.sure}</span></button>;
+                  })}
+                </div>
               </div>
               <div className="calisma-durumu">
                 {['Çalışıyor','Kendi işi','İş arıyor'].map(d => (

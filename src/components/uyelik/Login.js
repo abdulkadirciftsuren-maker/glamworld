@@ -80,13 +80,8 @@ export default function Login() {
 
         <div className="sosyal-grid">
           <div className="sosyal-ust">
-            <SosyalButon tip="google" mod="giris" onClick={googleGiris} />
-            <SosyalButon tip="apple"  mod="giris" onClick={yakinda} />
-          </div>
-          <div className="sosyal-alt">
-            <SosyalButon tip="facebook"  mod="giris" onClick={yakinda} />
-            <SosyalButon tip="instagram" mod="giris" onClick={yakinda} />
-            <SosyalButon tip="telefon"   mod="giris" onClick={yakinda} />
+            <SosyalButon tip="google"  mod="giris" onClick={googleGiris} />
+            <SosyalButon tip="telefon" mod="giris" onClick={yakinda} />
           </div>
         </div>
 
