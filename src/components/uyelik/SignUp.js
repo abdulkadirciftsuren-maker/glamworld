@@ -9,9 +9,10 @@ import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import Tooltip from '../Tooltip';
-import { TelefonInput, SehirOnericisi } from './ProfesyonelAlanlar';
+import { TelefonInput } from './ProfesyonelAlanlar';
 import DigerBranslarModal from './DigerBranslarModal';
 import TelefonModal from './TelefonModal';
+import SehirSec from './SehirSec';
 import './SignUp.css';
 
 const DNY=[{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];const secS={background:'rgba(255,215,0,0.15)',border:'2px solid #FFD700',boxShadow:'0 0 10px rgba(255,215,0,0.4)'};const normS={background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)'};const btnBase={borderRadius:10,padding:'7px 4px',display:'flex',flexDirection:'column',alignItems:'center',gap:3,cursor:'pointer',minHeight:56,transition:'all .2s'};
@@ -84,7 +85,6 @@ export default function SignUp() {
   const [secDny, setSecDny] = useState('');
   const navigate = useNavigate();
   const [meslekModalAcik, setMeslekModalAcik] = useState(false);
-  const [telefonModalAcik, setTelefonModalAcik] = useState(false);
   const [sg1, setSg1] = useState(false);
   const [sg2, setSg2] = useState(false);
   const kartRef = useRef(null);
@@ -208,7 +208,10 @@ export default function SignUp() {
         <div className="sosyal-grid">
           <div className="sosyal-ust" style={{opacity:hesapTuru?1:0.4,transition:'opacity .2s'}}>
             <SosyalButon tip="google"  mod="uye" onClick={hesapTuru?googleKayit:()=>setHata('Önce Müşteri veya Profesyonel seç')} />
-            <SosyalButon tip="telefon" mod="uye" onClick={hesapTuru?()=>setTelefonModalAcik(true):()=>setHata('Önce Müşteri veya Profesyonel seç')} />
+            <div style={{position:'relative',display:'inline-block'}}>
+              <SosyalButon tip="telefon" mod="uye" onClick={hesapTuru?()=>alert('Telefon ile giriş yakında aktif olacak. Google veya Email ile devam edebilirsin.'):()=>setHata('Önce Müşteri veya Profesyonel seç')} />
+              <span style={{position:'absolute',top:-8,right:-8,background:'linear-gradient(135deg,#FFD700,#FFA500)',color:'#1a1a1a',fontSize:9,fontWeight:700,padding:'3px 8px',borderRadius:10,pointerEvents:'none'}}>YAKINDA</span>
+            </div>
           </div>
           {!hesapTuru && <p style={{color:'rgba(255,215,0,0.65)',fontSize:11,textAlign:'center',margin:'4px 0 0',fontStyle:'italic'}}>Müşteri veya Profesyonel seç</p>}
         </div>
@@ -247,10 +250,7 @@ export default function SignUp() {
                   <span style={{fontSize:18,color:'rgba(255,215,0,0.6)'}}>›</span>
                 </button>
               </div>
-              <div className="signup-alan">
-                <label>Şehir</label>
-                <SehirOnericisi value={form.sehir} onChange={g('sehir')} />
-              </div>
+              <SehirSec deger={form.sehir} onDegisim={(v)=>setForm(f=>({...f,sehir:v}))} />
               <div className="signup-alan">
                 <label>Deneyim</label>
                 <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:6}}>
@@ -285,7 +285,6 @@ export default function SignUp() {
       </div>
 
       <DevWidget sayfa="Üye Ol" />
-      <TelefonModal acik={telefonModalAcik} onKapat={() => setTelefonModalAcik(false)} />
       <DigerBranslarModal
         acik={meslekModalAcik}
         onKapat={() => setMeslekModalAcik(false)}

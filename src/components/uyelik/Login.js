@@ -32,7 +32,6 @@ export default function Login() {
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
   const [sifreModalAcik, setSifreModalAcik] = useState(false);
-  const [telefonModalAcik, setTelefonModalAcik] = useState(false);
   const [sifreGoster, setSifreGoster] = useState(false);
   const navigate = useNavigate();
   const kartRef = useRef(null);
@@ -92,7 +91,10 @@ export default function Login() {
         <div className="sosyal-grid">
           <div className="sosyal-ust">
             <SosyalButon tip="google"  mod="giris" onClick={googleGiris} />
-            <SosyalButon tip="telefon" mod="giris" onClick={() => setTelefonModalAcik(true)} />
+            <div style={{position:'relative',display:'inline-block'}}>
+              <SosyalButon tip="telefon" mod="giris" onClick={() => alert('Telefon ile giriş yakında aktif olacak. Google veya Email ile devam edebilirsin.')} />
+              <span style={{position:'absolute',top:-8,right:-8,background:'linear-gradient(135deg,#FFD700,#FFA500)',color:'#1a1a1a',fontSize:9,fontWeight:700,padding:'3px 8px',borderRadius:10,pointerEvents:'none'}}>YAKINDA</span>
+            </div>
           </div>
         </div>
 
@@ -130,7 +132,6 @@ export default function Login() {
 
       <DevWidget sayfa="Giriş Yap" />
       <SifreSifirlaModal acik={sifreModalAcik} onKapat={() => setSifreModalAcik(false)} />
-      <TelefonModal acik={telefonModalAcik} onKapat={() => setTelefonModalAcik(false)} />
     </div>
   );
 }
