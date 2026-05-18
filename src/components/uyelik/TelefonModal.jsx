@@ -93,7 +93,7 @@ export default function TelefonModal({ acik, onKapat }) {
           <p style={{color:'rgba(255,255,255,0.7)',fontSize:13,textAlign:'center',margin:'0 0 20px'}}>Telefon numarana SMS göndereceğiz</p>
           <div style={{display:'flex',gap:8,marginBottom:12}}>
             <button type="button" onClick={()=>setUlkeModalAcik(true)} style={{...inp,display:'flex',alignItems:'center',gap:6,minWidth:95,cursor:'pointer',justifyContent:'center',padding:'12px 10px',background:'rgba(0,0,0,0.4)'}}><span style={{fontSize:18}}>{seciliUlke.bayrak}</span><span style={{fontSize:13}}>{seciliUlke.telKod}</span><span style={{fontSize:10,opacity:.6}}>▼</span></button>
-            <input type="tel" placeholder="123 456 7890" value={telefon} onChange={e=>setTelefon(e.target.value)} style={{...inp,flex:1}} />
+            <input type="tel" name="tel" autoComplete="tel" placeholder="123 456 7890" value={telefon} onChange={e=>setTelefon(e.target.value)} style={{...inp,flex:1}} />
           </div>
           {hata && <p style={{color:'#ff6b6b',fontSize:12,textAlign:'center',margin:'0 0 12px'}}>{hata}</p>}
           <button onClick={smsSend} disabled={yukleniyor} style={{...btn,opacity:yukleniyor?0.6:1}}>{yukleniyor?'Gönderiliyor...':'SMS Gönder'}</button>

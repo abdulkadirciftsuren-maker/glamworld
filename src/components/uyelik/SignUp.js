@@ -235,7 +235,7 @@ export default function SignUp() {
           <div className="signup-alan"><label>Telefon</label>
             <div style={{display:'flex',gap:8}}>
               <TelefonUlkeBtn ulke={seciliUlkeTel} onClick={()=>setUlkeModalAcik(true)} />
-              <input type="tel" placeholder="123 456 7890" value={form.telefon} onChange={g('telefon')} style={{flex:1,padding:'12px 14px',background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',fontSize:14,outline:'none'}} />
+              <input type="tel" name="tel" autoComplete="tel" placeholder="123 456 7890" value={form.telefon} onChange={g('telefon')} style={{flex:1,padding:'12px 14px',background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',fontSize:14,outline:'none'}} />
             </div></div>
           <div className="signup-alan">
             <label>Cinsiyet</label>
