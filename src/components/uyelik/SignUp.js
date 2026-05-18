@@ -9,10 +9,10 @@ import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import Tooltip from '../Tooltip';
-import { TelefonInput } from './ProfesyonelAlanlar';
 import DigerBranslarModal from './DigerBranslarModal';
-import TelefonModal from './TelefonModal';
 import SehirSec from './SehirSec';
+import { ULKELER, ulkeKoduTespitEt } from '../../utils/ulkeler';
+import UlkeSecModal from './UlkeSecModal';
 import DeneyimSec from './DeneyimSec';
 import './SignUp.css';
 
@@ -85,6 +85,8 @@ export default function SignUp() {
   const [seciliMeslek, setSeciliMeslek] = useState('');
   const navigate = useNavigate();
   const [meslekModalAcik, setMeslekModalAcik] = useState(false);
+  const [seciliUlkeTel, setSeciliUlkeTel] = useState(ULKELER[0]);
+  const [ulkeModalAcik, setUlkeModalAcik] = useState(false);
   const [sg1, setSg1] = useState(false);
   const [sg2, setSg2] = useState(false);
   const kartRef = useRef(null);
@@ -107,6 +109,7 @@ export default function SignUp() {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
   }, []);
+  useEffect(() => { ulkeKoduTespitEt().then(u => setSeciliUlkeTel(u)); }, []);
 
   useEffect(() => {
     if (form.uzmanlik === 'Diğer') setMeslekModalAcik(true);
@@ -135,7 +138,7 @@ export default function SignUp() {
       try { await updateProfile(s.user, { displayName: `${form.isim} ${form.soyisim}` }); } catch {}
       try {
         await setDoc(doc(db, 'kullanicilar', s.user.uid), {
-          isim: form.isim, soyisim: form.soyisim, email: form.email, telefon: form.telefon,
+          isim: form.isim, soyisim: form.soyisim, email: form.email, telefon: form.telefon ? `${seciliUlkeTel.telKod}${form.telefon}` : '',
           cinsiyet: form.cinsiyet, hesapTuru, meslek: seciliMeslek||null,
           ...(hesapTuru === 'profesyonel' ? { uzmanlik: form.uzmanlik, sehir: form.sehir, deneyim: form.deneyim, durum: form.durum } : {}),
           kayitTarihi: new Date().toISOString(), kayitYolu: 'email', aktifMi: true,
@@ -228,7 +231,11 @@ export default function SignUp() {
             <div className="signup-alan"><label>Şifre</label><div style={{position:'relative'}}><input type={sg1?'text':'password'} value={form.sifre} onChange={g('sifre')} autoComplete="new-password" style={{width:'100%',boxSizing:'border-box',paddingRight:40}} /><button type="button" onClick={()=>setSg1(!sg1)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:15}}>{sg1?'🙈':'👁'}</button></div></div>
             <div className="signup-alan"><label>Şifre Tekrar</label><div style={{position:'relative'}}><input type={sg2?'text':'password'} value={form.sifreTekrar} onChange={g('sifreTekrar')} autoComplete="new-password" style={{width:'100%',boxSizing:'border-box',paddingRight:40}} /><button type="button" onClick={()=>setSg2(!sg2)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:15}}>{sg2?'🙈':'👁'}</button></div></div>
           </div>
-          <div className="signup-alan"><label>Telefon</label><TelefonInput value={form.telefon} onChange={g('telefon')} /></div>
+          <div className="signup-alan"><label>Telefon</label>
+            <div style={{display:'flex',gap:8}}>
+              <button type="button" onClick={()=>setUlkeModalAcik(true)} style={{background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',padding:'12px 10px',fontSize:14,cursor:'pointer',display:'flex',alignItems:'center',gap:6,minWidth:105}}><span style={{fontSize:18}}>{seciliUlkeTel.bayrak}</span><span style={{fontSize:13}}>{seciliUlkeTel.telKod}</span><span style={{fontSize:10,opacity:.6,marginLeft:'auto'}}>▼</span></button>
+              <input type="tel" placeholder="123 456 7890" value={form.telefon} onChange={g('telefon')} style={{flex:1,padding:'12px 14px',background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',fontSize:14,outline:'none'}} />
+            </div></div>
           <div className="signup-alan">
             <label>Cinsiyet</label>
             <div className="cinsiyet-secim">
@@ -277,6 +284,7 @@ export default function SignUp() {
       </div>
 
       <DevWidget sayfa="Üye Ol" />
+      <UlkeSecModal acik={ulkeModalAcik} secili={seciliUlkeTel} onSec={u=>setSeciliUlkeTel(u)} onKapat={()=>setUlkeModalAcik(false)} />
       <DigerBranslarModal
         acik={meslekModalAcik}
         onKapat={() => setMeslekModalAcik(false)}
