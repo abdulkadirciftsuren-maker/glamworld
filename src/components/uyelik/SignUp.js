@@ -109,7 +109,7 @@ export default function SignUp() {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
   }, []);
-  useEffect(() => { ulkeKoduTespitEt().then(u => setSeciliUlkeTel(u)); }, []);
+  useEffect(() => { ulkeKoduTespitEt().then(u => { console.log('[SIGNUP] Tespit edilen:', u.isim, u.telKod); setSeciliUlkeTel(u); }); }, []);
 
   useEffect(() => {
     if (form.uzmanlik === 'Diğer') setMeslekModalAcik(true);

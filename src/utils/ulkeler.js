@@ -202,38 +202,42 @@ export const ULKELER = [
 ];
 
 export async function ulkeKoduTespitEt() {
-  try {
-    const r = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) });
-    if (r.ok) {
-      const d = await r.json();
-      if (d.country_code) {
-        const b = ULKELER.find(u => u.kod === d.country_code);
-        if (b) { console.log('[ULKE] IP\'den:', b.isim); return b; }
-      }
-    }
-  } catch {}
+  console.log('[ULKE-TESPIT] Başlıyor...');
 
   try {
-    const r = await fetch('https://www.cloudflare.com/cdn-cgi/trace', { signal: AbortSignal.timeout(3000) });
+    const r = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
     if (r.ok) {
       const t = await r.text();
       const m = t.match(/loc=([A-Z]{2})/);
       if (m?.[1]) {
         const b = ULKELER.find(u => u.kod === m[1]);
-        if (b) { console.log('[ULKE] Cloudflare\'den:', b.isim); return b; }
+        if (b) { console.log('[ULKE-TESPIT] Cloudflare:', b.isim, b.telKod); return b; }
       }
     }
-  } catch {}
+  } catch { console.log('[ULKE-TESPIT] Cloudflare hatası'); }
 
   try {
-    const dil = navigator.language || '';
-    if (dil.length >= 5) {
-      const k = dil.split('-')[1]?.toUpperCase();
-      const b = ULKELER.find(u => u.kod === k);
-      if (b) { console.log('[ULKE] Dilden:', b.isim); return b; }
+    const r = await fetch('https://ipapi.co/json/');
+    if (r.ok) {
+      const d = await r.json();
+      if (d.country_code) {
+        const b = ULKELER.find(u => u.kod === d.country_code);
+        if (b) { console.log('[ULKE-TESPIT] ipapi.co:', b.isim, b.telKod); return b; }
+      }
     }
-  } catch {}
+  } catch { console.log('[ULKE-TESPIT] ipapi.co hatası'); }
 
-  console.log('[ULKE] Varsayılan: Almanya');
+  try {
+    const r = await fetch('https://ipwhois.app/json/');
+    if (r.ok) {
+      const d = await r.json();
+      if (d.country_code) {
+        const b = ULKELER.find(u => u.kod === d.country_code);
+        if (b) { console.log('[ULKE-TESPIT] ipwhois:', b.isim, b.telKod); return b; }
+      }
+    }
+  } catch { console.log('[ULKE-TESPIT] ipwhois hatası'); }
+
+  console.log('[ULKE-TESPIT] Varsayılan: Almanya');
   return ULKELER[0];
 }

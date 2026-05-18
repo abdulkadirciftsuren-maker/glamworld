@@ -28,6 +28,7 @@ import { useRotaHafiza } from './utils/rotaHafiza';
 import './utils/sesTani';
 import './utils/sifirla';
 import './App.css';
+try { ['glamworld_telefon_ulke_kodu','glamworld_ulke'].forEach(k => localStorage.removeItem(k)); } catch {}
 
 function DevWidgetRouteGuard() {
   const { pathname } = useLocation();
