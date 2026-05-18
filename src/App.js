@@ -149,7 +149,7 @@ function App() {
         {!kartGoster && <UstSerit />}
         {!kartGoster && <AnaMenu onMenuClick={() => setMenuAcik(true)} />}
         <IkonSeridiKontrol kartGoster={kartGoster} kullaniciProfili={kullaniciProfili} />
-        <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} />
+        <SolMenuPencere acik={menuAcik} onKapat={() => setMenuAcik(false)} kullanici={kullanici} />
         <Icerik />
       </SwipeNavigator>
     </BrowserRouter>

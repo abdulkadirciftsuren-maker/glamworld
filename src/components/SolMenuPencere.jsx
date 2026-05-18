@@ -23,14 +23,14 @@ const MENU_MADDELERI = [
   { isim: 'Yardım',       yol: '/yardim'     },
 ];
 
-export default function SolMenuPencere({ acik, onKapat }) {
+export default function SolMenuPencere({ acik, onKapat, kullanici }) {
   const navigate = useNavigate();
   const panelRef = useRef(null);
   const [cikisAcik, setCikisAcik] = useState(false);
 
-  const girisYapildi = !!auth.currentUser;
+  const girisYapildi = !!kullanici;
   const cikisGorunsun = girisYapildi;
-  const kullaniciAdi = auth.currentUser?.displayName || '';
+  const kullaniciAdi = kullanici?.displayName || '';
 
   const cikisYap = async () => {
     try { await signOut(auth); } catch {}
