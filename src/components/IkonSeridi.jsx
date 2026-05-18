@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Pirlanta from './Pirlanta';
 import AltinImza from './AltinImza';
-import { AnasayfaIcon, PirlantaPazariIcon, TanismaIcon, CanliYayinIcon, HaritadaBulIcon, EgitimlerIcon, PrlErkekIkon, PrlKadinIkon, PrlTarafsizIkon, PrlMusteriIkon } from '../icons';
-import { profilIkonuSec, profilRotasiSec } from '../utils/kullaniciProfili';
+import ProfilRozet from './ProfilRozet';
+import { AnasayfaIcon, PirlantaPazariIcon, TanismaIcon, CanliYayinIcon, HaritadaBulIcon, EgitimlerIcon } from '../icons';
 import './IkonSeridi.css';
 
 const IKONLAR_SABIT = [
@@ -14,44 +14,16 @@ const IKONLAR_SABIT = [
   { Icon: EgitimlerIcon,      renk:'#FFD700', zemin:'rgba(154,205,50,0.18)',  isim:'Eğitimler',       yol:'/egitimler'       },
 ];
 
-const PROFIL_IKONLARI = {
-  musteri:  PrlMusteriIkon,
-  erkek:    PrlErkekIkon,
-  kadin:    PrlKadinIkon,
-  tarafsiz: PrlTarafsizIkon,
-};
-
 export default function IkonSeridi({ kullaniciProfili }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const profil = kullaniciProfili || { hesapTuru: 'musteri', cinsiyet: 'tarafsiz' };
-  const profilTipi = profilIkonuSec(profil);
-  const profilRota = profilRotasiSec(profil);
-  const ProfilIcon = PROFIL_IKONLARI[profilTipi];
-
-  const profilIkon = {
-    Icon: ProfilIcon,
-    renk: '#FFFFFF',
-    zemin: 'linear-gradient(135deg, #9F1239, #4C0519)',
-    isim: 'Profilim',
-    yol: profilRota,
-  };
-
-  const ikonlar = [...IKONLAR_SABIT, profilIkon];
-
   return (
     <div className="is-serit">
-      {ikonlar.map(({ Icon, renk, zemin, isim, yol }) => {
+      {IKONLAR_SABIT.map(({ Icon, renk, zemin, isim, yol }) => {
         const aktif = pathname === yol || (yol !== '/' && pathname.startsWith(yol));
         return (
-          <button
-            key={yol}
-            aria-label={isim}
-            className={`is-btn${aktif ? ' aktif' : ''}${isim === 'Profilim' ? ' is-profilim' : ''}`}
-            style={{ '--zemin': zemin, '--renk': renk }}
-            onClick={() => navigate(yol)}
-          >
+          <button key={yol} aria-label={isim} className={`is-btn${aktif ? ' aktif' : ''}`} style={{ '--zemin': zemin, '--renk': renk }} onClick={() => navigate(yol)}>
             <span className="is-ikon-wrap">
               <Icon size={22} color={renk} />
               <span className="is-pirlanta"><Pirlanta renk="mavi" boyut={8} /></span>
@@ -60,6 +32,10 @@ export default function IkonSeridi({ kullaniciProfili }) {
           </button>
         );
       })}
+      <div style={{position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
+        <ProfilRozet boyut={44} onTik={() => navigate('/profil')} />
+        {pathname.startsWith('/profil') && <AltinImza text="Profilim" />}
+      </div>
     </div>
   );
 }

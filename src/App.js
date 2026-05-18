@@ -24,6 +24,7 @@ import ProfilErkek from './sayfalar/ProfilErkek';
 import ProfilKadin from './sayfalar/ProfilKadin';
 import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import AnaSayfa from './sayfalar/AnaSayfa';
+import Profil from './sayfalar/Profil';
 import { useRotaHafiza } from './utils/rotaHafiza';
 import './utils/sesTani';
 import './utils/sifirla';
@@ -77,6 +78,7 @@ function Icerik() {
         <Route path="/canli-yayinlar"  element={<CanliYayinlar />}  />
         <Route path="/harita"          element={<Harita />}         />
         <Route path="/egitimler"       element={<Egitimler />}      />
+        <Route path="/profil"          element={<Profil />}         />
         <Route path="/profil/musteri"  element={<ProfilMusteri />}  />
         <Route path="/profil/erkek"    element={<ProfilErkek />}    />
         <Route path="/profil/kadin"    element={<ProfilKadin />}    />
