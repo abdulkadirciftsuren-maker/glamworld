@@ -52,8 +52,7 @@ export default function Login() {
     setYukleniyor(true); setHata('');
     try {
       await signInWithEmailAndPassword(auth, email, sifre);
-      setTimeout(() => { setYukleniyor(false); navigate('/', { replace: true }); }, 600);
-      return;
+      navigate('/', { replace: true }); return;
     } catch (err) { setHata(hataMesaji(err.code)); }
     setYukleniyor(false);
   };
@@ -69,8 +68,7 @@ export default function Login() {
         const ad = (u.displayName||'').split(' ');
         await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:'musteri', kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
       }
-      setTimeout(() => { setYukleniyor(false); navigate('/', { replace: true }); }, 600);
-      return;
+      navigate('/', { replace: true }); return;
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code));
     }
@@ -107,12 +105,12 @@ export default function Login() {
         <form onSubmit={emailGiris}>
           <div className="login-alan">
             <label>E-posta</label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" />
+            <input type="email" name="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" />
           </div>
           <div className="login-alan">
             <label>Şifre</label>
             <div style={{position:'relative'}}>
-              <input type={sifreGoster?'text':'password'} value={sifre} onChange={e=>setSifre(e.target.value)} autoComplete="current-password" style={{width:'100%',boxSizing:'border-box',paddingRight:44}} />
+              <input type={sifreGoster?'text':'password'} name="current-password" value={sifre} onChange={e=>setSifre(e.target.value)} autoComplete="current-password" style={{width:'100%',boxSizing:'border-box',paddingRight:44}} />
               <button type="button" onClick={()=>setSifreGoster(!sifreGoster)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:16}}>{sifreGoster?'🙈':'👁'}</button>
             </div>
           </div>
