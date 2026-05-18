@@ -100,9 +100,11 @@ function App() {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setKullanici(u || null);
       if (u) {
+        localStorage.setItem('glamworld_kullanici', u.uid);
         const profil = await kullaniciProfilOku(u.uid);
         setKullaniciProfili(profil);
       } else {
+        localStorage.removeItem('glamworld_kullanici');
         setKullaniciProfili({ hesapTuru: 'musteri', cinsiyet: 'tarafsiz' });
       }
     });

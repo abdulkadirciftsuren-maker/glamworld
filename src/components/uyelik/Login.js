@@ -7,6 +7,7 @@ import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
+import SifreSifirlaModal from './SifreSifirlaModal';
 import './Login.css';
 
 const shimmerCSS = `@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}`;
@@ -28,6 +29,7 @@ export default function Login() {
   const [beniHatirla, setBeniHatirla] = useState(false);
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
+  const [sifreModalAcik, setSifreModalAcik] = useState(false);
   const navigate = useNavigate();
   const kartRef = useRef(null);
   useKartDisiTiklama(kartRef, () => navigate('/'));
@@ -101,7 +103,7 @@ export default function Login() {
               <input type="checkbox" checked={beniHatirla} onChange={e => setBeniHatirla(e.target.checked)} />
               Beni Hatırla
             </label>
-            <Link to="/sifremi-unuttum" className="unuttu-link">Şifremi Unuttum</Link>
+            <span onClick={() => setSifreModalAcik(true)} className="unuttu-link" style={{cursor:'pointer'}}>Şifremi Unuttum</span>
           </div>
           {hata && <p className="login-hata">{hata}</p>}
           <button type="submit" disabled={yukleniyor} className="login-ana-btn">
@@ -115,6 +117,7 @@ export default function Login() {
       </div>
 
       <DevWidget sayfa="Giriş Yap" />
+      <SifreSifirlaModal acik={sifreModalAcik} onKapat={() => setSifreModalAcik(false)} />
     </div>
   );
 }
