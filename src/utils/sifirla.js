@@ -1,16 +1,36 @@
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { signOut, deleteUser } from 'firebase/auth';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 export async function tumHafizaSifirla() {
-  console.log('[SIFIRLA] Başlıyor...');
-  try { await signOut(auth); console.log('[SIFIRLA] Firebase çıkış yapıldı'); } catch {}
+  console.log('[SIFIRLA] TAM SIFIRLAMA başlıyor...');
 
-  const silinecek = [];
+  if (auth.currentUser) {
+    const uid = auth.currentUser.uid;
+    console.log('[SIFIRLA] Kullanıcı:', uid);
+
+    try {
+      await deleteDoc(doc(db, 'kullanicilar', uid));
+      console.log('[SIFIRLA] Firestore profil silindi');
+    } catch (e) { console.log('[SIFIRLA] Firestore hatası:', e.message); }
+
+    try {
+      await deleteUser(auth.currentUser);
+      console.log('[SIFIRLA] Firebase Auth hesabı silindi');
+    } catch (e) {
+      console.log('[SIFIRLA] Auth silme hatası (recent login gerekebilir):', e.code);
+      try { await signOut(auth); } catch {}
+    }
+  } else {
+    try { await signOut(auth); } catch {}
+  }
+
+  const tumAnahtarlar = [];
   for (let i = 0; i < localStorage.length; i++) {
     const k = localStorage.key(i);
-    if (k && k.startsWith('glamworld_')) silinecek.push(k);
+    if (k) tumAnahtarlar.push(k);
   }
-  silinecek.forEach(k => { localStorage.removeItem(k); console.log('[SIFIRLA] Silindi:', k); });
+  tumAnahtarlar.forEach(k => { localStorage.removeItem(k); console.log('[SIFIRLA] localStorage:', k); });
 
   sessionStorage.clear();
   console.log('[SIFIRLA] SessionStorage temizlendi');
@@ -18,18 +38,20 @@ export async function tumHafizaSifirla() {
   try {
     const dbs = await indexedDB.databases();
     for (const d of dbs) {
-      if (d.name && (d.name.includes('firebase') || d.name.includes('glamworld'))) {
-        indexedDB.deleteDatabase(d.name);
-        console.log('[SIFIRLA] IndexedDB silindi:', d.name);
-      }
+      if (d.name) { indexedDB.deleteDatabase(d.name); console.log('[SIFIRLA] IndexedDB:', d.name); }
     }
-  } catch {}
+  } catch (e) { console.log('[SIFIRLA] IndexedDB hatası:', e.message); }
 
-  console.log('[SIFIRLA] Tamamlandı. Yönlendiriliyor...');
-  setTimeout(() => { window.location.href = '/glamworld/'; }, 500);
+  document.cookie.split(';').forEach(c => {
+    const n = c.split('=')[0].trim();
+    document.cookie = n + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+  });
+
+  console.log('[SIFIRLA] TAMAMLANDI. Yenileniyor...');
+  setTimeout(() => { window.location.href = '/glamworld/?t=' + Date.now(); }, 800);
 }
 
 if (typeof window !== 'undefined') {
   window.GLAM_SIFIRLA = tumHafizaSifirla;
-  console.log('[SIFIRLA] console\'da GLAM_SIFIRLA() çağırabilirsin');
+  console.log('[SIFIRLA] GLAM_SIFIRLA() ile çağır');
 }

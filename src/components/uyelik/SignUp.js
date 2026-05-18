@@ -157,7 +157,7 @@ export default function SignUp() {
       const snap = await getDoc(ref);
       if (!snap.exists()) {
         const ad = (u.displayName||'').split(' ');
-        await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:'musteri', kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
+        await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:hesapTuru||'musteri', meslek:seciliMeslek||null, kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
       }
       try { localStorage.removeItem(FORM_KEY); } catch {}
       window.location.href = '/glamworld/';
@@ -203,10 +203,11 @@ export default function SignUp() {
         </div>
 
         <div className="sosyal-grid">
-          <div className="sosyal-ust">
-            <SosyalButon tip="google"  mod="uye" onClick={googleKayit} />
-            <SosyalButon tip="telefon" mod="uye" onClick={() => setTelefonModalAcik(true)} />
+          <div className="sosyal-ust" style={{opacity:hesapTuru?1:0.4,transition:'opacity .2s'}}>
+            <SosyalButon tip="google"  mod="uye" onClick={hesapTuru?googleKayit:()=>setHata('Önce Müşteri veya Profesyonel seç')} />
+            <SosyalButon tip="telefon" mod="uye" onClick={hesapTuru?()=>setTelefonModalAcik(true):()=>setHata('Önce Müşteri veya Profesyonel seç')} />
           </div>
+          {!hesapTuru && <p style={{color:'rgba(255,215,0,0.65)',fontSize:11,textAlign:'center',margin:'4px 0 0',fontStyle:'italic'}}>Müşteri veya Profesyonel seç</p>}
         </div>
 
         <div className="ayrac">veya</div>
@@ -270,6 +271,7 @@ export default function SignUp() {
           </label>
 
           {hata && <p className="signup-hata">{hata}</p>}
+          {hata && hata.includes('kayıtlı') && <button type="button" onClick={() => navigate('/giris')} style={{display:'block',margin:'4px auto 8px',background:'linear-gradient(135deg,#FFD700,#FFA500)',border:'none',borderRadius:20,padding:'8px 20px',color:'#1a1a1a',fontSize:13,fontWeight:600,cursor:'pointer'}}>Giriş Yap'a Geç →</button>}
 
           <button type="submit" disabled={yukleniyor || !hesapTuru} className="signup-ana-btn">
             {yukleniyor ? 'Kaydediliyor...' : (hesapTuru ? 'Üye Ol' : 'Önce hesap türünü seç')}
