@@ -114,13 +114,13 @@ export default function SignUp() {
   const g = (alan) => (e) => setForm(f => ({ ...f, [alan]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
 
   const dogrula = () => {
-    if (!hesapTuru) return 'Hesap türü seç.';
-    if (!form.isim || form.isim.trim().length < 2 || /\d/.test(form.isim)) return 'İsim girin.';
-    if (!form.soyisim || form.soyisim.trim().length < 2 || /\d/.test(form.soyisim)) return 'Soyisim girin.';
-    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return 'Geçerli e-posta girin.';
-    if (!form.sifre || form.sifre.length < 6) return 'Şifre en az 6 karakter.';
-    if (form.sifre !== form.sifreTekrar) return 'Şifreler aynı olmalı.';
-    if (!form.sartlar) return 'Kullanım şartlarını kabul et.';
+    if (!hesapTuru) return 'Müşteri veya Profesyonel seç.';
+    if (!form.isim || !form.isim.trim()) return 'İsim yazmalısın.';
+    if (!form.soyisim || !form.soyisim.trim()) return 'Soyisim yazmalısın.';
+    if (!form.email || !form.email.includes('@') || !form.email.includes('.')) return 'E-posta geçersiz (örn: ali@gmail.com)';
+    if (!form.sifre || form.sifre.length < 6) return 'Şifre en az 6 karakter olmalı.';
+    if (form.sifre !== form.sifreTekrar) return 'Şifreler aynı değil, kontrol et.';
+    if (!form.sartlar) return 'Kullanım şartlarını kabul etmelisin.';
     return null;
   };
 
