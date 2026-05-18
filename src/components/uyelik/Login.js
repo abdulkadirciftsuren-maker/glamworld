@@ -52,7 +52,7 @@ export default function Login() {
     setYukleniyor(true); setHata('');
     try {
       await signInWithEmailAndPassword(auth, email, sifre);
-      setYukleniyor(false); navigate('/', { replace: true }); return;
+      window.location.href = '/glamworld/'; return;
     } catch (err) { setHata(hataMesaji(err.code)); }
     setYukleniyor(false);
   };

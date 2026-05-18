@@ -145,8 +145,7 @@ export default function SignUp() {
         });
       } catch (eF) { console.log('[UYE-OL] Firestore hatası (auth tamam):', eF.message); }
       try { localStorage.removeItem(FORM_KEY); } catch {}
-      setYukleniyor(false);
-      navigate('/', { replace: true });
+      window.location.href = '/glamworld/';
     } catch (err) {
       setYukleniyor(false);
       if (err.code === 'auth/email-already-in-use') setHata('Bu e-posta zaten kayıtlı.');
@@ -163,7 +162,7 @@ export default function SignUp() {
       const ref = doc(db,'kullanicilar',u.uid); const snap = await getDoc(ref);
       if (!snap.exists()) { const ad=(u.displayName||'').split(' '); await setDoc(ref,{uid:u.uid,isim:ad[0]||'',soyisim:ad.slice(1).join(' ')||'',email:u.email||'',fotoUrl:u.photoURL||'',hesapTuru:hesapTuru||'musteri',meslek:seciliMeslek||null,kayitYolu:'google',kayitTarihi:new Date().toISOString(),aktifMi:true}); }
       try { localStorage.removeItem(FORM_KEY); } catch {}
-      setYukleniyor(false); navigate('/',{replace:true});
+      window.location.href = '/glamworld/';
     } catch (err) {
       setYukleniyor(false);
       if(err.code==='auth/popup-closed-by-user'||err.code==='auth/popup-blocked')return;
