@@ -201,6 +201,18 @@ export const ULKELER = [
   {kod:'ML',isim:'Mali',bayrak:'🇲🇱',telKod:'+223'},
 ];
 
+const RENKLER = {
+  DE:'#000000',TR:'#E30A17',UA:'#005BBB',RU:'#DA291C',US:'#002868',GB:'#012169',
+  FR:'#002395',IT:'#009246',ES:'#C60B1E',NL:'#FF6900',BE:'#000000',AT:'#ED2939',
+  CH:'#FF0000',SE:'#006AA7',NO:'#BA0C2F',DK:'#C8102E',FI:'#003580',PL:'#DC143C',
+  GR:'#0D5EAF',PT:'#006600',IE:'#169B62',CA:'#FF0000',AU:'#012169',JP:'#BC002D',
+  KR:'#003478',CN:'#DE2910',IN:'#FF9933',BR:'#009C3B',MX:'#006847',AR:'#74ACDF',
+  AE:'#00732F',SA:'#006C35',EG:'#CE1126',MA:'#C1272D',ZA:'#007749',IL:'#0038B8',
+  IR:'#239F40',PK:'#01411C',TH:'#A51931',VN:'#DA251D',ID:'#FF0000',MY:'#CC0001',
+  SG:'#ED2939',AZ:'#00B5E2',UZ:'#1EB53A',KZ:'#00AFCA',GE:'#FF0000',AM:'#D90012',
+};
+export function ulkeRengi(kod) { return RENKLER[kod] || '#4A90E2'; }
+
 export async function ulkeKoduTespitEt() {
   console.log('========================');
   console.log('[ULKE-TESPIT] BAŞLANIYOR');

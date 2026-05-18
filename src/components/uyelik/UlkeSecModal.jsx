@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { ULKELER } from '../../utils/ulkeler';
+import { ULKELER, ulkeRengi } from '../../utils/ulkeler';
 
 export default function UlkeSecModal({ acik, secili, onSec, onKapat }) {
   const [arama, setArama] = useState('');
@@ -31,14 +31,21 @@ export default function UlkeSecModal({ acik, secili, onSec, onKapat }) {
         <div style={{flex:1,overflowY:'auto',padding:'0 10px 14px'}}>
           {filtre.length === 0 ? (
             <p style={{color:'rgba(255,215,0,0.6)',textAlign:'center',padding:20,fontSize:13}}>"{arama}" bulunamadı</p>
-          ) : filtre.map(u => (
-            <button key={u.kod} type="button" onClick={() => { onSec(u); onKapat(); }}
-              style={{display:'flex',alignItems:'center',width:'100%',padding:'11px 12px',background:secili?.kod===u.kod?'rgba(255,215,0,0.15)':'transparent',border:secili?.kod===u.kod?'1px solid #FFD700':'1px solid transparent',borderRadius:10,color:'#FFD700',cursor:'pointer',fontSize:14,marginBottom:3,gap:12,textAlign:'left'}}>
-              <span style={{fontSize:20}}>{u.bayrak}</span>
-              <span style={{flex:1}}>{u.isim}</span>
-              <span style={{fontSize:12,color:'rgba(255,215,0,0.7)',fontWeight:600}}>{u.telKod}</span>
-            </button>
-          ))}
+          ) : filtre.map(u => {
+            const r = ulkeRengi(u.kod);
+            return (
+              <button key={u.kod} type="button" onClick={() => { onSec(u); onKapat(); }}
+                style={{display:'flex',alignItems:'center',width:'100%',padding:'9px 12px',background:secili?.kod===u.kod?'rgba(255,215,0,0.15)':'transparent',border:secili?.kod===u.kod?'1px solid #FFD700':'1px solid transparent',borderRadius:10,cursor:'pointer',marginBottom:3,gap:12,textAlign:'left',transition:'all .15s'}}>
+                <div style={{width:36,height:36,borderRadius:'50%',background:r,border:'1.5px solid rgba(255,215,0,0.7)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,boxShadow:`0 0 6px ${r}44`}}>
+                  <span style={{color:'#fff',fontSize:10,fontWeight:700,textShadow:'0 1px 2px rgba(0,0,0,0.6)'}}>{u.telKod}</span>
+                </div>
+                <div style={{flex:1,display:'flex',flexDirection:'column',gap:1}}>
+                  <span style={{color:'#FFD700',fontSize:13,fontWeight:500}}>{u.isim}</span>
+                  <span style={{color:'rgba(255,215,0,0.5)',fontSize:10}}>{u.kod}</span>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

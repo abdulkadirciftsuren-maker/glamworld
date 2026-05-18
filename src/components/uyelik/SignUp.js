@@ -11,6 +11,7 @@ import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import Tooltip from '../Tooltip';
 import DigerBranslarModal from './DigerBranslarModal';
 import SehirSec from './SehirSec';
+import TelefonUlkeBtn from './TelefonUlkeBtn';
 import { ULKELER, ulkeKoduTespitEt } from '../../utils/ulkeler';
 import UlkeSecModal from './UlkeSecModal';
 import DeneyimSec from './DeneyimSec';
@@ -233,7 +234,7 @@ export default function SignUp() {
           </div>
           <div className="signup-alan"><label>Telefon</label>
             <div style={{display:'flex',gap:8}}>
-              <button type="button" onClick={()=>setUlkeModalAcik(true)} style={{background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',padding:'10px 10px',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:5,minWidth:145,whiteSpace:'nowrap'}}><span style={{fontSize:16}}>{seciliUlkeTel.bayrak}</span><span style={{flex:1,fontSize:11,textAlign:'left'}}>{seciliUlkeTel.isim}</span><span style={{fontWeight:600,fontSize:12}}>{seciliUlkeTel.telKod}</span></button>
+              <TelefonUlkeBtn ulke={seciliUlkeTel} onClick={()=>setUlkeModalAcik(true)} />
               <input type="tel" placeholder="123 456 7890" value={form.telefon} onChange={g('telefon')} style={{flex:1,padding:'12px 14px',background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',fontSize:14,outline:'none'}} />
             </div></div>
           <div className="signup-alan">
