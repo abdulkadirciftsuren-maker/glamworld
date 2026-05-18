@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function sagAlt() {
   return {
@@ -16,7 +16,6 @@ function sinirIcinde(x, y) {
 }
 
 export default function GeriButon() {
-  const navigate = useNavigate();
   const location = useLocation();
   const [konum, setKonum] = useState(sagAlt);
   const [suruklendi, setSuruklendi] = useState(false);
@@ -87,9 +86,7 @@ export default function GeriButon() {
   if (location.pathname === '/') return null;
 
   const geriGit = () => {
-    if (suruklendi) return;
-    if (location.pathname === '/uye-ol' || location.pathname === '/giris') { navigate('/'); return; }
-    navigate(-1);
+    if (!suruklendi) window.history.back();
   };
   const w = window.innerWidth;
   const boyut = w < 481 ? 48 : w < 769 ? 44 : w < 1025 ? 52 : 56;
