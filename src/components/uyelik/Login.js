@@ -52,7 +52,7 @@ export default function Login() {
     setYukleniyor(true); setHata('');
     try {
       await signInWithEmailAndPassword(auth, email, sifre);
-      navigate('/', { replace: true }); return;
+      setYukleniyor(false); navigate('/', { replace: true }); return;
     } catch (err) { setHata(hataMesaji(err.code)); }
     setYukleniyor(false);
   };
@@ -60,19 +60,16 @@ export default function Login() {
   const googleGiris = async () => {
     setYukleniyor(true); setHata('');
     try {
-      const r = await signInWithPopup(auth, new GoogleAuthProvider());
-      const u = r.user;
-      const ref = doc(db, 'kullanicilar', u.uid);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        const ad = (u.displayName||'').split(' ');
-        await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:'musteri', kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
-      }
-      navigate('/', { replace: true }); return;
+      const gp = new GoogleAuthProvider(); gp.setCustomParameters({prompt:'select_account'});
+      const r = await signInWithPopup(auth, gp); const u = r.user;
+      const ref = doc(db,'kullanicilar',u.uid); const snap = await getDoc(ref);
+      if (!snap.exists()) { const ad=(u.displayName||'').split(' '); await setDoc(ref,{uid:u.uid,isim:ad[0]||'',soyisim:ad.slice(1).join(' ')||'',email:u.email||'',fotoUrl:u.photoURL||'',hesapTuru:'musteri',kayitYolu:'google',kayitTarihi:new Date().toISOString(),aktifMi:true}); }
+      setYukleniyor(false); navigate('/',{replace:true}); return;
     } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code));
+      setYukleniyor(false);
+      if(err.code==='auth/popup-closed-by-user'||err.code==='auth/popup-blocked')return;
+      setHata(hataMesaji(err.code));
     }
-    setYukleniyor(false);
   };
 
   return (

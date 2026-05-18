@@ -145,6 +145,7 @@ export default function SignUp() {
         });
       } catch (eF) { console.log('[UYE-OL] Firestore hatası (auth tamam):', eF.message); }
       try { localStorage.removeItem(FORM_KEY); } catch {}
+      setYukleniyor(false);
       navigate('/', { replace: true });
     } catch (err) {
       setYukleniyor(false);
@@ -157,18 +158,17 @@ export default function SignUp() {
   const googleKayit = async () => {
     setYukleniyor(true); setHata('');
     try {
-      const r = await signInWithPopup(auth, new GoogleAuthProvider());
-      const u = r.user;
-      const ref = doc(db, 'kullanicilar', u.uid);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        const ad = (u.displayName||'').split(' ');
-        await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:hesapTuru||'musteri', meslek:seciliMeslek||null, kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
-      }
+      const gp = new GoogleAuthProvider(); gp.setCustomParameters({prompt:'select_account'});
+      const r = await signInWithPopup(auth, gp); const u = r.user;
+      const ref = doc(db,'kullanicilar',u.uid); const snap = await getDoc(ref);
+      if (!snap.exists()) { const ad=(u.displayName||'').split(' '); await setDoc(ref,{uid:u.uid,isim:ad[0]||'',soyisim:ad.slice(1).join(' ')||'',email:u.email||'',fotoUrl:u.photoURL||'',hesapTuru:hesapTuru||'musteri',meslek:seciliMeslek||null,kayitYolu:'google',kayitTarihi:new Date().toISOString(),aktifMi:true}); }
       try { localStorage.removeItem(FORM_KEY); } catch {}
-      window.location.href = '/glamworld/';
-    } catch (err) { if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code)); }
-    finally { setYukleniyor(false); }
+      setYukleniyor(false); navigate('/',{replace:true});
+    } catch (err) {
+      setYukleniyor(false);
+      if(err.code==='auth/popup-closed-by-user'||err.code==='auth/popup-blocked')return;
+      setHata(hataMesaji(err.code));
+    }
   };
 
   return (
@@ -227,7 +227,7 @@ export default function SignUp() {
             <div className="signup-alan"><label>İsim</label><input type="text" name="given-name" value={form.isim} onChange={g('isim')} autoComplete="given-name" /></div>
             <div className="signup-alan"><label>Soyisim</label><input type="text" name="family-name" value={form.soyisim} onChange={g('soyisim')} autoComplete="family-name" /></div>
           </div>
-          <div className="signup-alan"><label>E-posta</label><input type="email" name="email" value={form.email} onChange={g('email')} autoComplete="email" /></div>
+          <div className="signup-alan"><label>E-posta</label><input type="email" name="email" inputMode="email" value={form.email} onChange={g('email')} autoComplete="email" /></div>
           <div className="iki-sutun">
             <div className="signup-alan"><label>Şifre</label><div style={{position:'relative'}}><input type={sg1?'text':'password'} value={form.sifre} onChange={g('sifre')} autoComplete="new-password" style={{width:'100%',boxSizing:'border-box',paddingRight:40}} /><button type="button" onClick={()=>setSg1(!sg1)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:15}}>{sg1?'🙈':'👁'}</button></div></div>
             <div className="signup-alan"><label>Şifre Tekrar</label><div style={{position:'relative'}}><input type={sg2?'text':'password'} value={form.sifreTekrar} onChange={g('sifreTekrar')} autoComplete="new-password" style={{width:'100%',boxSizing:'border-box',paddingRight:40}} /><button type="button" onClick={()=>setSg2(!sg2)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:15}}>{sg2?'🙈':'👁'}</button></div></div>
@@ -235,7 +235,7 @@ export default function SignUp() {
           <div className="signup-alan"><label>Telefon</label>
             <div style={{display:'flex',gap:8}}>
               <TelefonUlkeBtn ulke={seciliUlkeTel} onClick={()=>setUlkeModalAcik(true)} />
-              <input type="tel" name="tel-national" autoComplete="tel-national" placeholder="123 456 7890" value={form.telefon} onChange={(e)=>{let v=e.target.value;const k=seciliUlkeTel?.telKod||'';if(v.startsWith(k))v=v.substring(k.length).trim();else if(v.startsWith('+'))v=v.replace(/^\+\d+\s*/,'');setForm(f=>({...f,telefon:v}));}} style={{flex:1,padding:'12px 14px',background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',fontSize:14,outline:'none'}} />
+              <input type="tel" name="tel-local" inputMode="numeric" autoComplete="tel-local" placeholder="123 456 7890" value={form.telefon} onChange={(e)=>{let v=e.target.value;if(v.startsWith('+'))v=v.replace(/^\+\d{1,4}\s*/,'');const k=seciliUlkeTel?.telKod||'';if(v.startsWith(k))v=v.substring(k.length).trim();if(v.startsWith('0'))v=v.substring(1);setForm(f=>({...f,telefon:v}));}} style={{flex:1,padding:'12px 14px',background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',fontSize:14,outline:'none'}} />
             </div></div>
           <div className="signup-alan">
             <label>Cinsiyet</label>
