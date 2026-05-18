@@ -202,42 +202,47 @@ export const ULKELER = [
 ];
 
 export async function ulkeKoduTespitEt() {
-  console.log('[ULKE-TESPIT] Başlıyor...');
+  console.log('========================');
+  console.log('[ULKE-TESPIT] BAŞLANIYOR');
+  console.log('========================');
 
   try {
+    console.log('[ULKE-TESPIT] Cloudflare deneniyor...');
     const r = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
-    if (r.ok) {
-      const t = await r.text();
-      const m = t.match(/loc=([A-Z]{2})/);
-      if (m?.[1]) {
-        const b = ULKELER.find(u => u.kod === m[1]);
-        if (b) { console.log('[ULKE-TESPIT] Cloudflare:', b.isim, b.telKod); return b; }
-      }
+    const t = await r.text();
+    console.log('[ULKE-TESPIT] Cloudflare yanıt:', t);
+    const m = t.match(/loc=([A-Z]{2})/);
+    if (m) {
+      console.log('[ULKE-TESPIT] Bulunan kod:', m[1]);
+      const b = ULKELER.find(u => u.kod === m[1]);
+      if (b) { console.log('[ULKE-TESPIT] ✅ Tespit:', b.isim, b.telKod); return b; }
+      else console.log('[ULKE-TESPIT] ❌ Kod listede yok:', m[1]);
     }
-  } catch { console.log('[ULKE-TESPIT] Cloudflare hatası'); }
+  } catch (e) { console.error('[ULKE-TESPIT] Cloudflare HATA:', e); }
 
   try {
+    console.log('[ULKE-TESPIT] ipapi.co deneniyor...');
     const r = await fetch('https://ipapi.co/json/');
     if (r.ok) {
       const d = await r.json();
+      console.log('[ULKE-TESPIT] ipapi yanıt:', d);
       if (d.country_code) {
         const b = ULKELER.find(u => u.kod === d.country_code);
-        if (b) { console.log('[ULKE-TESPIT] ipapi.co:', b.isim, b.telKod); return b; }
+        if (b) { console.log('[ULKE-TESPIT] ✅ ipapi:', b.isim, b.telKod); return b; }
       }
     }
-  } catch { console.log('[ULKE-TESPIT] ipapi.co hatası'); }
+  } catch (e) { console.error('[ULKE-TESPIT] ipapi HATA:', e); }
 
   try {
-    const r = await fetch('https://ipwhois.app/json/');
-    if (r.ok) {
-      const d = await r.json();
-      if (d.country_code) {
-        const b = ULKELER.find(u => u.kod === d.country_code);
-        if (b) { console.log('[ULKE-TESPIT] ipwhois:', b.isim, b.telKod); return b; }
-      }
+    const dil = navigator.language || '';
+    console.log('[ULKE-TESPIT] Tarayıcı dili:', dil);
+    if (dil.length >= 5) {
+      const k = dil.split('-')[1]?.toUpperCase();
+      const b = ULKELER.find(u => u.kod === k);
+      if (b) { console.log('[ULKE-TESPIT] ✅ Dilden:', b.isim); return b; }
     }
-  } catch { console.log('[ULKE-TESPIT] ipwhois hatası'); }
+  } catch {}
 
-  console.log('[ULKE-TESPIT] Varsayılan: Almanya');
+  console.log('[ULKE-TESPIT] ⚠️ Hiçbir yol çalışmadı - Almanya varsayılan');
   return ULKELER[0];
 }

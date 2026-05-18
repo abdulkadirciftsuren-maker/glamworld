@@ -109,7 +109,7 @@ export default function SignUp() {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
   }, []);
-  useEffect(() => { ulkeKoduTespitEt().then(u => { console.log('[SIGNUP] Tespit edilen:', u.isim, u.telKod); setSeciliUlkeTel(u); }); }, []);
+  useEffect(() => { let c=false; ulkeKoduTespitEt().then(u=>{if(!c){console.log('[SIGNUP] Tespit:',u.isim);setSeciliUlkeTel(u);}}); return ()=>{c=true;}; }, []);
 
   useEffect(() => {
     if (form.uzmanlik === 'Diğer') setMeslekModalAcik(true);
@@ -233,7 +233,7 @@ export default function SignUp() {
           </div>
           <div className="signup-alan"><label>Telefon</label>
             <div style={{display:'flex',gap:8}}>
-              <button type="button" onClick={()=>setUlkeModalAcik(true)} style={{background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',padding:'12px 10px',fontSize:14,cursor:'pointer',display:'flex',alignItems:'center',gap:6,minWidth:105}}><span style={{fontSize:18}}>{seciliUlkeTel.bayrak}</span><span style={{fontSize:13}}>{seciliUlkeTel.telKod}</span><span style={{fontSize:10,opacity:.6,marginLeft:'auto'}}>▼</span></button>
+              <button type="button" onClick={()=>setUlkeModalAcik(true)} style={{background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',padding:'10px 10px',fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:5,minWidth:145,whiteSpace:'nowrap'}}><span style={{fontSize:16}}>{seciliUlkeTel.bayrak}</span><span style={{flex:1,fontSize:11,textAlign:'left'}}>{seciliUlkeTel.isim}</span><span style={{fontWeight:600,fontSize:12}}>{seciliUlkeTel.telKod}</span></button>
               <input type="tel" placeholder="123 456 7890" value={form.telefon} onChange={g('telefon')} style={{flex:1,padding:'12px 14px',background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)',borderRadius:12,color:'#FFD700',fontSize:14,outline:'none'}} />
             </div></div>
           <div className="signup-alan">

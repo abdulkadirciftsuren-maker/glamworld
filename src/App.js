@@ -99,6 +99,12 @@ function App() {
   const [kullaniciProfili, setKullaniciProfili] = useState({ hesapTuru: 'musteri', cinsiyet: 'tarafsiz' });
 
   useEffect(() => {
+    ['glamworld_telefon_ulke_kodu','glamworld_ulke_kodu','glamworld_seciliUlke'].forEach(k => {
+      if (localStorage.getItem(k)) { localStorage.removeItem(k); console.log('[APP] Eski anahtar silindi:', k); }
+    });
+  }, []);
+
+  useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setKullanici(u || null);
       if (u) {
