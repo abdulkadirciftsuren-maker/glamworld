@@ -9,6 +9,7 @@ export default function TelefonModal({ acik, onKapat }) {
   const [adim, setAdim] = useState('telefon');
   const [seciliUlke, setSeciliUlke] = useState(ULKELER[0]);
   const [ulkeModalAcik, setUlkeModalAcik] = useState(false);
+  const [tespitYapildi, setTespitYapildi] = useState(false);
   const [telefon, setTelefon] = useState('');
   const [kod, setKod] = useState('');
   const [hata, setHata] = useState('');
@@ -16,9 +17,16 @@ export default function TelefonModal({ acik, onKapat }) {
   const confirmRef = useRef(null);
 
   useEffect(() => {
-    if (!acik) { setAdim('telefon'); setTelefon(''); setKod(''); setHata(''); return; }
-    ulkeKoduTespitEt().then(u => setSeciliUlke(u));
-  }, [acik]);
+    if (!acik) { setAdim('telefon'); setTelefon(''); setKod(''); setHata(''); setTespitYapildi(false); return; }
+    if (!tespitYapildi) {
+      console.log('[TELEFON-MODAL] Ülke tespiti başlıyor...');
+      ulkeKoduTespitEt().then(u => {
+        console.log('[TELEFON-MODAL] Tespit edildi:', u.isim, u.telKod);
+        setSeciliUlke(u);
+        setTespitYapildi(true);
+      });
+    }
+  }, [acik, tespitYapildi]);
 
   useEffect(() => {
     if (acik && !window.recaptchaVerifier) {
