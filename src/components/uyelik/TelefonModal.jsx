@@ -2,16 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-
-const ULKELER = [
-  {k:'+49',ad:'🇩🇪 +49'},{k:'+90',ad:'🇹🇷 +90'},{k:'+7',ad:'🇷🇺 +7'},
-  {k:'+380',ad:'🇺🇦 +380'},{k:'+44',ad:'🇬🇧 +44'},{k:'+1',ad:'🇺🇸 +1'},
-  {k:'+33',ad:'🇫🇷 +33'},{k:'+39',ad:'🇮🇹 +39'},{k:'+34',ad:'🇪🇸 +34'},
-];
+import { ULKELER, ulkeKoduTespitEt } from '../../utils/ulkeler';
+import UlkeSecModal from './UlkeSecModal';
 
 export default function TelefonModal({ acik, onKapat }) {
   const [adim, setAdim] = useState('telefon');
-  const [ulke, setUlke] = useState('+49');
+  const [seciliUlke, setSeciliUlke] = useState(ULKELER[0]);
+  const [ulkeModalAcik, setUlkeModalAcik] = useState(false);
   const [telefon, setTelefon] = useState('');
   const [kod, setKod] = useState('');
   const [hata, setHata] = useState('');
@@ -19,7 +16,8 @@ export default function TelefonModal({ acik, onKapat }) {
   const confirmRef = useRef(null);
 
   useEffect(() => {
-    if (!acik) { setAdim('telefon'); setTelefon(''); setKod(''); setHata(''); }
+    if (!acik) { setAdim('telefon'); setTelefon(''); setKod(''); setHata(''); return; }
+    ulkeKoduTespitEt().then(u => setSeciliUlke(u));
   }, [acik]);
 
   useEffect(() => {
@@ -42,7 +40,7 @@ export default function TelefonModal({ acik, onKapat }) {
     if (!telefon || telefon.replace(/\D/g,'').length < 7) { setHata('Geçerli telefon numarası gir'); return; }
     setYukleniyor(true);
     try {
-      const num = `${ulke}${telefon.replace(/\s/g,'')}`;
+      const num = `${seciliUlke.telKod}${telefon.replace(/\s/g,'')}`;
       confirmRef.current = await signInWithPhoneNumber(auth, num, window.recaptchaVerifier);
       setAdim('kod');
     } catch (e) {
@@ -86,7 +84,7 @@ export default function TelefonModal({ acik, onKapat }) {
         {adim==='telefon' && (<>
           <p style={{color:'rgba(255,255,255,0.7)',fontSize:13,textAlign:'center',margin:'0 0 20px'}}>Telefon numarana SMS göndereceğiz</p>
           <div style={{display:'flex',gap:8,marginBottom:12}}>
-            <select value={ulke} onChange={e=>setUlke(e.target.value)} style={{...inp,padding:'12px 8px'}}>{ULKELER.map(u=><option key={u.k} value={u.k}>{u.ad}</option>)}</select>
+            <button type="button" onClick={()=>setUlkeModalAcik(true)} style={{...inp,display:'flex',alignItems:'center',gap:6,minWidth:95,cursor:'pointer',justifyContent:'center',padding:'12px 10px',background:'rgba(0,0,0,0.4)'}}><span style={{fontSize:18}}>{seciliUlke.bayrak}</span><span style={{fontSize:13}}>{seciliUlke.telKod}</span><span style={{fontSize:10,opacity:.6}}>▼</span></button>
             <input type="tel" placeholder="123 456 7890" value={telefon} onChange={e=>setTelefon(e.target.value)} style={{...inp,flex:1}} />
           </div>
           {hata && <p style={{color:'#ff6b6b',fontSize:12,textAlign:'center',margin:'0 0 12px'}}>{hata}</p>}
@@ -94,13 +92,14 @@ export default function TelefonModal({ acik, onKapat }) {
           <div id="rc-container"></div>
         </>)}
         {adim==='kod' && (<>
-          <p style={{color:'rgba(255,255,255,0.7)',fontSize:13,textAlign:'center',margin:'0 0 20px'}}>{ulke}{telefon} numarasına gelen 6 haneli kodu gir</p>
+          <p style={{color:'rgba(255,255,255,0.7)',fontSize:13,textAlign:'center',margin:'0 0 20px'}}>{seciliUlke.telKod}{telefon} numarasına gelen 6 haneli kodu gir</p>
           <input type="text" placeholder="000000" value={kod} onChange={e=>setKod(e.target.value.replace(/\D/g,'').slice(0,6))} maxLength={6} autoFocus style={{...inp,width:'100%',fontSize:20,textAlign:'center',letterSpacing:8,fontWeight:600,marginBottom:12}} />
           {hata && <p style={{color:'#ff6b6b',fontSize:12,textAlign:'center',margin:'0 0 12px'}}>{hata}</p>}
           <button onClick={codeVerify} disabled={yukleniyor} style={{...btn,opacity:yukleniyor?0.6:1}}>{yukleniyor?'Doğrulanıyor...':'Onayla'}</button>
         </>)}
         {adim==='basarili' && <div style={{textAlign:'center',padding:'20px 0'}}><div style={{fontSize:48,marginBottom:12}}>✅</div><p style={{color:'#FFD700',fontSize:14}}>Giriş başarılı! Yönlendiriliyorsun...</p></div>}
       </div>
+      <UlkeSecModal acik={ulkeModalAcik} secili={seciliUlke} onSec={u=>setSeciliUlke(u)} onKapat={()=>setUlkeModalAcik(false)} />
     </div>
   );
 }

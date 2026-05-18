@@ -51,7 +51,7 @@ export default function Login() {
     setYukleniyor(true); setHata('');
     try {
       await signInWithEmailAndPassword(auth, email, sifre);
-      window.location.href = '/glamworld/';
+      navigate('/', { replace: true });
     } catch (err) { setHata(hataMesaji(err.code)); }
     finally { setYukleniyor(false); }
   };
@@ -67,7 +67,7 @@ export default function Login() {
         const ad = (u.displayName||'').split(' ');
         await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:'musteri', kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
       }
-      window.location.href = '/glamworld/';
+      navigate('/', { replace: true });
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code));
     }

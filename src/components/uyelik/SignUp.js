@@ -13,6 +13,7 @@ import { TelefonInput } from './ProfesyonelAlanlar';
 import DigerBranslarModal from './DigerBranslarModal';
 import TelefonModal from './TelefonModal';
 import SehirSec from './SehirSec';
+import DeneyimSec from './DeneyimSec';
 import './SignUp.css';
 
 const DNY=[{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];const secS={background:'rgba(255,215,0,0.15)',border:'2px solid #FFD700',boxShadow:'0 0 10px rgba(255,215,0,0.4)'};const normS={background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)'};const btnBase={borderRadius:10,padding:'7px 4px',display:'flex',flexDirection:'column',alignItems:'center',gap:3,cursor:'pointer',minHeight:56,transition:'all .2s'};
@@ -82,7 +83,6 @@ export default function SignUp() {
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
   const [seciliMeslek, setSeciliMeslek] = useState('');
-  const [secDny, setSecDny] = useState('');
   const navigate = useNavigate();
   const [meslekModalAcik, setMeslekModalAcik] = useState(false);
   const [sg1, setSg1] = useState(false);
@@ -251,15 +251,7 @@ export default function SignUp() {
                 </button>
               </div>
               <SehirSec deger={form.sehir} onDegisim={(v)=>setForm(f=>({...f,sehir:v}))} />
-              <div className="signup-alan">
-                <label>Deneyim</label>
-                <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:6}}>
-                  {DNY.map(d => {
-                    const sel = secDny===d.id;
-                    return <button key={d.id} type="button" onClick={() => {setSecDny(d.id);setForm(f=>({...f,deneyim:d.ad}));}} style={{...btnBase,...(sel?secS:normS),minHeight:54}}><span style={{fontSize:12,color:'#FFD700',fontWeight:600}}>{d.ad}</span><span style={{fontSize:10,color:'rgba(255,215,0,0.7)'}}>{d.sure}</span></button>;
-                  })}
-                </div>
-              </div>
+              <DeneyimSec deger={form.deneyim} onDegisim={(v)=>setForm(f=>({...f,deneyim:v}))} />
               <div className="calisma-durumu">
                 {['Çalışıyor','Kendi işi','İş arıyor'].map(d => (
                   <label key={d} className="radio-label"><input type="radio" name="durum" value={d} checked={form.durum===d} onChange={g('durum')} /> {d}</label>
