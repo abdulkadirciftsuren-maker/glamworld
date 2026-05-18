@@ -14,10 +14,7 @@ import DigerBranslarModal from './DigerBranslarModal';
 import TelefonModal from './TelefonModal';
 import './SignUp.css';
 
-const DNY = [{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];
-const secS = {background:'rgba(255,215,0,0.15)',border:'2px solid #FFD700',boxShadow:'0 0 10px rgba(255,215,0,0.4)'};
-const normS = {background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)'};
-const btnBase = {borderRadius:10,padding:'7px 4px',display:'flex',flexDirection:'column',alignItems:'center',gap:3,cursor:'pointer',minHeight:56,transition:'all .2s'};
+const DNY=[{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];const secS={background:'rgba(255,215,0,0.15)',border:'2px solid #FFD700',boxShadow:'0 0 10px rgba(255,215,0,0.4)'};const normS={background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)'};const btnBase={borderRadius:10,padding:'7px 4px',display:'flex',flexDirection:'column',alignItems:'center',gap:3,cursor:'pointer',minHeight:56,transition:'all .2s'};
 
 function SilverStar() {
   return (
@@ -135,17 +132,23 @@ export default function SignUp() {
     setYukleniyor(true); setHata('');
     try {
       const s = await createUserWithEmailAndPassword(auth, form.email, form.sifre);
-      await updateProfile(s.user, { displayName: `${form.isim} ${form.soyisim}` });
-      await setDoc(doc(db, 'kullanicilar', s.user.uid), {
-        isim: form.isim, soyisim: form.soyisim, email: form.email,
-        telefon: form.telefon, cinsiyet: form.cinsiyet, hesapTuru,
-        ...(hesapTuru === 'profesyonel' ? { uzmanlik: form.uzmanlik, sehir: form.sehir, deneyim: form.deneyim, durum: form.durum } : {}),
-        olusturuldu: new Date().toISOString(),
-      });
+      try { await updateProfile(s.user, { displayName: `${form.isim} ${form.soyisim}` }); } catch {}
+      try {
+        await setDoc(doc(db, 'kullanicilar', s.user.uid), {
+          isim: form.isim, soyisim: form.soyisim, email: form.email, telefon: form.telefon,
+          cinsiyet: form.cinsiyet, hesapTuru, meslek: seciliMeslek||null,
+          ...(hesapTuru === 'profesyonel' ? { uzmanlik: form.uzmanlik, sehir: form.sehir, deneyim: form.deneyim, durum: form.durum } : {}),
+          kayitTarihi: new Date().toISOString(), kayitYolu: 'email', aktifMi: true,
+        });
+      } catch (eF) { console.log('[UYE-OL] Firestore hatası (auth tamam):', eF.message); }
       try { localStorage.removeItem(FORM_KEY); } catch {}
-      window.location.href = '/glamworld/';
-    } catch (err) { setHata(hataMesaji(err.code)); }
-    finally { setYukleniyor(false); }
+      navigate('/', { replace: true });
+    } catch (err) {
+      console.error('[UYE-OL] Hata:', err.code);
+      if (err.code === 'auth/email-already-in-use') setHata('Bu e-posta zaten kayıtlı.');
+      else if (err.code === 'auth/network-request-failed') setHata('İnternet bağlantısı yok.');
+      else setHata(hataMesaji(err.code));
+    } finally { setYukleniyor(false); }
   };
 
   const googleKayit = async () => {
