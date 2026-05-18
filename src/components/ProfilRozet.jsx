@@ -14,7 +14,8 @@ export default function ProfilRozet({ boyut = 44, onTik }) {
   }, []);
 
   const rozet = profil ? rozetAl(profil.meslek, profil.hesapTuru) : MUSTERI_ROZETI;
-  const harf = profil ? (profil.isim || profil.email || 'P').charAt(0).toUpperCase() : 'P';
+  const harf = (profil?.isim || profil?.displayName || auth.currentUser?.displayName || profil?.email || 'K').charAt(0).toUpperCase();
+  console.log('[ROZET] Baş harf:', harf, 'İsim:', profil?.isim, 'displayName:', auth.currentUser?.displayName);
 
   const btnStyle = {
     width: boyut, height: boyut, borderRadius: '50%',
