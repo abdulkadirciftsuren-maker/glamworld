@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useKartDisiTiklama } from '../../hooks/useKartDisiTiklama';
-import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
@@ -85,7 +85,7 @@ export default function SignUp() {
   const [seciliMeslek, setSeciliMeslek] = useState('');
   const [secDny, setSecDny] = useState('');
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [meslekModalAcik, setMeslekModalAcik] = useState(false);
   const kartRef = useRef(null);
   useKartDisiTiklama(kartRef, () => navigate('/'));
 
@@ -108,7 +108,7 @@ export default function SignUp() {
   }, []);
 
   useEffect(() => {
-    if (form.uzmanlik === 'Diğer') setSearchParams({ modal: 'meslek' });
+    if (form.uzmanlik === 'Diğer') setMeslekModalAcik(true);
   }, [form.uzmanlik]);
 
   const g = (alan) => (e) => setForm(f => ({ ...f, [alan]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
@@ -226,7 +226,7 @@ export default function SignUp() {
             <div className="prof-alanlar">
               <div style={{marginBottom:16}}>
                 <label style={{display:'block',color:'#FFD700',fontSize:14,marginBottom:10,fontWeight:500}}>Mesleğin</label>
-                <button type="button" onClick={() => setSearchParams({modal:'meslek'})} style={{width:'100%',padding:'16px 20px',background:seciliMeslek?'linear-gradient(135deg,rgba(255,215,0,0.15),rgba(74,144,226,0.1))':'rgba(0,0,0,0.4)',border:seciliMeslek?'2px solid #FFD700':'1px solid rgba(255,215,0,0.4)',borderRadius:14,color:'#FFD700',fontSize:16,fontWeight:500,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'space-between',transition:'all .3s',boxShadow:seciliMeslek?'0 0 20px rgba(255,215,0,0.3)':'none'}}>
+                <button type="button" onClick={() => setMeslekModalAcik(true)} style={{width:'100%',padding:'16px 20px',background:seciliMeslek?'linear-gradient(135deg,rgba(255,215,0,0.15),rgba(74,144,226,0.1))':'rgba(0,0,0,0.4)',border:seciliMeslek?'2px solid #FFD700':'1px solid rgba(255,215,0,0.4)',borderRadius:14,color:'#FFD700',fontSize:16,fontWeight:500,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'space-between',transition:'all .3s',boxShadow:seciliMeslek?'0 0 20px rgba(255,215,0,0.3)':'none'}}>
                   <span style={{display:'flex',alignItems:'center',gap:10}}><span style={{fontSize:22}}>{seciliMeslek?'💎':'✨'}</span><span>{seciliMeslek||'Meslek Seç'}</span></span>
                   <span style={{fontSize:18,color:'rgba(255,215,0,0.6)'}}>›</span>
                 </button>
@@ -269,11 +269,11 @@ export default function SignUp() {
 
       <DevWidget sayfa="Üye Ol" />
       <DigerBranslarModal
-        acik={searchParams.get('modal') === 'meslek'}
-        onKapat={() => setSearchParams({})}
+        acik={meslekModalAcik}
+        onKapat={() => setMeslekModalAcik(false)}
         onSec={(meslek) => {
           setSeciliMeslek(meslek);
-          setSearchParams({});
+          setMeslekModalAcik(false);
           setForm(f => ({ ...f, uzmanlik: meslek }));
         }}
       />

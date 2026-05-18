@@ -1,4 +1,4 @@
-# GLAMWORLD — Proje Anayasası (V5.31 — Son)
+# GLAMWORLD — Proje Anayasası (V5.32 — Son)
 
 > Bu dosya Claude Code'un anayasasıdır. Her oturum başında MUTLAKA okunur.
 > Bu dosyadaki kurallar değişmez. Sapma yasaktır. Pazarlık yapılmaz.
@@ -1165,18 +1165,19 @@ Her 10 ülkede bir BURADASIN+döviz tekrar. USD yeşil | EUR mavi | GBP mor | AL
 
 ---
 
-## 78. ANDROID GERİ — REACT ROUTER URL BAĞLAMA (B130)
+## 78. ANDROID GERİ TUŞU — TARAYICI DOĞAL (B134)
 
-GLAMWORLD modalleri URL search params ile yönetir. Android Geri React Router doğal navigasyonla çalışır.
+GLAMWORLD Android Geri tuşuna HİÇBİR MÜDAHALE YAPMAZ.
 
-1. Bizim kod popstate event YAKALAMAZ
-2. Bizim kod window.history.pushState ÇAĞIRMAZ
-3. Modaller URL search params: `?modal=branslar`
-4. Modal açma: `setSearchParams({ modal: 'branslar' })`
-5. Modal kapama: `setSearchParams({})`
-6. Android Geri → React Router URL'i geri sarar → modal otomatik kapanır
-7. Bizim Geri butonu (sağ alt sarı) AYRI çalışır
-8. Standart modern web uygulaması davranışı
+1. popstate event listener YASAK
+2. window.history.pushState YASAK
+3. URL search params ile modal yönetimi YASAK
+4. Modaller useState ile yönetilir
+5. Modal X butonu veya bizim Geri butonu ile kapatılır
+6. Android Geri → tarayıcı default (Facebook, Instagram, Twitter gibi)
+7. Bizim Geri butonu (sağ alt sarı) sadece navigate kullanır
+
+NEDEN: Web tarayıcılarında Android Geri tam kontrol edilemez. B125-B134 dersler: karmaşık özel kod karışıklık yaratır. Tüm dünyada web siteleri tarayıcı default kullanır.
 
 ---
 
@@ -1574,5 +1575,5 @@ Abdulkadir Ukrayna savaşından sonra Almanya'ya gelmiş, 1 ay bu projeye emek v
 
 ---
 
-*Son güncelleme: 18 Mayıs 2026 — V5.31 (M.78: Modal URL search params ile React Router doğal; B130)*
-*Sayaç: B130*
+*Son güncelleme: 18 Mayıs 2026 — V5.32 (M.78: Android Geri tarayıcı doğal, modal useState; B134)*
+*Sayaç: B134*

@@ -1,5 +1,4 @@
 import { useEffect, useState, useMemo } from 'react';
-import { modalAc, modalKapat } from '../../utils/geriYonetimi';
 
 const KAT = [
   { b:'Güzellik & Bakım', ikon:'💄', m:['Berber','Kuaför','Saç Stilisti','Sakal Sanatçısı','Makyaj Artisti','Gelin Makyajı Uzmanı','Kalıcı Makyaj Uzmanı','Estetisyen','Cilt Bakım Uzmanı','Yüz Bakımı Uzmanı','Manikür-Pedikür Uzmanı','Protez Tırnak Uzmanı','Lazer Epilasyon Uzmanı','Ağda Uzmanı','Microblading Uzmanı','Kirpik Lifting Uzmanı','Kaş Şekillendirme Uzmanı'] },
@@ -20,13 +19,6 @@ const TOPLAM = KAT.reduce((s, k) => s + k.m.length, 0);
 
 export default function DigerBranslarModal({ acik, onKapat, onSec }) {
   const [arama, setArama] = useState('');
-
-  useEffect(() => {
-    if (acik) {
-      modalAc('meslek-modal', onKapat);
-      return () => modalKapat('meslek-modal');
-    }
-  }, [acik, onKapat]);
 
   useEffect(() => { if (!acik) setArama(''); }, [acik]);
 
