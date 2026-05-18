@@ -8,6 +8,7 @@ import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
+import LuksYukleme from '../LuksYukleme';
 import SifreSifirlaModal from './SifreSifirlaModal';
 import TelefonModal from './TelefonModal';
 import './Login.css';
@@ -51,9 +52,10 @@ export default function Login() {
     setYukleniyor(true); setHata('');
     try {
       await signInWithEmailAndPassword(auth, email, sifre);
-      navigate('/', { replace: true });
+      setTimeout(() => { setYukleniyor(false); navigate('/', { replace: true }); }, 600);
+      return;
     } catch (err) { setHata(hataMesaji(err.code)); }
-    finally { setYukleniyor(false); }
+    setYukleniyor(false);
   };
 
   const googleGiris = async () => {
@@ -67,15 +69,17 @@ export default function Login() {
         const ad = (u.displayName||'').split(' ');
         await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:'musteri', kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
       }
-      navigate('/', { replace: true });
+      setTimeout(() => { setYukleniyor(false); navigate('/', { replace: true }); }, 600);
+      return;
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code));
     }
-    finally { setYukleniyor(false); }
+    setYukleniyor(false);
   };
 
   return (
     <div className="login-sayfa">
+      {yukleniyor && <LuksYukleme mesaj="Giriş yapılıyor..." />}
       <AltinTozAtmosfer />
       <style>{shimmerCSS}</style>
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>

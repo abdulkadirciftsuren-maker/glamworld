@@ -15,10 +15,9 @@ import TelefonUlkeBtn from './TelefonUlkeBtn';
 import { ULKELER, ulkeKoduTespitEt } from '../../utils/ulkeler';
 import UlkeSecModal from './UlkeSecModal';
 import DeneyimSec from './DeneyimSec';
+import LuksYukleme from '../LuksYukleme';
 import './SignUp.css';
-
 const DNY=[{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];const secS={background:'rgba(255,215,0,0.15)',border:'2px solid #FFD700',boxShadow:'0 0 10px rgba(255,215,0,0.4)'};const normS={background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)'};const btnBase={borderRadius:10,padding:'7px 4px',display:'flex',flexDirection:'column',alignItems:'center',gap:3,cursor:'pointer',minHeight:56,transition:'all .2s'};
-
 function SilverStar() {
   return (
     <svg viewBox="0 0 100 100" width="56" height="56" className="silver-star">
@@ -146,13 +145,13 @@ export default function SignUp() {
         });
       } catch (eF) { console.log('[UYE-OL] Firestore hatası (auth tamam):', eF.message); }
       try { localStorage.removeItem(FORM_KEY); } catch {}
-      navigate('/', { replace: true });
+      setTimeout(() => { setYukleniyor(false); navigate('/', { replace: true }); }, 800);
     } catch (err) {
-      console.error('[UYE-OL] Hata:', err.code);
+      setYukleniyor(false);
       if (err.code === 'auth/email-already-in-use') setHata('Bu e-posta zaten kayıtlı.');
       else if (err.code === 'auth/network-request-failed') setHata('İnternet bağlantısı yok.');
       else setHata(hataMesaji(err.code));
-    } finally { setYukleniyor(false); }
+    }
   };
 
   const googleKayit = async () => {
@@ -175,6 +174,7 @@ export default function SignUp() {
   return (
     <div className="signup-sayfa" onContextMenu={(e) => e.preventDefault()} style={{ position:'fixed', inset:0, overflowY:'auto', overflowX:'hidden', WebkitOverflowScrolling:'touch' }}>
       <style>{`.pa-uzm-grid{gap:6px!important}.pa-uzm-kart{min-height:70px!important;padding:8px 4px!important}.pa-uzm-ikon svg{width:18px!important;height:18px!important}.pa-uzm-nm{font-size:11px!important}`}</style>
+      {yukleniyor && <LuksYukleme mesaj="Hesabın oluşturuluyor..." />}
       <AltinTozAtmosfer />
       <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
 
