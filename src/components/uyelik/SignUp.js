@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useKartDisiTiklama } from '../../hooks/useKartDisiTiklama';
 import { useNavigate, Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
@@ -11,6 +11,7 @@ import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import Tooltip from '../Tooltip';
 import { TelefonInput, SehirOnericisi } from './ProfesyonelAlanlar';
 import DigerBranslarModal from './DigerBranslarModal';
+import TelefonModal from './TelefonModal';
 import './SignUp.css';
 
 const DNY = [{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];
@@ -86,6 +87,9 @@ export default function SignUp() {
   const [secDny, setSecDny] = useState('');
   const navigate = useNavigate();
   const [meslekModalAcik, setMeslekModalAcik] = useState(false);
+  const [telefonModalAcik, setTelefonModalAcik] = useState(false);
+  const [sg1, setSg1] = useState(false);
+  const [sg2, setSg2] = useState(false);
   const kartRef = useRef(null);
   useKartDisiTiklama(kartRef, () => navigate('/'));
 
@@ -146,12 +150,20 @@ export default function SignUp() {
 
   const googleKayit = async () => {
     setYukleniyor(true); setHata('');
-    try { await signInWithPopup(auth, new GoogleAuthProvider()); try { localStorage.removeItem(FORM_KEY); } catch {} window.location.href = '/glamworld/'; }
-    catch (err) { if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code)); }
+    try {
+      const r = await signInWithPopup(auth, new GoogleAuthProvider());
+      const u = r.user;
+      const ref = doc(db, 'kullanicilar', u.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        const ad = (u.displayName||'').split(' ');
+        await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:'musteri', kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
+      }
+      try { localStorage.removeItem(FORM_KEY); } catch {}
+      window.location.href = '/glamworld/';
+    } catch (err) { if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code)); }
     finally { setYukleniyor(false); }
   };
-
-  const yakinda = () => setHata('Bu yöntem yakında aktif olacak.');
 
   return (
     <div className="signup-sayfa" onContextMenu={(e) => e.preventDefault()} style={{ position:'fixed', inset:0, overflowY:'auto', overflowX:'hidden', WebkitOverflowScrolling:'touch' }}>
@@ -193,7 +205,7 @@ export default function SignUp() {
         <div className="sosyal-grid">
           <div className="sosyal-ust">
             <SosyalButon tip="google"  mod="uye" onClick={googleKayit} />
-            <SosyalButon tip="telefon" mod="uye" onClick={yakinda} />
+            <SosyalButon tip="telefon" mod="uye" onClick={() => setTelefonModalAcik(true)} />
           </div>
         </div>
 
@@ -206,8 +218,8 @@ export default function SignUp() {
           </div>
           <div className="signup-alan"><label>E-posta</label><input type="email" value={form.email} onChange={g('email')} autoComplete="email" /></div>
           <div className="iki-sutun">
-            <div className="signup-alan"><label>Şifre</label><input type="password" value={form.sifre} onChange={g('sifre')} autoComplete="new-password" /></div>
-            <div className="signup-alan"><label>Şifre Tekrar</label><input type="password" value={form.sifreTekrar} onChange={g('sifreTekrar')} autoComplete="new-password" /></div>
+            <div className="signup-alan"><label>Şifre</label><div style={{position:'relative'}}><input type={sg1?'text':'password'} value={form.sifre} onChange={g('sifre')} autoComplete="new-password" style={{width:'100%',boxSizing:'border-box',paddingRight:40}} /><button type="button" onClick={()=>setSg1(!sg1)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:15}}>{sg1?'🙈':'👁'}</button></div></div>
+            <div className="signup-alan"><label>Şifre Tekrar</label><div style={{position:'relative'}}><input type={sg2?'text':'password'} value={form.sifreTekrar} onChange={g('sifreTekrar')} autoComplete="new-password" style={{width:'100%',boxSizing:'border-box',paddingRight:40}} /><button type="button" onClick={()=>setSg2(!sg2)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:15}}>{sg2?'🙈':'👁'}</button></div></div>
           </div>
           <div className="signup-alan"><label>Telefon</label><TelefonInput value={form.telefon} onChange={g('telefon')} /></div>
           <div className="signup-alan">
@@ -268,6 +280,7 @@ export default function SignUp() {
       </div>
 
       <DevWidget sayfa="Üye Ol" />
+      <TelefonModal acik={telefonModalAcik} onKapat={() => setTelefonModalAcik(false)} />
       <DigerBranslarModal
         acik={meslekModalAcik}
         onKapat={() => setMeslekModalAcik(false)}

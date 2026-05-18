@@ -26,6 +26,7 @@ import ProfilTarafsiz from './sayfalar/ProfilTarafsiz';
 import AnaSayfa from './sayfalar/AnaSayfa';
 import { useRotaHafiza } from './utils/rotaHafiza';
 import './utils/sesTani';
+import './utils/sifirla';
 import './App.css';
 
 function DevWidgetRouteGuard() {

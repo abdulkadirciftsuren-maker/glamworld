@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useKartDisiTiklama } from '../../hooks/useKartDisiTiklama';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
 import DevWidget from '../DevWidget';
 import Pirlanta from '../Pirlanta';
 import SosyalButon from '../SosyalButon';
 import AltinTozAtmosfer from '../AltinTozAtmosfer';
 import SifreSifirlaModal from './SifreSifirlaModal';
+import TelefonModal from './TelefonModal';
 import './Login.css';
 
 const shimmerCSS = `@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}`;
@@ -30,6 +32,8 @@ export default function Login() {
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
   const [sifreModalAcik, setSifreModalAcik] = useState(false);
+  const [telefonModalAcik, setTelefonModalAcik] = useState(false);
+  const [sifreGoster, setSifreGoster] = useState(false);
   const navigate = useNavigate();
   const kartRef = useRef(null);
   useKartDisiTiklama(kartRef, () => navigate('/'));
@@ -56,15 +60,20 @@ export default function Login() {
   const googleGiris = async () => {
     setYukleniyor(true); setHata('');
     try {
-      await signInWithPopup(auth, new GoogleAuthProvider());
+      const r = await signInWithPopup(auth, new GoogleAuthProvider());
+      const u = r.user;
+      const ref = doc(db, 'kullanicilar', u.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        const ad = (u.displayName||'').split(' ');
+        await setDoc(ref, { uid:u.uid, isim:ad[0]||'', soyisim:ad.slice(1).join(' ')||'', email:u.email||'', fotoUrl:u.photoURL||'', hesapTuru:'musteri', kayitYolu:'google', kayitTarihi:new Date().toISOString(), aktifMi:true });
+      }
       window.location.href = '/glamworld/';
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setHata(hataMesaji(err.code));
     }
     finally { setYukleniyor(false); }
   };
-
-  const yakinda = () => setHata('Bu yöntem yakında aktif olacak.');
 
   return (
     <div className="login-sayfa">
@@ -83,7 +92,7 @@ export default function Login() {
         <div className="sosyal-grid">
           <div className="sosyal-ust">
             <SosyalButon tip="google"  mod="giris" onClick={googleGiris} />
-            <SosyalButon tip="telefon" mod="giris" onClick={yakinda} />
+            <SosyalButon tip="telefon" mod="giris" onClick={() => setTelefonModalAcik(true)} />
           </div>
         </div>
 
@@ -96,7 +105,10 @@ export default function Login() {
           </div>
           <div className="login-alan">
             <label>Şifre</label>
-            <input type="password" value={sifre} onChange={e => setSifre(e.target.value)} autoComplete="current-password" />
+            <div style={{position:'relative'}}>
+              <input type={sifreGoster?'text':'password'} value={sifre} onChange={e=>setSifre(e.target.value)} autoComplete="current-password" style={{width:'100%',boxSizing:'border-box',paddingRight:44}} />
+              <button type="button" onClick={()=>setSifreGoster(!sifreGoster)} style={{position:'absolute',right:10,top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#FFD700',cursor:'pointer',fontSize:16}}>{sifreGoster?'🙈':'👁'}</button>
+            </div>
           </div>
           <div className="alt-secenekler">
             <label className="checkbox-label">
@@ -118,6 +130,7 @@ export default function Login() {
 
       <DevWidget sayfa="Giriş Yap" />
       <SifreSifirlaModal acik={sifreModalAcik} onKapat={() => setSifreModalAcik(false)} />
+      <TelefonModal acik={telefonModalAcik} onKapat={() => setTelefonModalAcik(false)} />
     </div>
   );
 }
