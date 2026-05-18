@@ -13,7 +13,6 @@ import { TelefonInput, SehirOnericisi } from './ProfesyonelAlanlar';
 import DigerBranslarModal from './DigerBranslarModal';
 import './SignUp.css';
 
-const UZM = [{id:'berber',ad:'Berber'},{id:'kuafor',ad:'Kuaför'},{id:'makyaj',ad:'Makyaj'},{id:'manikur',ad:'Manikür'},{id:'estetisyen',ad:'Estetisyen'},{id:'masoz',ad:'Masöz'},{id:'doktor',ad:'Doktor'},{id:'muhendis',ad:'Mühendis'},{id:'avukat',ad:'Avukat'},{id:'ogretmen',ad:'Öğretmen'},{id:'galerici',ad:'Galerici'},{id:'diger',ad:'Diğer'}];
 const DNY = [{id:'yeni',ad:'Yeni Başlayan',sure:'0-2 yıl'},{id:'deneyimli',ad:'Deneyimli',sure:'3-5 yıl'},{id:'uzman',ad:'Uzman',sure:'6-10 yıl'},{id:'usta',ad:'Usta',sure:'10+ yıl'}];
 const secS = {background:'rgba(255,215,0,0.15)',border:'2px solid #FFD700',boxShadow:'0 0 10px rgba(255,215,0,0.4)'};
 const normS = {background:'rgba(0,0,0,0.4)',border:'1px solid rgba(255,215,0,0.4)'};
@@ -83,12 +82,10 @@ export default function SignUp() {
   const [form, setForm] = useState(formYukle);
   const [hata, setHata] = useState('');
   const [yukleniyor, setYukleniyor] = useState(false);
-  const [secilenDigerBrans, setSecilenDigerBrans] = useState('');
-  const [secUzm, setSecUzm] = useState('');
+  const [seciliMeslek, setSeciliMeslek] = useState('');
   const [secDny, setSecDny] = useState('');
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const digerModalAcik = searchParams.get('modal') === 'branslar';
   const kartRef = useRef(null);
   useKartDisiTiklama(kartRef, () => navigate('/'));
 
@@ -111,7 +108,7 @@ export default function SignUp() {
   }, []);
 
   useEffect(() => {
-    if (form.uzmanlik === 'Diğer') setSearchParams({ modal: 'branslar' });
+    if (form.uzmanlik === 'Diğer') setSearchParams({ modal: 'meslek' });
   }, [form.uzmanlik]);
 
   const g = (alan) => (e) => setForm(f => ({ ...f, [alan]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
@@ -227,14 +224,12 @@ export default function SignUp() {
 
           {hesapTuru === 'profesyonel' && (
             <div className="prof-alanlar">
-              <div className="signup-alan">
-                <label>Uzmanlık Alanı</label>
-                <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:5}}>
-                  {UZM.map(u => {
-                    const sel = secUzm===u.id||(u.id==='diger'&&!!secilenDigerBrans);
-                    return <button key={u.id} type="button" onClick={() => u.id==='diger'?setSearchParams({modal:'branslar'}):(setSecUzm(u.id),setForm(f=>({...f,uzmanlik:u.ad})))} style={{...btnBase,...(sel?secS:normS)}}><span style={{fontSize:13,color:'#FFD700'}}>{u.id==='diger'&&secilenDigerBrans?secilenDigerBrans.slice(0,8):u.ad}</span></button>;
-                  })}
-                </div>
+              <div style={{marginBottom:16}}>
+                <label style={{display:'block',color:'#FFD700',fontSize:14,marginBottom:10,fontWeight:500}}>Mesleğin</label>
+                <button type="button" onClick={() => setSearchParams({modal:'meslek'})} style={{width:'100%',padding:'16px 20px',background:seciliMeslek?'linear-gradient(135deg,rgba(255,215,0,0.15),rgba(74,144,226,0.1))':'rgba(0,0,0,0.4)',border:seciliMeslek?'2px solid #FFD700':'1px solid rgba(255,215,0,0.4)',borderRadius:14,color:'#FFD700',fontSize:16,fontWeight:500,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'space-between',transition:'all .3s',boxShadow:seciliMeslek?'0 0 20px rgba(255,215,0,0.3)':'none'}}>
+                  <span style={{display:'flex',alignItems:'center',gap:10}}><span style={{fontSize:22}}>{seciliMeslek?'💎':'✨'}</span><span>{seciliMeslek||'Meslek Seç'}</span></span>
+                  <span style={{fontSize:18,color:'rgba(255,215,0,0.6)'}}>›</span>
+                </button>
               </div>
               <div className="signup-alan">
                 <label>Şehir</label>
@@ -274,12 +269,12 @@ export default function SignUp() {
 
       <DevWidget sayfa="Üye Ol" />
       <DigerBranslarModal
-        acik={digerModalAcik}
+        acik={searchParams.get('modal') === 'meslek'}
         onKapat={() => setSearchParams({})}
-        onSec={(brans) => {
-          setSecilenDigerBrans(brans);
+        onSec={(meslek) => {
+          setSeciliMeslek(meslek);
           setSearchParams({});
-          setForm(f => ({ ...f, uzmanlik: brans }));
+          setForm(f => ({ ...f, uzmanlik: meslek }));
         }}
       />
     </div>
