@@ -109,7 +109,7 @@ export default function SignUp() {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
   }, []);
-  useEffect(() => { let c=false; ulkeKoduTespitEt().then(u=>{if(!c){console.log('[SIGNUP] Tespit:',u.isim);setSeciliUlkeTel(u);}}); return ()=>{c=true;}; }, []);
+  useEffect(() => { const b=ULKELER.find(u=>u.kod===localStorage.getItem('glamworld_ulke_kod')); if(b){console.log('[SIGNUP] Ülke:',b.isim);setSeciliUlkeTel(b);return;} let c=false; ulkeKoduTespitEt().then(u=>{if(!c)setSeciliUlkeTel(u);}); return()=>{c=true;}; }, []);
 
   useEffect(() => {
     if (form.uzmanlik === 'Diğer') setMeslekModalAcik(true);

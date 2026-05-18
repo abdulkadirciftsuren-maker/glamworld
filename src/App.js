@@ -105,6 +105,24 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const yaz = (kod) => { if (kod) { localStorage.setItem('glamworld_ulke_kod', kod); console.log('[APP] Ülke tespit:', kod); } };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          try {
+            const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`);
+            const d = await r.json();
+            yaz((d.address?.country_code || '').toUpperCase());
+          } catch { yaz('DE'); }
+        },
+        () => fetch('https://www.cloudflare.com/cdn-cgi/trace').then(r=>r.text()).then(t=>{ const m=t.match(/loc=([A-Z]{2})/); yaz(m?.[1]||'DE'); }).catch(()=>yaz('DE'))
+      );
+    } else {
+      fetch('https://www.cloudflare.com/cdn-cgi/trace').then(r=>r.text()).then(t=>{ const m=t.match(/loc=([A-Z]{2})/); yaz(m?.[1]||'DE'); }).catch(()=>yaz('DE'));
+    }
+  }, []);
+
+  useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setKullanici(u || null);
       if (u) {
