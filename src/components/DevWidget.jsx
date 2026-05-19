@@ -3,7 +3,7 @@ import Tooltip from './Tooltip';
 import sayac from '../sayac.json';
 import './DevWidget.css';
 
-const VERSIYON = `${sayac.version}.B${sayac.buildNumber}`;
+const VERSIYON = `${sayac.version}.${sayac.harf || 'B'}${sayac.buildNumber}`;
 
 export default function DevWidget({ sayfa = 'Anasayfa' }) {
   const [gizli, setGizli] = useState(() => {
