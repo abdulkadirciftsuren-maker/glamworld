@@ -1,7 +1,5 @@
 {
-  "buildNumber": 1,
-  "version": "V3",
-  "harf": "A",
-  "lastUpdated": "2026-05-19",
-  "lastCommit": "C1 - Anayasa sifirlandı, V3.A1 başlangıcı"
+  "ana": 3,
+  "alt": "B",
+  "sayi": 1
 }

@@ -76,9 +76,9 @@ export default function SwipeNavigator({ kullaniciProfili, children }) {
       if (Math.abs(farkX) < YATAY_ESIK) return;
 
       if (farkX < 0 && mevcutIndex < SAYFALAR.length - 1) {
-        navigate(SAYFALAR[mevcutIndex + 1]);
+        navigate(SAYFALAR[mevcutIndex + 1], { replace: true });
       } else if (farkX > 0 && mevcutIndex > 0) {
-        navigate(SAYFALAR[mevcutIndex - 1]);
+        navigate(SAYFALAR[mevcutIndex - 1], { replace: true });
       }
     };
 

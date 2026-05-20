@@ -8,7 +8,7 @@ export default function Profil() {
   const [profil, setProfil] = useState(null);
 
   useEffect(() => {
-    if (!auth.currentUser) { navigate('/'); return; }
+    if (!auth.currentUser) { navigate('/', { replace: true }); return; }
     getDoc(doc(db, 'kullanicilar', auth.currentUser.uid))
       .then(s => { if (s.exists()) setProfil(s.data()); })
       .catch(() => {});

@@ -90,10 +90,10 @@ export default function SignUp() {
   const [sg1, setSg1] = useState(false);
   const [sg2, setSg2] = useState(false);
   const kartRef = useRef(null);
-  useKartDisiTiklama(kartRef, () => navigate('/'));
+  useKartDisiTiklama(kartRef, () => navigate('/', { replace: true }));
 
   useEffect(() => {
-    const esc = (e) => { if (e.key === 'Escape') navigate('/'); };
+    const esc = (e) => { if (e.key === 'Escape') navigate('/', { replace: true }); };
     document.addEventListener('keydown', esc);
     return () => {
       document.removeEventListener('keydown', esc);
@@ -175,7 +175,7 @@ export default function SignUp() {
       <style>{`.pa-uzm-grid{gap:6px!important}.pa-uzm-kart{min-height:70px!important;padding:8px 4px!important}.pa-uzm-ikon svg{width:18px!important;height:18px!important}.pa-uzm-nm{font-size:11px!important}`}</style>
       {yukleniyor && <LuksYukleme mesaj="Hesabın oluşturuluyor..." />}
       <AltinTozAtmosfer />
-      <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
+      <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/', { replace: true })} data-tip="Kapat">&#x2715;</button>
 
       <div className="signup-kart" ref={kartRef} style={{ zIndex: 2 }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:12 }}>
@@ -273,7 +273,7 @@ export default function SignUp() {
           </label>
 
           {hata && <p className="signup-hata">{hata}</p>}
-          {hata && hata.includes('kayıtlı') && <button type="button" onClick={() => navigate('/giris')} style={{display:'block',margin:'4px auto 8px',background:'linear-gradient(135deg,#FFD700,#FFA500)',border:'none',borderRadius:20,padding:'8px 20px',color:'#1a1a1a',fontSize:13,fontWeight:600,cursor:'pointer'}}>Giriş Yap'a Geç →</button>}
+          {hata && hata.includes('kayıtlı') && <button type="button" onClick={() => navigate('/giris', { replace: true })} style={{display:'block',margin:'4px auto 8px',background:'linear-gradient(135deg,#FFD700,#FFA500)',border:'none',borderRadius:20,padding:'8px 20px',color:'#1a1a1a',fontSize:13,fontWeight:600,cursor:'pointer'}}>Giriş Yap'a Geç →</button>}
 
           <button type="submit" disabled={yukleniyor || !hesapTuru} className="signup-ana-btn">
             {yukleniyor ? 'Kaydediliyor...' : (hesapTuru ? 'Üye Ol' : 'Önce hesap türünü seç')}

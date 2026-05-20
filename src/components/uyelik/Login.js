@@ -36,10 +36,10 @@ export default function Login() {
   const [sifreGoster, setSifreGoster] = useState(false);
   const navigate = useNavigate();
   const kartRef = useRef(null);
-  useKartDisiTiklama(kartRef, () => navigate('/'));
+  useKartDisiTiklama(kartRef, () => navigate('/', { replace: true }));
 
   useEffect(() => {
-    const esc = (e) => { if (e.key === 'Escape') navigate('/'); };
+    const esc = (e) => { if (e.key === 'Escape') navigate('/', { replace: true }); };
     document.addEventListener('keydown', esc);
     return () => {
       document.removeEventListener('keydown', esc);
@@ -77,7 +77,7 @@ export default function Login() {
       {yukleniyor && <LuksYukleme mesaj="Giriş yapılıyor..." />}
       <AltinTozAtmosfer />
       <style>{shimmerCSS}</style>
-      <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/')} data-tip="Kapat">&#x2715;</button>
+      <button className="kapat-btn kapat-tooltip" onClick={() => navigate('/', { replace: true })} data-tip="Kapat">&#x2715;</button>
 
       <div className="login-kart" ref={kartRef} style={{ position: 'relative', zIndex: 2 }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:12 }}>
